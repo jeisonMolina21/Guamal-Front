@@ -1,0 +1,29 @@
+name: Deploy Guamal Frontend (Villa MCJ)
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Despliegue en Homeserver
+    runs-on: self-hosted
+    steps:
+      - name: Actualizar código y reiniciar contenedor
+        run: |
+          echo "=============================================="
+          echo "🚀 Desplegando Villa MCJ Frontend..."
+          echo "=============================================="
+          cd /home/jm/production/villa-mcj
+          
+          # Actualizar repositorio en frontend
+          echo "📥 Descargando últimos cambios de main..."
+          git -C frontend pull origin main
+          
+          # Reconstruir contenedor Docker sin afectar otros servicios
+          echo "🐳 Reconstruyendo villa_mcj_frontend_prod..."
+          docker compose up -d --build --no-deps villa-mcj-frontend
+          
+          echo "✅ Despliegue completado con éxito!"
