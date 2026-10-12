@@ -1,0 +1,12 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { ReservationTable } from '../../components/admin/ReservationTable';
+---
+
+<AdminLayout title="Gestión de Reservas">
+  <div class="mb-6">
+    <p class="text-gray-500">Administra todas las reservas, aprueba pagos pendientes y contacta a tus huéspedes.</p>
+  </div>
+
+  <ReservationTable client:load />
+</AdminLayout>

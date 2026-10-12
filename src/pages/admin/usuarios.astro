@@ -1,0 +1,12 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { UserTable } from '../../components/admin/UserTable';
+---
+
+<AdminLayout title="Usuarios y Personal">
+  <div class="mb-6">
+    <p class="text-gray-500">Administra el personal del hotel, asigna roles de acceso y registra nuevos colaboradores.</p>
+  </div>
+  
+  <UserTable client:load />
+</AdminLayout>

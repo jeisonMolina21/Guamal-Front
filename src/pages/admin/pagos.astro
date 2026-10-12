@@ -1,0 +1,12 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { PaymentsTable } from '../../components/admin/PaymentsTable';
+---
+
+<AdminLayout title="Control de Pagos">
+  <div class="mb-6">
+    <p class="text-gray-500">Verifica abonos, anticipos y saldos de reservas.</p>
+  </div>
+  
+  <PaymentsTable client:load />
+</AdminLayout>

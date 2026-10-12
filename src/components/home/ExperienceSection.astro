@@ -1,0 +1,87 @@
+---
+import { Leaf, Users } from 'lucide-astro';
+import './ExperienceSection.css';
+import { TourismGallery } from './TourismGallery';
+---
+
+<section class="py-24 bg-white border-y border-guamal-cream">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col lg:flex-row gap-16 items-center">
+      
+      <!-- Image Side -->
+      <div class="lg:w-1/2 w-full relative">
+        <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl relative z-10">
+          <img 
+            src="https://images.unsplash.com/photo-1540541338287-41700207dee6?q=80&w=1000&auto=format&fit=crop" 
+            alt="Piscina y naturaleza en Guamal" 
+            class="w-full h-full object-cover"
+          />
+        </div>
+        <!-- Floating Experience Badge -->
+        <div class="absolute -bottom-4 right-4 sm:right-6 bg-white/95 backdrop-blur-md px-5 py-3 rounded-2xl shadow-xl border border-gray-100 flex items-center gap-3 z-20">
+          <div class="w-10 h-10 rounded-xl bg-guamal-cream text-guamal-green flex items-center justify-center font-bold">
+            <Leaf size={20} />
+          </div>
+          <div>
+            <span class="block text-xs font-bold text-gray-900 font-serif">100% Naturaleza Llanera</span>
+            <span class="text-[11px] text-gray-500">Exclusividad y tranquilidad</span>
+          </div>
+        </div>
+        <!-- Decorative elements -->
+        <div class="absolute top-10 -left-10 w-24 h-24 bg-guamal-cream rounded-full -z-10 blur-xl opacity-60"></div>
+        <div class="absolute -bottom-10 right-10 w-32 h-32 bg-green-100 rounded-full -z-10 blur-xl opacity-60"></div>
+      </div>
+
+      <!-- Content Side -->
+      <div class="lg:w-1/2 w-full pt-8 lg:pt-0">
+        <span class="text-xs font-bold tracking-widest text-guamal-green uppercase mb-3 block">Tu Experiencia</span>
+        <h2 class="text-4xl md:text-5xl font-serif font-bold text-guamal-green mb-6 leading-tight">
+          Descansar, compartir y descubrir
+        </h2>
+        <p class="text-guamal-text/80 text-lg leading-relaxed mb-10 max-w-lg">
+          Aquí no solo te hospedas, vives una experiencia rodeada de naturaleza, buena energía y la calidez de nuestra tierra llanera.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-10">
+          
+          <div class="space-y-3">
+            <div class="w-12 h-12 bg-guamal-cream rounded-xl flex items-center justify-center text-guamal-green mb-4">
+              <Leaf size={24} />
+            </div>
+            <h3 class="font-bold text-guamal-green text-lg">Descansar</h3>
+            <p class="text-sm text-gray-600">Espacios privados para desconectarte.</p>
+            <ul class="space-y-1.5 mt-3 text-sm text-gray-500">
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg> WiFi</li>
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg> TV</li>
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg> Aire acondicionado</li>
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg> Baño privado</li>
+            </ul>
+          </div>
+
+          <div class="space-y-3">
+            <div class="w-12 h-12 bg-guamal-cream rounded-xl flex items-center justify-center text-guamal-green mb-4">
+              <Users size={24} />
+            </div>
+            <h3 class="font-bold text-guamal-green text-lg">Compartir</h3>
+            <p class="text-sm text-gray-600">Un lugar pensado para disfrutar juntos.</p>
+            <ul class="space-y-1.5 mt-3 text-sm text-gray-500">
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg> Piscina</li>
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg> Zona BBQ</li>
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg> Parqueadero</li>
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg> Áreas comunes</li>
+            </ul>
+          </div>
+
+        </div>
+
+        <a href="/experiencia" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-white bg-guamal-green hover:bg-guamal-green-light transition-colors shadow-md">
+          Conoce más
+        </a>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Guamal Tourism Gallery (Dynamic Horizontal Slider) -->
+<TourismGallery client:load />

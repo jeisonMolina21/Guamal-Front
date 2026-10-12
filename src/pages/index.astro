@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Navbar } from '../components/layout/Navbar';
+import Footer from '../components/layout/Footer.astro';
+import Hero from '../components/home/Hero.astro';
+import FeaturedHouses from '../components/home/FeaturedHouses.astro';
+import ExperienceSection from '../components/home/ExperienceSection.astro';
+import Gallery from '../components/home/Gallery.astro';
+import CTA from '../components/home/CTA.astro';
+---
+
+<BaseLayout title="Inicio">
+  <Navbar client:load />
+  
+  <main class="flex-grow">
+    <Hero />
+    <FeaturedHouses />
+    <ExperienceSection />
+    <Gallery />
+    <CTA />
+  </main>
+  
+  <Footer />
+</BaseLayout>

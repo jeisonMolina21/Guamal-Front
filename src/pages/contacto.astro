@@ -1,0 +1,241 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Navbar } from '../components/layout/Navbar';
+import Footer from '../components/layout/Footer.astro';
+import { Phone, Mail, MapPin, MessageCircle, Clock, ShieldCheck, Send } from 'lucide-astro';
+---
+
+<BaseLayout title="Contacto | Guamal Mini Barrio">
+  <Navbar client:load />
+
+  <main class="flex-grow pt-28 pb-24 bg-guamal-cream/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12">
+      
+      <!-- Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-bold tracking-widest text-guamal-green uppercase mb-3 inline-block bg-guamal-green/10 px-4 py-1.5 rounded-full">
+          Estamos para servirte
+        </span>
+        <h1 class="text-4xl md:text-6xl font-serif font-bold text-guamal-green mb-6">
+          Contáctanos
+        </h1>
+        <p class="text-lg md:text-xl text-gray-600 font-light leading-relaxed">
+          ¿Tienes preguntas sobre nuestras cabañas, tarifas o cómo llegar? Escríbenos o llámanos directamente.
+        </p>
+      </div>
+
+      <!-- Contact Methods Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+        
+        <!-- WhatsApp -->
+        <a 
+          href="https://wa.me/573001234567?text=Hola,%20me%20gustaria%20recibir%20informacion%20sobre%20Guamal%20Mini%20Barrio" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="bg-white rounded-3xl p-8 border border-gray-100 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center group cursor-pointer"
+        >
+          <div class="w-16 h-16 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <MessageCircle size={32} />
+          </div>
+          <h3 class="font-serif font-bold text-xl text-gray-900 mb-2">WhatsApp Directo</h3>
+          <p class="text-sm text-gray-500 mb-4">Respuesta rápida todos los días.</p>
+          <span class="font-bold text-guamal-green text-sm group-hover:underline">+57 300 123 4567</span>
+        </a>
+
+        <!-- Phone -->
+        <a 
+          href="tel:+573001234567" 
+          class="bg-white rounded-3xl p-8 border border-gray-100 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center group cursor-pointer"
+        >
+          <div class="w-16 h-16 bg-guamal-green/10 text-guamal-green rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <Phone size={32} />
+          </div>
+          <h3 class="font-serif font-bold text-xl text-gray-900 mb-2">Línea Telefónica</h3>
+          <p class="text-sm text-gray-500 mb-4">Atención de 8:00 AM a 8:00 PM.</p>
+          <span class="font-bold text-guamal-green text-sm group-hover:underline">+57 300 123 4567</span>
+        </a>
+
+        <!-- Location -->
+        <a 
+          href="https://maps.app.goo.gl/search/Guamal+Meta" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="bg-white rounded-3xl p-8 border border-gray-100 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center group cursor-pointer"
+        >
+          <div class="w-16 h-16 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <MapPin size={32} />
+          </div>
+          <h3 class="font-serif font-bold text-xl text-gray-900 mb-2">Ubicación</h3>
+          <p class="text-sm text-gray-500 mb-4">Guamal, Meta, Colombia</p>
+          <span class="font-bold text-guamal-green text-sm group-hover:underline">Abrir en Google Maps</span>
+        </a>
+
+      </div>
+
+      <!-- Contact Form & Map Section -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        
+        <!-- Interactive Form -->
+        <div class="bg-white rounded-3xl p-8 md:p-12 border border-gray-100 shadow-xl">
+          <h2 class="text-3xl font-serif font-bold text-guamal-green mb-3">Envíanos un mensaje</h2>
+          <p class="text-gray-600 text-sm mb-8 font-light">Completa el formulario y nos comunicaremos contigo a la brevedad.</p>
+
+          <form id="contact-form" class="space-y-6">
+            <div>
+              <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Nombre Completo</label>
+              <input 
+                type="text" 
+                name="name" 
+                required 
+                placeholder="Ej. Carolina Mendoza"
+                class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-800 focus:bg-white focus:ring-2 focus:ring-guamal-green/20 focus:border-guamal-green outline-none transition-all text-sm"
+              />
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">WhatsApp / Teléfono</label>
+                <input 
+                  type="tel" 
+                  name="phone" 
+                  required 
+                  placeholder="+57 300 000 0000"
+                  class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-800 focus:bg-white focus:ring-2 focus:ring-guamal-green/20 focus:border-guamal-green outline-none transition-all text-sm"
+                />
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Correo Electrónico</label>
+                <input 
+                  type="email" 
+                  name="email" 
+                  required 
+                  placeholder="carolina@ejemplo.com"
+                  class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-800 focus:bg-white focus:ring-2 focus:ring-guamal-green/20 focus:border-guamal-green outline-none transition-all text-sm"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Mensaje o Consulta</label>
+              <textarea 
+                name="message" 
+                rows="4" 
+                required 
+                placeholder="Hola, me gustaría saber si tienen disponibilidad para..."
+                class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-800 focus:bg-white focus:ring-2 focus:ring-guamal-green/20 focus:border-guamal-green outline-none transition-all text-sm"
+              ></textarea>
+            </div>
+
+            <button 
+              type="submit" 
+              id="contact-submit-btn"
+              class="w-full bg-guamal-green hover:bg-guamal-green-light text-white py-4 rounded-xl font-bold transition-colors shadow-md flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <Send size={18} />
+              Enviar Consulta
+            </button>
+
+            <div id="contact-success" class="hidden bg-green-50 text-green-800 p-4 rounded-xl text-center text-sm font-medium border border-green-200">
+              ¡Gracias por tu mensaje! Te contactaremos vía WhatsApp o correo muy pronto.
+            </div>
+          </form>
+        </div>
+
+        <!-- Location & FAQ Column -->
+        <div class="space-y-8">
+          
+          <!-- Map Card -->
+          <div class="bg-white rounded-3xl p-8 border border-gray-100 shadow-xl overflow-hidden">
+            <h3 class="text-2xl font-serif font-bold text-guamal-green mb-4">¿Cómo llegar?</h3>
+            <p class="text-gray-600 text-sm leading-relaxed mb-6 font-light">
+              Nos encontramos en una zona campestre tranquila y de fácil acceso vehicular en Guamal, Meta. A solo 45 minutos de la ciudad de Villavicencio por vía pavimentada.
+            </p>
+            <div class="rounded-2xl overflow-hidden border border-gray-200 aspect-[16/9] relative">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31846.68725916056!2d-73.78583485!3d3.8797222!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3e44923e105e19%3A0x6b4421b8fbf10515!2sGuamal%2C%20Meta!5e0!3m2!1ses!2sco!4v1700000000000!5m2!1ses!2sco" 
+                width="100%" 
+                height="100%" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy"
+                title="Mapa Guamal"
+              ></iframe>
+            </div>
+          </div>
+
+          <!-- FAQs -->
+          <div class="bg-white rounded-3xl p-8 border border-gray-100 shadow-xl space-y-4">
+            <h3 class="text-xl font-serif font-bold text-guamal-green mb-4">Preguntas Frecuentes</h3>
+            
+            <div class="border-b border-gray-100 pb-3">
+              <h4 class="font-bold text-gray-800 text-sm mb-1">¿Cuáles son los métodos de pago?</h4>
+              <p class="text-xs text-gray-500">Aceptamos transferencias Bancolombia, Nequi, Daviplata y pagos con tarjeta de crédito.</p>
+            </div>
+
+            <div class="border-b border-gray-100 pb-3">
+              <h4 class="font-bold text-gray-800 text-sm mb-1">¿Se permiten mascotas?</h4>
+              <p class="text-xs text-gray-500">Sí, somos pet friendly. Te pedimos notificarnos con anticipación el tamaño de tu mascota.</p>
+            </div>
+
+            <div>
+              <h4 class="font-bold text-gray-800 text-sm mb-1">¿Tienen parqueadero privado?</h4>
+              <p class="text-xs text-gray-500">Sí, contamos con parqueadero seguro dentro del predio totalmente gratis para nuestros huéspedes.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script>
+  import { API_URL } from '../services/api';
+
+  function initContactForm() {
+    const form = document.getElementById('contact-form') as HTMLFormElement | null;
+    const successMsg = document.getElementById('contact-success');
+    const submitBtn = document.getElementById('contact-submit-btn');
+
+    if (form && successMsg && submitBtn) {
+      form.onsubmit = async (e) => {
+        e.preventDefault();
+        submitBtn.setAttribute('disabled', 'true');
+        submitBtn.innerHTML = 'Enviando consulta...';
+        
+        const formData = new FormData(form);
+        const name = formData.get('name') as string;
+        const phone = formData.get('phone') as string;
+        const email = formData.get('email') as string;
+        const message = formData.get('message') as string;
+
+        try {
+          await fetch(`${API_URL}/inquiries`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              fullName: name,
+              phone: phone,
+              email: email,
+              message: message,
+              channel: 'FORMULARIO_CONTACTO'
+            })
+          });
+        } catch (err) {
+          console.warn('Inquiry post error:', err);
+        }
+
+        form.reset();
+        submitBtn.classList.add('hidden');
+        successMsg.classList.remove('hidden');
+      };
+    }
+  }
+
+  initContactForm();
+  document.addEventListener('astro:page-load', initContactForm);
+</script>

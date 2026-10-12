@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Navbar } from '../../components/layout/Navbar';
+import Footer from '../../components/layout/Footer.astro';
+---
+
+<BaseLayout title="Reserva Confirmada">
+  <Navbar client:load />
+  
+  <main class="flex-grow pt-32 pb-24 bg-gray-50 min-h-screen flex items-center">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      
+      <div class="bg-white rounded-3xl shadow-xl p-10 md:p-16 border border-gray-100">
+        <div class="w-24 h-24 bg-green-100 text-green-500 rounded-full flex items-center justify-center mx-auto mb-8">
+          <svg class="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+        
+        <h1 class="text-4xl font-serif font-bold text-guamal-green mb-4">¡Reserva Solicitada con Éxito!</h1>
+        
+        <p class="text-lg text-gray-600 mb-8">
+          Hemos recibido tu solicitud de reserva correctamente. En unos momentos recibirás un mensaje por WhatsApp con los detalles para confirmar el pago.
+        </p>
+
+        <div class="bg-guamal-cream/40 rounded-2xl p-6 text-left mb-10 border border-guamal-cream">
+          <h3 class="font-bold text-guamal-green mb-4">¿Qué sigue ahora?</h3>
+          <ul class="space-y-3 text-sm text-gray-700">
+            <li class="flex items-start gap-3">
+              <span class="text-guamal-green font-bold">1.</span>
+              <span>Revisa tu WhatsApp. Nuestro asistente IA o nuestro equipo humano te contactará.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-guamal-green font-bold">2.</span>
+              <span>Realiza el abono del 50% para asegurar tu fecha.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-guamal-green font-bold">3.</span>
+              <span>¡Prepara tus maletas para disfrutar de Guamal, Meta!</span>
+            </li>
+          </ul>
+        </div>
+
+        <a href="/" class="inline-block bg-guamal-green text-white font-bold px-8 py-3.5 rounded-full hover:bg-guamal-green-light transition-colors shadow-md">
+          Volver al Inicio
+        </a>
+      </div>
+
+    </div>
+  </main>
+  
+  <Footer />
+</BaseLayout>

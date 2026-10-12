@@ -1,0 +1,63 @@
+/* ==========================================================================
+   ExperienceSection Component Styles
+   ========================================================================== */
+
+.experience-section {
+  padding: 6rem 0;
+  background-color: #ffffff;
+  border-top: 1px solid var(--color-guamal-cream, #F9F6F0);
+  border-bottom: 1px solid var(--color-guamal-cream, #F9F6F0);
+}
+
+.experience-container {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+  .experience-container {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .experience-container {
+    padding: 0 2rem;
+  }
+}
+
+.experience-flex {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .experience-flex {
+    flex-direction: row;
+  }
+}
+
+.experience-title {
+  font-size: 2.25rem;
+  font-family: var(--font-serif, "Playfair Display", serif);
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.2;
+  margin: 0 0 1.5rem 0;
+}
+
+@media (min-width: 768px) {
+  .experience-title {
+    font-size: 3rem;
+  }
+}
+
+.experience-text {
+  font-size: 1rem;
+  color: #4b5563;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}

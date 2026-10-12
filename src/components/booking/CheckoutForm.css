@@ -1,0 +1,59 @@
+/* ==========================================================================
+   CheckoutForm Component Styles
+   ========================================================================== */
+
+.checkout-card {
+  background-color: #ffffff;
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f3f4f6;
+}
+
+@media (min-width: 640px) {
+  .checkout-card {
+    padding: 2rem;
+  }
+}
+
+.checkout-title {
+  font-family: var(--font-serif, "Playfair Display", serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 1.25rem 0;
+}
+
+.checkout-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .checkout-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.btn-confirm-checkout {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  background-color: var(--color-guamal-green, #1E3A34);
+  color: var(--color-guamal-cream, #F9F6F0);
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgba(30, 58, 52, 0.2);
+  transition: all 0.2s ease;
+  margin-top: 1.5rem;
+}
+.btn-confirm-checkout:hover:not(:disabled) {
+  background-color: #152a25;
+}
+.btn-confirm-checkout:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

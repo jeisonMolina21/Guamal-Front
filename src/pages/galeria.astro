@@ -1,0 +1,137 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Navbar } from '../components/layout/Navbar';
+import Footer from '../components/layout/Footer.astro';
+import { Camera, Sparkles } from 'lucide-astro';
+
+const galleryPhotos = [
+  {
+    title: "Cabañas de colores y senderos Guamal Mini Barrio",
+    category: "Cabañas",
+    src: "/hero-cabanas.jpg"
+  },
+  {
+    title: "Piscina central y solárium",
+    category: "Piscina",
+    src: "https://images.unsplash.com/photo-1540541338287-41700207dee6?q=80&w=1000&auto=format&fit=crop"
+  },
+  {
+    title: "Interiores frescos y confortables",
+    category: "Interiores",
+    src: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=1000&auto=format&fit=crop"
+  },
+  {
+    title: "Habitación principal Casa Moriche",
+    category: "Interiores",
+    src: "https://images.unsplash.com/photo-1623057000041-356ec32ce89c?q=80&w=1000&auto=format&fit=crop"
+  },
+  {
+    title: "Atardecer llanero en el horizonte",
+    category: "Paisajes",
+    src: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1000&auto=format&fit=crop"
+  },
+  {
+    title: "Corredor y terraza con hamacas",
+    category: "Cabañas",
+    src: "https://images.unsplash.com/photo-1588880331179-bc9b93a8cb65?q=80&w=1000&auto=format&fit=crop"
+  },
+  {
+    title: "Río Humadea en Guamal",
+    category: "Paisajes",
+    src: "https://images.unsplash.com/photo-1596489311497-6a56e1804d9c?q=80&w=1000&auto=format&fit=crop"
+  },
+  {
+    title: "Cabañas rodeadas de árboles nativos",
+    category: "Cabañas",
+    src: "https://images.unsplash.com/photo-1587061949409-02df41d5e562?q=80&w=1000&auto=format&fit=crop"
+  },
+  {
+    title: "Cielo llanero al caer la tarde",
+    category: "Paisajes",
+    src: "https://images.unsplash.com/photo-1616016147775-dbcc032fcfc3?q=80&w=1000&auto=format&fit=crop"
+  }
+];
+---
+
+<BaseLayout title="Galería | Guamal Mini Barrio">
+  <Navbar client:load />
+
+  <main class="flex-grow pt-28 pb-24 bg-guamal-cream/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12">
+      
+      <!-- Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-bold tracking-widest text-guamal-green uppercase mb-3 inline-block bg-guamal-green/10 px-4 py-1.5 rounded-full">
+          Imágenes de Guamal Mini Barrio
+        </span>
+        <h1 class="text-4xl md:text-6xl font-serif font-bold text-guamal-green mb-6">
+          Nuestra Galería
+        </h1>
+        <p class="text-lg md:text-xl text-gray-600 font-light leading-relaxed">
+          Un vistazo a los espacios, rincones y momentos que vivirás durante tu estadía en nuestro hostal.
+        </p>
+      </div>
+
+      <!-- Photo Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {galleryPhotos.map((photo) => (
+          <div class="group relative rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 aspect-[4/3] bg-gray-100">
+            <img 
+              src={photo.src} 
+              alt={photo.title} 
+              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+              <span class="text-xs text-white/70 uppercase font-bold tracking-wider mb-1">{photo.category}</span>
+              <h3 class="text-white font-serif font-bold text-lg">{photo.title}</h3>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Gallery CTA -->
+      <div class="mt-20 text-center bg-white rounded-3xl p-12 border border-gray-100 shadow-xl max-w-3xl mx-auto">
+        <h2 class="text-3xl font-serif font-bold text-guamal-green mb-4">¿Te imaginas descansando aquí?</h2>
+        <p class="text-gray-600 mb-8 font-light leading-relaxed">
+          Consulta la disponibilidad en tiempo real y asegura tus fechas en pocos clics.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <button 
+            id="gal-book-btn"
+            class="bg-guamal-green hover:bg-guamal-green-light text-white px-8 py-4 rounded-full font-bold shadow-lg transition-all flex items-center gap-2 cursor-pointer"
+          >
+            <Sparkles size={18} />
+            Consultar Disponibilidad
+          </button>
+          <a 
+            href="/alojamiento"
+            class="border border-guamal-green/30 text-guamal-green hover:border-guamal-green px-8 py-4 rounded-full font-medium transition-colors"
+          >
+            Ver Casas y Tarifas
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script>
+  import { isBookingModalOpen } from '../store/uiStore';
+
+  function initGalBtn() {
+    const btn = document.getElementById('gal-book-btn');
+    if (btn) {
+      btn.onclick = (e) => {
+        e.preventDefault();
+        isBookingModalOpen.set(true);
+      };
+    }
+  }
+
+  initGalBtn();
+  document.addEventListener('astro:page-load', initGalBtn);
+</script>

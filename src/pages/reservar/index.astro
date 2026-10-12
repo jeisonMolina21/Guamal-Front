@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Navbar } from '../../components/layout/Navbar';
+import Footer from '../../components/layout/Footer.astro';
+import { BookingSearch } from '../../components/home/BookingSearch';
+---
+
+<BaseLayout title="Reservar">
+  <Navbar client:load />
+  
+  <main class="relative min-h-screen flex items-center justify-center pt-20">
+    <div class="absolute inset-0 z-0">
+      <img src="https://images.unsplash.com/photo-1542314831-c5a4d40715af?q=80&w=2000&auto=format&fit=crop" alt="Background" class="w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-black/40"></div>
+    </div>
+
+    <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-32 pt-16">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-sm font-bold tracking-widest text-guamal-cream uppercase mb-4 block drop-shadow-md">Motor de Reservas</span>
+        <h1 class="text-5xl md:text-6xl font-serif font-bold text-white mb-6 drop-shadow-lg">Tu descanso comienza aquí</h1>
+        <p class="text-xl text-white/90 drop-shadow-md">Ingresa tus fechas para consultar disponibilidad y precios en tiempo real.</p>
+      </div>
+
+      <div class="w-full mt-12 pb-16">
+        <BookingSearch client:load />
+      </div>
+    </div>
+  </main>
+  
+  <Footer />
+</BaseLayout>

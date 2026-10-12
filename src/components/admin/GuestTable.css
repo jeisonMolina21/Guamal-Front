@@ -1,0 +1,276 @@
+/* ==========================================================================
+   GuestTable Component Styles
+   ========================================================================== */
+
+.guest-table-container {
+  background-color: #ffffff;
+  border-radius: 1.5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  border: 1px solid #f3f4f6;
+  overflow: hidden;
+}
+
+/* Toast */
+.guest-toast {
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 1.5rem 0 1.5rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.guest-toast-success {
+  background-color: #f0fdf4;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.guest-toast-error {
+  background-color: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+.guest-toast-close {
+  color: #9ca3af;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+/* Header & Tab Segmented Control */
+.guest-table-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid #f3f4f6;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  background-color: rgba(249, 250, 251, 0.6);
+}
+
+@media (min-width: 768px) {
+  .guest-table-header {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.guest-tab-group {
+  display: flex;
+  background-color: rgba(229, 231, 235, 0.7);
+  padding: 0.25rem;
+  border-radius: 1rem;
+  gap: 0.25rem;
+}
+
+.guest-tab-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #4b5563;
+}
+
+.guest-tab-btn:hover {
+  color: #111827;
+}
+
+.guest-tab-btn.active {
+  background-color: var(--color-guamal-green, #1E3A34);
+  color: #ffffff;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.guest-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+@media (min-width: 768px) {
+  .guest-header-actions {
+    width: auto;
+  }
+}
+
+/* Search Bar */
+.guest-search-bar {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #f3f4f6;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background-color: #ffffff;
+}
+
+@media (min-width: 640px) {
+  .guest-search-bar {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.guest-search-input-wrapper {
+  position: relative;
+  flex: 1;
+  width: 100%;
+}
+
+.guest-search-icon {
+  position: absolute;
+  left: 0.875rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+  pointer-events: none;
+}
+
+.guest-search-input {
+  width: 100%;
+  padding: 0.5rem 1rem 0.5rem 2.5rem;
+  background-color: rgba(249, 250, 251, 0.7);
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  font-size: 0.8125rem;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease;
+}
+.guest-search-input:focus {
+  outline: none;
+  border-color: var(--color-guamal-green, #1E3A34);
+  background-color: #ffffff;
+}
+
+/* Table */
+.guest-table-wrapper {
+  overflow-x: auto;
+}
+
+.guest-table {
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+}
+
+.guest-table th {
+  padding: 1rem;
+  background-color: #ffffff;
+  border-bottom: 1px solid #f3f4f6;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.guest-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #f9fafb;
+  font-size: 0.875rem;
+  vertical-align: middle;
+}
+
+.guest-table tbody tr {
+  transition: background-color 0.15s ease;
+}
+.guest-table tbody tr:hover {
+  background-color: rgba(249, 250, 251, 0.6);
+}
+
+.guest-avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  background-color: rgba(30, 58, 52, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-guamal-green, #1E3A34);
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+.guest-avatar-prospect {
+  background-color: rgba(217, 119, 6, 0.1);
+  color: #b45309;
+}
+
+.guest-tag-pill {
+  display: inline-block;
+  padding: 0.125rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.625rem;
+  font-weight: 700;
+}
+
+.guest-tag-vip {
+  background-color: #f3e8ff;
+  color: #6b21a8;
+}
+
+.guest-tag-frecuente {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.guest-tag-corporativo {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.guest-tag-nuevo {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+/* WhatsApp Button */
+.btn-whatsapp-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.375rem 0.625rem;
+  background-color: #f0fdf4;
+  color: #15803d;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+}
+.btn-whatsapp-link:hover {
+  background-color: #dcfce7;
+}
+
+.btn-whatsapp-contact {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  background-color: #25D366;
+  color: #ffffff;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition: background-color 0.15s ease;
+}
+.btn-whatsapp-contact:hover {
+  background-color: #20bd5a;
+}

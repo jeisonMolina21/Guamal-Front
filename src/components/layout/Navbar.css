@@ -1,0 +1,114 @@
+/* ==========================================================================
+   Navbar Component Styles
+   ========================================================================== */
+
+.nav-container {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  background-color: rgba(249, 246, 240, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(30, 58, 52, 0.1);
+  transition: all 0.3s ease;
+}
+
+.nav-inner {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+  .nav-inner {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .nav-inner {
+    padding: 0 2rem;
+  }
+}
+
+.nav-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 5rem;
+}
+
+.nav-brand-title {
+  font-family: var(--font-serif, "Playfair Display", serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-guamal-green, #1E3A34);
+  line-height: 1;
+}
+
+.nav-brand-subtitle {
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #6b7280;
+  display: block;
+}
+
+.nav-links-desktop {
+  display: none;
+  align-items: center;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .nav-links-desktop {
+    display: flex;
+  }
+}
+
+.nav-link-item {
+  color: #374151;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+.nav-link-item:hover {
+  color: var(--color-guamal-green, #1E3A34);
+}
+
+.btn-nav-reserve {
+  background-color: var(--color-guamal-green, #1E3A34);
+  color: var(--color-guamal-cream, #F9F6F0);
+  padding: 0.625rem 1.5rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+.btn-nav-reserve:hover {
+  background-color: #152a25;
+  transform: translateY(-1px);
+}
+
+.btn-nav-login {
+  color: var(--color-guamal-green, #1E3A34);
+  border: 1px solid rgba(30, 58, 52, 0.2);
+  background-color: transparent;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.btn-nav-login:hover {
+  background-color: rgba(30, 58, 52, 0.05);
+}

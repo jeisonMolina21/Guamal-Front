@@ -1,0 +1,12 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { GuestTable } from '../../components/admin/GuestTable';
+---
+
+<AdminLayout title="Directorio de Huéspedes">
+  <div class="mb-6">
+    <p class="text-gray-500">Historial de clientes, emails y WhatsApps para fidelización.</p>
+  </div>
+  
+  <GuestTable client:load />
+</AdminLayout>

@@ -1,0 +1,325 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Navbar } from '../../components/layout/Navbar';
+import Footer from '../../components/layout/Footer.astro';
+import { Users, Bed, Bath, Wifi, Wind, Utensils, Check, ArrowLeft, ShieldCheck, Clock, Sparkles } from 'lucide-astro';
+
+export function getStaticPaths() {
+  return [
+    { params: { id: '1' } },
+    { params: { id: '2' } },
+    { params: { id: '3' } }
+  ];
+}
+
+const { id } = Astro.params;
+
+const housesData: Record<string, {
+  name: string;
+  subtitle: string;
+  capacity: number;
+  bedrooms: number;
+  bathrooms: number;
+  price: number;
+  images: string[];
+  description: string;
+  features: string[];
+  roomDetails: string[];
+}> = {
+  '1': {
+    name: 'Casa Ceiba',
+    subtitle: 'Naturaleza, privacidad y confort para grupos pequeños',
+    capacity: 4,
+    bedrooms: 2,
+    bathrooms: 1,
+    price: 180000,
+    images: [
+      'https://images.unsplash.com/photo-1510798831971-661eb04b3739?q=80&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1540541338287-41700207dee6?q=80&w=800&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1623057000041-356ec32ce89c?q=80&w=800&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1587061949409-02df41d5e562?q=80&w=800&auto=format&fit=crop'
+    ],
+    description: 'Casa Ceiba está diseñada para aquellos que buscan tranquilidad y contacto directo con la naturaleza del llano. Cuenta con acabados térmicos de primera, iluminación natural y una terraza privada con hamacas donde podrás disfrutar del canto de las aves al atardecer.',
+    features: [
+      'Aire acondicionado silencioso',
+      'WiFi de alta velocidad (fibra óptica)',
+      'Cocina integral con nevera, estufa y menaje completo',
+      'Piscina compartida a pasos de la cabaña',
+      'Baño privado con agua fresca y toallas',
+      'Parqueadero vigilado dentro de la propiedad',
+      'Zona de hamacas y terraza privada',
+      'Pet friendly (mascotas bienvenidas bajo solicitud)'
+    ],
+    roomDetails: [
+      'Habitación 1: 1 Cama Queen con sábanas de algodón 300 hilos y aire acondicionado.',
+      'Habitación 2: 2 Camas individuales con ventilación cruzada y closet.'
+    ]
+  },
+  '2': {
+    name: 'Casa Samán',
+    subtitle: 'Fresco descanso y amplios espacios familiares',
+    capacity: 5,
+    bedrooms: 2,
+    bathrooms: 1,
+    price: 200000,
+    images: [
+      'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1510798831971-661eb04b3739?q=80&w=800&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1540541338287-41700207dee6?q=80&w=800&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1623057000041-356ec32ce89c?q=80&w=800&auto=format&fit=crop'
+    ],
+    description: 'Casa Samán destaca por su frescura natural, techos altos y distribución que invita a compartir momentos memorables. Con un comedor exterior y sala de estar abierta, es la casa favorita para familias con niños o grupos de amigos.',
+    features: [
+      'Aire acondicionado de alta eficiencia',
+      'Conexión WiFi rápida para trabajo remoto',
+      'Cocina con isla y barra americana',
+      'Comedor exterior techado con vista al jardín',
+      'Acceso directo a la piscina y solárium',
+      'Parrilla BBQ a disposición',
+      'Smart TV con plataformas de streaming',
+      'Espacio para hamacas en el corredor exterior'
+    ],
+    roomDetails: [
+      'Habitación 1: 1 Cama King, aire acondicionado y armario amplio.',
+      'Habitación 2: 1 Cama Doble + 1 Cama Sencilla (acomodación para 3).'
+    ]
+  },
+  '3': {
+    name: 'Casa Moriche',
+    subtitle: 'La casa más amplia para tus mejores reuniones',
+    capacity: 6,
+    bedrooms: 3,
+    bathrooms: 2,
+    price: 250000,
+    images: [
+      'https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?q=80&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1542314831-c5a4d40715af?q=80&w=800&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1540541338287-41700207dee6?q=80&w=800&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1587061949409-02df41d5e562?q=80&w=800&auto=format&fit=crop'
+    ],
+    description: 'Casa Moriche es el buque insignia de Guamal Mini Barrio. Tres dormitorios independientes, dos baños completos y un gran salón social conectado a la terraza. Si quieres celebrar un cumpleaños, una reunión de reencuentro o simplemente estar con los tuyos en la mayor comodidad, esta es tu casa.',
+    features: [
+      'Aire acondicionado en las 3 habitaciones',
+      '2 Baños completos con acabados modernos',
+      'Cocina de chef totalmente dotada con cafetera y microondas',
+      'Gran terraza con zona BBQ exclusiva',
+      'Smart TV de 55 pulgadas y sonido ambiental',
+      'WiFi de ultra alta velocidad',
+      'Acceso privilegiado a piscina y jardines',
+      'Parqueadero para 2 vehículos'
+    ],
+    roomDetails: [
+      'Habitación Principal: Cama King con baño privado en suite y aire acondicionado.',
+      'Habitación 2: Cama Queen con aire acondicionado y armario.',
+      'Habitación 3: 2 Camas sencillas con aire acondicionado y vista al jardín.'
+    ]
+  }
+};
+
+const house = housesData[id || '1'] || housesData['1'];
+---
+
+<BaseLayout title={`${house.name} | Guamal Mini Barrio`}>
+  <Navbar client:load />
+
+  <main class="flex-grow pt-28 pb-24 bg-guamal-cream/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+      
+      <!-- Back Link -->
+      <a href="/alojamiento" class="inline-flex items-center gap-2 text-guamal-green font-medium mb-8 hover:underline">
+        <ArrowLeft size={18} />
+        Volver a todas las casas
+      </a>
+
+      <!-- Title & Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+        <div>
+          <span class="text-xs font-bold tracking-widest text-guamal-green uppercase mb-2 block">Cabaña Privada</span>
+          <h1 class="text-4xl md:text-5xl font-serif font-bold text-guamal-green mb-2">{house.name}</h1>
+          <p class="text-gray-600 text-lg font-light">{house.subtitle}</p>
+        </div>
+        <div class="bg-white px-6 py-4 rounded-2xl shadow-sm border border-gray-100 flex items-baseline gap-2">
+          <span class="text-3xl font-bold text-guamal-green">${house.price.toLocaleString('es-CO')}</span>
+          <span class="text-gray-500 text-sm">/ noche</span>
+        </div>
+      </div>
+
+      <!-- Gallery Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 rounded-3xl overflow-hidden mb-12 shadow-xl">
+        <div class="md:col-span-2 md:row-span-2 aspect-[4/3] md:aspect-auto overflow-hidden">
+          <img src={house.images[0]} alt={house.name} class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+        </div>
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src={house.images[1]} alt="Piscina" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+        </div>
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src={house.images[2]} alt="Interior" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+        </div>
+        <div class="md:col-span-2 aspect-[16/9] overflow-hidden">
+          <img src={house.images[3]} alt="Naturaleza" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+        </div>
+      </div>
+
+      <!-- Main Content & Sidebar -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        
+        <!-- Details Column -->
+        <div class="lg:col-span-2 space-y-10">
+          
+          <!-- Key Specs -->
+          <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex flex-wrap justify-around gap-4 text-center">
+            <div>
+              <div class="w-10 h-10 bg-guamal-green/10 text-guamal-green rounded-xl flex items-center justify-center mx-auto mb-2">
+                <Users size={20} />
+              </div>
+              <p class="font-bold text-gray-800">Hasta {house.capacity} personas</p>
+              <p class="text-xs text-gray-400">Capacidad total</p>
+            </div>
+            <div>
+              <div class="w-10 h-10 bg-guamal-green/10 text-guamal-green rounded-xl flex items-center justify-center mx-auto mb-2">
+                <Bed size={20} />
+              </div>
+              <p class="font-bold text-gray-800">{house.bedrooms} Habitaciones</p>
+              <p class="text-xs text-gray-400">Totalmente equipadas</p>
+            </div>
+            <div>
+              <div class="w-10 h-10 bg-guamal-green/10 text-guamal-green rounded-xl flex items-center justify-center mx-auto mb-2">
+                <Bath size={20} />
+              </div>
+              <p class="font-bold text-gray-800">{house.bathrooms} {house.bathrooms === 1 ? 'Baño' : 'Baños'}</p>
+              <p class="text-xs text-gray-400">Agua limpia y toallas</p>
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div class="bg-white rounded-3xl p-8 md:p-10 border border-gray-100 shadow-sm">
+            <h2 class="text-2xl font-serif font-bold text-guamal-green mb-4">Sobre este alojamiento</h2>
+            <p class="text-gray-600 leading-relaxed text-base mb-6 font-light">{house.description}</p>
+            
+            <h3 class="font-serif font-bold text-lg text-guamal-green mb-3">Distribución de habitaciones</h3>
+            <div class="space-y-2 mb-8">
+              {house.roomDetails.map(rd => (
+                <div class="flex items-start gap-2 text-sm text-gray-700">
+                  <span class="text-guamal-green font-bold">•</span>
+                  <span>{rd}</span>
+                </div>
+              ))}
+            </div>
+
+            <h3 class="font-serif font-bold text-lg text-guamal-green mb-4">Lo que este lugar ofrece</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-gray-700">
+              {house.features.map(f => (
+                <div class="flex items-center gap-3 p-2.5 rounded-xl bg-gray-50">
+                  <Check size={16} class="text-green-600 flex-shrink-0" />
+                  <span>{f}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- Rules & Info -->
+          <div class="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm">
+            <h3 class="text-xl font-serif font-bold text-guamal-green mb-4">Información importante</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-600">
+              <div class="flex items-start gap-3">
+                <Clock size={20} class="text-guamal-green flex-shrink-0 mt-0.5" />
+                <div>
+                  <h4 class="font-bold text-gray-800">Horarios</h4>
+                  <p>Check-in: A partir de las 3:00 PM</p>
+                  <p>Check-out: Hasta la 1:00 PM</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <ShieldCheck size={20} class="text-guamal-green flex-shrink-0 mt-0.5" />
+                <div>
+                  <h4 class="font-bold text-gray-800">Políticas</h4>
+                  <p>Reserva con el 50% de anticipo</p>
+                  <p>Espacio tranquilo libre de ruidos excesivos nocturnos</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Sticky Booking Card Column -->
+        <div class="lg:col-span-1">
+          <div class="sticky top-32 bg-white rounded-3xl p-8 border border-gray-100 shadow-2xl space-y-6">
+            <div class="border-b border-gray-100 pb-4">
+              <span class="text-xs text-gray-400 uppercase font-bold tracking-wider">Precio por noche</span>
+              <div class="flex items-baseline gap-2 mt-1">
+                <span class="text-3xl font-bold text-guamal-green">${house.price.toLocaleString('es-CO')}</span>
+                <span class="text-sm text-gray-500">COP</span>
+              </div>
+            </div>
+
+            <div class="space-y-3 text-sm text-gray-600">
+              <div class="flex justify-between py-2 border-b border-gray-50">
+                <span>Capacidad recomendada</span>
+                <span class="font-bold text-gray-800">{house.capacity} personas</span>
+              </div>
+              <div class="flex justify-between py-2 border-b border-gray-50">
+                <span>Limpieza inicial</span>
+                <span class="font-bold text-green-600">Incluida</span>
+              </div>
+              <div class="flex justify-between py-2 border-b border-gray-50">
+                <span>Acceso piscina</span>
+                <span class="font-bold text-green-600">Ilimitado</span>
+              </div>
+            </div>
+
+            <!-- Booking action button -->
+            <button
+              id="book-this-house-btn"
+              data-id={id}
+              class="w-full bg-guamal-green hover:bg-guamal-green-light text-white py-4 rounded-2xl font-bold text-base transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <Sparkles size={18} />
+              Reservar {house.name}
+            </button>
+
+            <a 
+              href={`https://wa.me/573001234567?text=Hola,%20quisiera%20consultar%20disponibilidad%20para%20la%20${encodeURIComponent(house.name)}`}
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="w-full border border-gray-200 hover:border-guamal-green text-gray-700 py-3.5 rounded-2xl font-medium text-sm transition-colors flex items-center justify-center gap-2"
+            >
+              Preguntar dudas por WhatsApp
+            </a>
+
+            <p class="text-xs text-center text-gray-400">
+              No se te cobrará nada en este paso. Confirmamos fechas y abono por WhatsApp de forma segura.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script>
+  import { isBookingModalOpen } from '../../store/uiStore';
+  import { reservationStore } from '../../store/reservationStore';
+
+  function initDetailButton() {
+    const btn = document.getElementById('book-this-house-btn');
+    if (btn) {
+      btn.onclick = (e) => {
+        e.preventDefault();
+        const id = btn.getAttribute('data-id') || '1';
+        reservationStore.set({
+          ...reservationStore.get(),
+          selectedPropertyId: id
+        });
+        isBookingModalOpen.set(true);
+      };
+    }
+  }
+
+  initDetailButton();
+  document.addEventListener('astro:page-load', initDetailButton);
+</script>

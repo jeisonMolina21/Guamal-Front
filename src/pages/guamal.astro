@@ -1,0 +1,149 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Navbar } from '../components/layout/Navbar';
+import Footer from '../components/layout/Footer.astro';
+import { MapPin, Navigation, Sun, Clock, Sparkles } from 'lucide-astro';
+---
+
+<BaseLayout title="Guamal, Meta | El Destino">
+  <Navbar client:load />
+
+  <main class="flex-grow pt-28 pb-24 bg-guamal-cream/30">
+    <!-- Hero Destination -->
+    <div class="relative py-20 bg-gradient-to-b from-guamal-green/10 to-transparent">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <span class="text-xs font-bold tracking-widest text-guamal-green uppercase mb-3 inline-block bg-guamal-green/10 px-4 py-1.5 rounded-full">
+          Destino Turístico del Meta
+        </span>
+        <h1 class="text-4xl md:text-6xl font-serif font-bold text-guamal-green mb-6">
+          Conoce Guamal, Meta
+        </h1>
+        <p class="text-lg md:text-xl text-gray-600 font-light max-w-2xl mx-auto leading-relaxed">
+          Tierra de amaneceres inolvidables, agua dulce y la legendaria hospitalidad de los llanos colombianos.
+        </p>
+      </div>
+    </div>
+
+    <!-- Quick Facts -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex items-center gap-4">
+          <div class="w-12 h-12 rounded-xl bg-guamal-green/10 text-guamal-green flex items-center justify-center flex-shrink-0">
+            <Clock size={24} />
+          </div>
+          <div>
+            <h4 class="font-bold text-gray-800">Distancia</h4>
+            <p class="text-sm text-gray-500">A 45 min de Villavicencio / 3.5 h de Bogotá</p>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex items-center gap-4">
+          <div class="w-12 h-12 rounded-xl bg-guamal-green/10 text-guamal-green flex items-center justify-center flex-shrink-0">
+            <Sun size={24} />
+          </div>
+          <div>
+            <h4 class="font-bold text-gray-800">Clima</h4>
+            <p class="text-sm text-gray-500">Cálido y agradable (28°C - 32°C promedio)</p>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex items-center gap-4">
+          <div class="w-12 h-12 rounded-xl bg-guamal-green/10 text-guamal-green flex items-center justify-center flex-shrink-0">
+            <MapPin size={24} />
+          </div>
+          <div>
+            <h4 class="font-bold text-gray-800">Región</h4>
+            <p class="text-sm text-gray-500">Subregión del Alto Ariari, Meta</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Destination Highlights -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 space-y-16">
+      
+      <!-- Río Humadea -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="rounded-3xl overflow-hidden shadow-xl aspect-[4/3]">
+          <img src="https://images.unsplash.com/photo-1596489311497-6a56e1804d9c?q=80&w=800&auto=format&fit=crop" alt="Río Humadea" class="w-full h-full object-cover" />
+        </div>
+        <div>
+          <span class="text-xs font-bold tracking-widest text-guamal-green uppercase mb-2 block">Atracción Principal</span>
+          <h2 class="text-3xl md:text-4xl font-serif font-bold text-guamal-green mb-4">El Famoso Río Humadea</h2>
+          <p class="text-gray-600 leading-relaxed font-light mb-6">
+            Uno de los atractivos ecoturísticos más queridos de los Llanos Orientales. Sus aguas refrescantes y limpias descienden de la cordillera, rodeadas de kioscos típicos donde podrás almorzar sancocho de gallina criolla o mojarra frita junto a la corriente.
+          </p>
+          <a 
+            href="https://maps.app.goo.gl/search/Rio+Humadea+Guamal" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 text-guamal-green font-bold hover:underline"
+          >
+            <Navigation size={18} />
+            Cómo llegar a Humadea en Google Maps
+          </a>
+        </div>
+      </div>
+
+      <!-- Llanero Culture & Flavors -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center lg:flex-row-reverse">
+        <div class="order-2 lg:order-1">
+          <span class="text-xs font-bold tracking-widest text-guamal-green uppercase mb-2 block">Identidad Llanera</span>
+          <h2 class="text-3xl md:text-4xl font-serif font-bold text-guamal-green mb-4">Cultura, Joropo y Sabores</h2>
+          <p class="text-gray-600 leading-relaxed font-light mb-6">
+            Guamal es tierra ganadera y agrícola, cuna de amables pobladores que conservan con orgullo las costumbres de los vaqueros llaneros. Disfruta de la música llanera en vivo, atardeceres de postales y una gastronomía que deleita a cualquier paladar.
+          </p>
+          <ul class="space-y-2 text-sm text-gray-700 mb-8">
+            <li class="flex items-center gap-2">✓ Deliciosa carne a la perra y carne a la llanera</li>
+            <li class="flex items-center gap-2">✓ Variedad de frutas tropicales del Ariari</li>
+            <li class="flex items-center gap-2">✓ Artesanías típicas en cuero y madera</li>
+          </ul>
+        </div>
+        <div class="rounded-3xl overflow-hidden shadow-xl aspect-[4/3] order-1 lg:order-2">
+          <img src="https://images.unsplash.com/photo-1563212004-9580b3950244?q=80&w=800&auto=format&fit=crop" alt="Paisaje y cultura" class="w-full h-full object-cover" />
+        </div>
+      </div>
+
+      <!-- Stay in Guamal CTA -->
+      <div class="bg-guamal-green text-white rounded-3xl p-10 md:p-14 text-center shadow-2xl">
+        <h3 class="text-3xl md:text-4xl font-serif font-bold mb-4">¿Listo para vivir la magia de Guamal?</h3>
+        <p class="text-guamal-cream/90 text-lg max-w-xl mx-auto mb-8 font-light">
+          Hospédate en Guamal Mini Barrio, tu base de descanso perfecta para explorar todo lo que nuestra región tiene para ofrecer.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <button 
+            id="guamal-page-book-btn"
+            class="bg-white text-guamal-green hover:bg-gray-100 px-8 py-4 rounded-full font-bold shadow-lg transition-all flex items-center gap-2 cursor-pointer"
+          >
+            <Sparkles size={18} />
+            Ver Disponibilidad de Casas
+          </button>
+          <a 
+            href="/alojamiento" 
+            class="border border-white/40 hover:border-white text-white px-8 py-4 rounded-full font-medium transition-colors"
+          >
+            Conocer nuestras Cabañas
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script>
+  import { isBookingModalOpen } from '../store/uiStore';
+
+  function initGuamalBtn() {
+    const btn = document.getElementById('guamal-page-book-btn');
+    if (btn) {
+      btn.onclick = (e) => {
+        e.preventDefault();
+        isBookingModalOpen.set(true);
+      };
+    }
+  }
+
+  initGuamalBtn();
+  document.addEventListener('astro:page-load', initGuamalBtn);
+</script>

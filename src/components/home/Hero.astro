@@ -1,0 +1,81 @@
+---
+import { MapPin, Home, Leaf } from 'lucide-astro';
+import './Hero.css';
+---
+
+<div class="relative h-screen min-h-[600px] max-h-[900px] flex items-center justify-center pt-20">
+  <!-- Background Image -->
+  <div class="absolute inset-0 z-0">
+    <div class="absolute inset-0 bg-gradient-to-r from-guamal-green/90 via-guamal-green/60 to-transparent z-10"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-guamal-cream via-transparent to-transparent z-10"></div>
+    <img 
+      src="/hero-cabanas.jpg" 
+      alt="Guamal Mini Barrio Hostal Cabañas" 
+      class="w-full h-full object-cover object-center"
+    />
+  </div>
+
+  {/* Content */}
+  <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+    <div class="max-w-2xl">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-xs font-semibold tracking-wider uppercase mb-6">
+        <span class="w-2 h-2 rounded-full bg-green-400"></span>
+        Villa MCJ • Guamal, Meta
+      </div>
+      
+      <h1 class="text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white leading-[1.1] mb-6 text-balance">
+        Tu descanso en<br/>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-200 to-white">Villa MCJ</span>
+      </h1>
+      
+      <p class="text-lg md:text-xl text-white/90 mb-10 max-w-lg leading-relaxed font-light">
+        Cabañas campestres privadas, aire puro y una experiencia para desconectarte sin afán, en el corazón de Guamal, Meta.
+      </p>
+      
+      <div class="flex flex-wrap items-center gap-4 mb-12">
+        <button 
+          id="hero-book-btn"
+          class="bg-guamal-green-light hover:bg-white text-white hover:text-guamal-green px-8 py-4 rounded-full font-medium transition-all duration-300 shadow-[0_0_20px_rgba(42,80,72,0.4)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] flex items-center gap-2 group cursor-pointer"
+        >
+          Ver disponibilidad
+          <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Features -->
+      <div class="flex flex-wrap items-center gap-6 sm:gap-8 text-white/90 text-sm font-medium">
+        <div class="flex items-center gap-2">
+          <MapPin size={18} class="text-green-300" />
+          Guamal, Meta
+        </div>
+        <div class="flex items-center gap-2">
+          <Home size={18} class="text-green-300" />
+          Casas privadas
+        </div>
+        <div class="flex items-center gap-2">
+          <Leaf size={18} class="text-green-300" />
+          Naturaleza
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { isBookingModalOpen } from '../../store/uiStore';
+  
+  function initHero() {
+    const btn = document.getElementById('hero-book-btn');
+    if (btn) {
+      btn.onclick = (e) => {
+        e.preventDefault();
+        isBookingModalOpen.set(true);
+      };
+    }
+  }
+
+  initHero();
+  document.addEventListener('astro:page-load', initHero);
+</script>

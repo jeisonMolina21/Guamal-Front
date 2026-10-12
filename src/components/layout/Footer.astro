@@ -1,0 +1,85 @@
+---
+import { Instagram, Facebook, MessageCircle } from 'lucide-astro';
+import './Footer.css';
+---
+
+<footer class="bg-guamal-green text-guamal-cream pt-16 pb-8 border-t border-guamal-green-light mt-auto">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+      
+      <!-- Brand & Info -->
+      <div class="col-span-1 md:col-span-1">
+        <a href="/" class="flex items-center gap-3 group mb-6 inline-flex">
+          <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-guamal-green font-serif font-bold text-sm tracking-wider shadow">
+            MCJ
+          </div>
+          <div class="flex flex-col">
+            <span class="font-serif font-bold text-white text-xl leading-tight">Villa MCJ</span>
+            <span class="text-[10px] tracking-widest text-guamal-cream/80 uppercase font-semibold">Cabañas & Naturaleza</span>
+          </div>
+        </a>
+        <p class="text-sm text-guamal-cream/80 leading-relaxed mb-6">
+          Un espacio campestre privado para desconectarte, compartir y vivir la auténtica naturaleza llanera en Guamal, Meta.
+        </p>
+      </div>
+
+      <!-- Links -->
+      <div>
+        <h4 class="font-serif font-semibold text-lg mb-4 text-white">Explorar</h4>
+        <ul class="space-y-3 text-sm text-guamal-cream/80">
+          <li><a href="/alojamiento" class="hover:text-white transition-colors">Alojamiento</a></li>
+          <li><a href="/experiencia" class="hover:text-white transition-colors">Experiencia</a></li>
+          <li><a href="https://maps.app.goo.gl/search/Guamal+Meta" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Ubicación</a></li>
+          <li><a href="/galeria" class="hover:text-white transition-colors">Galería</a></li>
+          <li><a href="/guamal" class="hover:text-white transition-colors">Guamal, Meta</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h4 class="font-serif font-semibold text-lg mb-4 text-white">Contacto</h4>
+        <ul class="space-y-3 text-sm text-guamal-cream/80">
+          <li class="flex items-start gap-3">
+            <svg class="w-5 h-5 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            <span>Guamal, Meta, Colombia<br/><span class="text-xs opacity-70">A solo 45 min de Villavicencio</span></span>
+          </li>
+          <li class="flex items-center gap-3">
+            <svg class="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            <a href="mailto:info@guamalminibarrio.com" class="hover:text-white transition-colors">info@guamalminibarrio.com</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Social -->
+      <div>
+        <h4 class="font-serif font-semibold text-lg mb-4 text-white">Síguenos</h4>
+        <div class="flex space-x-4">
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="w-10 h-10 rounded-full border border-guamal-cream/20 flex items-center justify-center text-guamal-cream hover:bg-white hover:text-guamal-green hover:border-white transition-all">
+            <Instagram size={18} />
+          </a>
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="w-10 h-10 rounded-full border border-guamal-cream/20 flex items-center justify-center text-guamal-cream hover:bg-white hover:text-guamal-green hover:border-white transition-all">
+            <Facebook size={18} />
+          </a>
+          <a href="https://wa.me/573001234567" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="w-10 h-10 rounded-full border border-guamal-cream/20 flex items-center justify-center text-guamal-cream hover:bg-white hover:text-green-500 hover:border-white transition-all">
+            <MessageCircle size={18} />
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="pt-8 border-t border-guamal-green-light flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-guamal-cream/60">
+      <p>&copy; {new Date().getFullYear()} Guamal Mini Barrio Hostal. Todos los derechos reservados.</p>
+      <div class="flex space-x-6">
+        <a href="/contacto" class="hover:text-white transition-colors">Contacto Directo</a>
+        <a href="/alojamiento" class="hover:text-white transition-colors">Disponibilidad</a>
+      </div>
+    </div>
+  </div>
+</footer>

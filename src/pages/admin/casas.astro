@@ -1,0 +1,12 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { PropertyTable } from '../../components/admin/PropertyTable';
+---
+
+<AdminLayout title="Gestión de Casas">
+  <div class="mb-6">
+    <p class="text-gray-500">Añade, edita o bloquea la disponibilidad de tus propiedades.</p>
+  </div>
+  
+  <PropertyTable client:load />
+</AdminLayout>

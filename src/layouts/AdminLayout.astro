@@ -1,0 +1,116 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import { Home, Calendar, Users, Settings, LogOut, LayoutDashboard } from 'lucide-react';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+
+const currentPath = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="es" class="bg-gray-50">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} | Villa MCJ Admin</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <ClientRouter />
+  </head>
+  <body class="antialiased min-h-screen flex text-gray-800 font-sans">
+    
+    {/* Sidebar */}
+    <aside class="w-64 bg-guamal-green text-white flex flex-col fixed h-full z-20">
+      <div class="p-6">
+        <h2 class="text-2xl font-serif font-bold text-guamal-cream">Villa MCJ</h2>
+        <p class="text-xs text-green-300 mt-1 uppercase tracking-widest font-semibold">Panel Administrativo</p>
+      </div>
+
+      <nav class="flex-1 px-4 space-y-1 mt-4 overflow-y-auto">
+        <a href="/admin" class={`flex items-center gap-3 px-4 py-2.5 rounded-xl transition-colors ${currentPath === '/admin' ? 'bg-white/10 text-white font-medium' : 'text-white/70 hover:bg-white/5 hover:text-white'}`}>
+          <LayoutDashboard size={20} />
+          Dashboard
+        </a>
+        <a href="/admin/reservas" class={`flex items-center gap-3 px-4 py-2.5 rounded-xl transition-colors ${currentPath === '/admin/reservas' ? 'bg-white/10 text-white font-medium' : 'text-white/70 hover:bg-white/5 hover:text-white'}`}>
+          <Users size={20} />
+          Reservas
+        </a>
+        <a href="/admin/calendario" class={`flex items-center gap-3 px-4 py-2.5 rounded-xl transition-colors ${currentPath === '/admin/calendario' ? 'bg-white/10 text-white font-medium' : 'text-white/70 hover:bg-white/5 hover:text-white'}`}>
+          <Calendar size={20} />
+          Calendario
+        </a>
+        
+        <div class="pt-4 pb-2 px-4">
+          <p class="text-[10px] text-white/40 uppercase tracking-widest font-bold">Gestión</p>
+        </div>
+        
+        <a href="/admin/casas" class={`flex items-center gap-3 px-4 py-2.5 rounded-xl transition-colors ${currentPath === '/admin/casas' ? 'bg-white/10 text-white font-medium' : 'text-white/70 hover:bg-white/5 hover:text-white'}`}>
+          <Home size={20} />
+          Casas
+        </a>
+        <a href="/admin/huespedes" class={`flex items-center gap-3 px-4 py-2.5 rounded-xl transition-colors ${currentPath === '/admin/huespedes' ? 'bg-white/10 text-white font-medium' : 'text-white/70 hover:bg-white/5 hover:text-white'}`}>
+          <Users size={20} />
+          Huéspedes
+        </a>
+        <a href="/admin/pagos" class={`flex items-center gap-3 px-4 py-2.5 rounded-xl transition-colors ${currentPath === '/admin/pagos' ? 'bg-white/10 text-white font-medium' : 'text-white/70 hover:bg-white/5 hover:text-white'}`}>
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+          Pagos
+        </a>
+
+        <div class="pt-4 pb-2 px-4">
+          <p class="text-[10px] text-white/40 uppercase tracking-widest font-bold">Sistema</p>
+        </div>
+
+        <a href="/admin/usuarios" class={`flex items-center gap-3 px-4 py-2.5 rounded-xl transition-colors ${currentPath === '/admin/usuarios' ? 'bg-white/10 text-white font-medium' : 'text-white/70 hover:bg-white/5 hover:text-white'}`}>
+          <Users size={20} />
+          Usuarios y Equipo
+        </a>
+        <a href="/admin/reportes" class={`flex items-center gap-3 px-4 py-2.5 rounded-xl transition-colors ${currentPath === '/admin/reportes' ? 'bg-white/10 text-white font-medium' : 'text-white/70 hover:bg-white/5 hover:text-white'}`}>
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+          Reportes
+        </a>
+        <a href="/admin/configuracion" class={`flex items-center gap-3 px-4 py-2.5 rounded-xl transition-colors ${currentPath === '/admin/configuracion' ? 'bg-white/10 text-white font-medium' : 'text-white/70 hover:bg-white/5 hover:text-white'}`}>
+          <Settings size={20} />
+          Configuración
+        </a>
+      </nav>
+
+      <div class="p-4 border-t border-white/10">
+        <a href="/" class="flex items-center gap-3 px-4 py-3 rounded-xl text-white/70 hover:bg-white/5 hover:text-white transition-colors">
+          <Home size={20} />
+          Ver Sitio Público
+        </a>
+        <button 
+          onclick="localStorage.removeItem('guamal_token'); localStorage.removeItem('guamal_user'); window.location.href='/';"
+          class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-red-300 hover:bg-red-500/10 hover:text-red-200 transition-colors mt-2 text-left cursor-pointer"
+        >
+          <LogOut size={20} />
+          Cerrar Sesión
+        </button>
+      </div>
+    </aside>
+
+    {/* Main Content */}
+    <main class="flex-1 ml-64 p-8">
+      <header class="flex justify-between items-center mb-8">
+        <div>
+          <h1 class="text-3xl font-bold text-gray-900">{title}</h1>
+          <p class="text-gray-500 mt-1">Bienvenido de vuelta, Administrador.</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <div class="w-10 h-10 bg-gray-200 rounded-full"></div>
+        </div>
+      </header>
+
+      <slot />
+    </main>
+
+  </body>
+</html>

@@ -1,0 +1,65 @@
+/* ==========================================================================
+   StatCard Component Styles
+   ========================================================================== */
+
+.stat-card-box {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  border: 1px solid #f3f4f6;
+  transition: all 0.2s ease;
+}
+.stat-card-box:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.stat-card-icon-wrapper {
+  width: 3rem;
+  height: 3rem;
+  background-color: #f9fafb;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-guamal-green, #1E3A34);
+}
+
+.stat-card-trend-badge {
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+}
+
+.stat-card-trend-positive {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+
+.stat-card-trend-negative {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.stat-card-title {
+  color: #6b7280;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.stat-card-value {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0.25rem 0 0 0;
+  font-family: var(--font-serif, "Playfair Display", serif);
+}

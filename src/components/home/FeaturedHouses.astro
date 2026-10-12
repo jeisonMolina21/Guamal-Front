@@ -1,0 +1,161 @@
+---
+import { Users, Bed, Bath, Sparkles, ArrowRight } from 'lucide-astro';
+import './FeaturedHouses.css';
+
+const houses = [
+  {
+    id: "1",
+    name: "Casa Ceiba",
+    tag: "Parejas & Familias Pequeñas",
+    image: "/hero-cabanas.jpg",
+    capacity: "Hasta 4 personas",
+    bedrooms: "2 habitaciones",
+    bathrooms: "1 baño",
+    price: "$180.000",
+    unit: "/ noche",
+    description: "Cabaña campestre fresca con vista a los jardines nativos, amplia terraza privada con hamacas y cocina dotada."
+  },
+  {
+    id: "2",
+    name: "Casa Samán",
+    tag: "Nuestra Opción Más Popular",
+    image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=800&auto=format&fit=crop",
+    capacity: "Hasta 5 personas",
+    bedrooms: "2 habitaciones",
+    bathrooms: "1 baño",
+    price: "$200.000",
+    unit: "/ noche",
+    description: "Espaciosa, luminosa y con excelente ventilación natural. Sala abierta al jardín, comedor exterior y zona de descanso."
+  },
+  {
+    id: "3",
+    name: "Casa Moriche",
+    tag: "Máxima Amplitud & Zona BBQ",
+    image: "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?q=80&w=800&auto=format&fit=crop",
+    capacity: "Hasta 6 personas",
+    bedrooms: "3 habitaciones",
+    bathrooms: "2 baños",
+    price: "$250.000",
+    unit: "/ noche",
+    description: "La cabaña más grande del mini barrio. Tres habitaciones independientes, dos baños completos y terraza panorámica con asador."
+  }
+];
+---
+
+<section class="featured-section" id="alojamiento">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Header -->
+    <div class="featured-header-wrap">
+      <div>
+        <span class="featured-tag">Nuestras Cabañas Privadas</span>
+        <h2 class="featured-title">Un espacio para estar tranquilo</h2>
+        <p class="featured-desc">
+          Cabañas prefabricadas de arquitectura bioclimática, dotadas con aire acondicionado, cocina equipada, WiFi y acceso a piscina en el corazón de Guamal, Meta.
+        </p>
+      </div>
+
+      <a 
+        href="/alojamiento" 
+        class="inline-flex items-center gap-2 font-bold text-guamal-green hover:text-guamal-green-light group pb-1 border-b-2 border-guamal-green/30 hover:border-guamal-green transition-all"
+      >
+        <span>Ver catálogo completo</span>
+        <ArrowRight size={18} class="group-hover:translate-x-1 transition-transform" />
+      </a>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="featured-track-wrap">
+      <div class="featured-track">
+        {houses.map((house) => (
+          <article class="house-card group">
+            
+            <div class="house-card-img-wrap">
+              <img 
+                src={house.image} 
+                alt={house.name} 
+                class="house-card-img"
+                loading="lazy"
+                onerror="this.onerror=null; this.src='/hero-cabanas.jpg';"
+              />
+              <span class="house-card-badge">{house.tag}</span>
+            </div>
+
+            <div class="house-card-body">
+              <h3 class="house-card-title">{house.name}</h3>
+              <p class="house-card-desc">{house.description}</p>
+              
+              <div class="house-card-specs">
+                <div class="flex items-center gap-1.5" title="Capacidad de huéspedes">
+                  <Users size={16} class="text-guamal-green" />
+                  <span>{house.capacity}</span>
+                </div>
+                <span class="text-gray-300">•</span>
+                <div class="flex items-center gap-1.5" title="Habitaciones">
+                  <Bed size={16} class="text-guamal-green" />
+                  <span>{house.bedrooms}</span>
+                </div>
+                <span class="text-gray-300">•</span>
+                <div class="flex items-center gap-1.5" title="Baños">
+                  <Bath size={16} class="text-guamal-green" />
+                  <span>{house.bathrooms}</span>
+                </div>
+              </div>
+              
+              <div class="house-card-footer">
+                <div>
+                  <span class="text-[11px] text-gray-400 font-bold uppercase tracking-wider block">Desde</span>
+                  <span class="house-price-val">{house.price}</span>
+                  <span class="house-price-unit">{house.unit}</span>
+                </div>
+
+                <div class="house-card-actions">
+                  <button
+                    data-house-id={house.id}
+                    class="featured-book-btn bg-guamal-green hover:bg-guamal-green-light text-white px-4 py-2.5 rounded-xl text-xs font-bold transition-all shadow-sm hover:shadow-md flex items-center gap-1.5 cursor-pointer"
+                  >
+                    <Sparkles size={14} />
+                    Reservar
+                  </button>
+
+                  <a 
+                    href={`/alojamiento/${house.id}`} 
+                    class="border border-guamal-green/30 hover:border-guamal-green text-guamal-green hover:bg-guamal-green/5 px-3 py-2.5 rounded-xl text-xs font-bold transition-colors"
+                  >
+                    Detalles
+                  </a>
+                </div>
+              </div>
+
+            </div>
+
+          </article>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  import { isBookingModalOpen } from '../../store/uiStore';
+  import { reservationStore } from '../../store/reservationStore';
+
+  function initFeaturedBooking() {
+    const bookButtons = document.querySelectorAll('.featured-book-btn');
+    bookButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const houseId = btn.getAttribute('data-house-id') || '1';
+        reservationStore.set({
+          ...reservationStore.get(),
+          selectedPropertyId: houseId
+        });
+        isBookingModalOpen.set(true);
+      });
+    });
+  }
+
+  initFeaturedBooking();
+  document.addEventListener('astro:page-load', initFeaturedBooking);
+</script>

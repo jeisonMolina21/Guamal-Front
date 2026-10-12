@@ -1,0 +1,12 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { SettingsPanel } from '../../components/admin/SettingsPanel';
+---
+
+<AdminLayout title="Configuración y Parámetros">
+  <div class="mb-6">
+    <p class="text-gray-500">Ajusta parámetros globales (WhatsApp, horarios, cuentas bancarias, anticipos) y gestiona paquetes u ofertas.</p>
+  </div>
+  
+  <SettingsPanel client:load />
+</AdminLayout>
