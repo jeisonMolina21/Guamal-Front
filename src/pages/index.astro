@@ -6,7 +6,7 @@ import { SmoothScroll } from '../components/editorial/SmoothScroll';
 import { CustomCursor } from '../components/editorial/CustomCursor';
 import { Scene1Apertura } from '../components/editorial/Scene1Apertura';
 import { Scene2Manifiesto } from '../components/editorial/Scene2Manifiesto';
-import { CabinCenterStage } from '../components/home/CabinCenterStage';
+import { Scene3Cabanas } from '../components/editorial/Scene3Cabanas';
 import { DestinationExplorer } from '../components/home/DestinationExplorer';
 import ExperienceSection from '../components/home/ExperienceSection.astro';
 import Gallery from '../components/home/Gallery.astro';
@@ -25,9 +25,11 @@ import CTA from '../components/home/CTA.astro';
     <!-- ESCENA 2: Manifiesto (Scrubbed text reveal con mutación de color de fondo) -->
     <Scene2Manifiesto client:load />
 
-    <!-- Resto de secciones previas (A la espera de aprobación para implementar Escenas 3, 4, 5 y 6) -->
+    <!-- ESCENA 3: Las Cabañas (Pinned con scroll horizontal & clip-path wipe mask entre estancias a pantalla completa) -->
+    <Scene3Cabanas client:load />
+
+    <!-- Resto de secciones previas (A la espera de aprobación para implementar Escenas 4, 5 y 6) -->
     <div id="resto-de-la-villa">
-      <CabinCenterStage client:load />
       <DestinationExplorer client:load />
       <ExperienceSection />
       <Gallery />

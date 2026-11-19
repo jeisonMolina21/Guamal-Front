@@ -349,7 +349,7 @@ export const ConciergeWidget: React.FC = () => {
             animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
             exit={{ opacity: 0, scale: 0.95, y: 8, filter: 'blur(2px)' }}
             transition={springPopover}
-            className="mb-3 w-80 bg-[#0E1E1B]/95 backdrop-blur-2xl border border-[#C69A59]/40 text-white p-4.5 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative origin-bottom-right"
+            className="mb-3 w-80 bg-[#12201C]/95 backdrop-blur-2xl border border-white/15 text-white p-4.5 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative origin-bottom-right"
           >
             <button
               onClick={(e) => {
@@ -376,7 +376,7 @@ export const ConciergeWidget: React.FC = () => {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.96 }}
               onClick={handleOpenWidget}
-              className="w-full py-2.5 px-3 bg-[#C69A59] hover:bg-[#b58947] text-[#08110F] text-xs font-bold uppercase tracking-wider rounded-xl transition-colors shadow-md flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full py-2.5 px-3 bg-[#F4F0E8] hover:bg-[#E5E0D4] text-[#12201C] text-xs font-bold uppercase tracking-wider rounded-xl transition-colors shadow-md flex items-center justify-center gap-2 cursor-pointer"
             >
               <MessageSquare size={13} />
               <span>Chatear con el Concierge</span>
@@ -395,23 +395,23 @@ export const ConciergeWidget: React.FC = () => {
             animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
             exit={{ opacity: 0, scale: 0.96, y: 12, filter: 'blur(4px)' }}
             transition={springGentle}
-            className="mb-3 w-[92vw] sm:w-96 max-h-[82vh] bg-[#0E1E1B] text-white rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.6)] border border-[#C69A59]/30 flex flex-col overflow-hidden origin-bottom-right"
+            className="mb-3 w-[92vw] sm:w-96 max-h-[82vh] bg-[#12201C] text-white rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.6)] border border-white/15 flex flex-col overflow-hidden origin-bottom-right"
           >
             {/* Header */}
-            <div className="bg-[#142723] p-4 border-b border-white/10 flex items-center justify-between">
+            <div className="bg-[#1A2E28] p-4 border-b border-white/10 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="relative">
-                  <div className="w-10 h-10 rounded-full bg-[#C69A59]/20 border border-[#C69A59]/40 flex items-center justify-center font-serif font-bold text-xs text-[#E5C38F]">
+                  <div className="w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center font-serif font-bold text-xs text-[#F4F0E8]">
                     MCJ
                   </div>
-                  <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 border border-[#142723] rounded-full"></span>
+                  <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 border border-[#1A2E28] rounded-full"></span>
                 </div>
                 <div>
                   <h4 className="font-serif font-bold text-sm text-white leading-tight flex items-center gap-1.5">
                     <span>Concierge Villa MCJ</span>
-                    <Sparkles size={12} className="text-[#E5C38F]" />
+                    <Sparkles size={12} className="text-[#F4F0E8]/70" />
                   </h4>
-                  <p className="text-[11px] text-[#E5C38F]/90 font-medium">Asistente Virtual • En línea</p>
+                  <p className="text-[11px] text-[#F4F0E8]/70 font-medium">Asistente Virtual • En línea</p>
                 </div>
               </div>
 
@@ -443,7 +443,7 @@ export const ConciergeWidget: React.FC = () => {
                   <div
                     className={`max-w-[85%] rounded-2xl p-3.5 leading-relaxed ${
                       msg.sender === 'user'
-                        ? 'bg-[#C69A59] text-[#08110F] font-medium rounded-tr-sm shadow-md'
+                        ? 'bg-[#F4F0E8] text-[#12201C] font-medium rounded-tr-sm shadow-md'
                         : 'bg-white/10 text-white/95 rounded-tl-sm border border-white/10'
                     }`}
                   >
@@ -454,7 +454,7 @@ export const ConciergeWidget: React.FC = () => {
                       <div className="mt-3 space-y-2">
                         <div className="p-2.5 rounded-xl bg-white/5 border border-white/10">
                           <div className="flex justify-between items-baseline mb-1">
-                            <span className="font-serif font-bold text-[#E5C38F]">Casa Ceiba</span>
+                            <span className="font-serif font-bold text-[#F4F0E8]">Casa Ceiba</span>
                             <span className="text-[11px] text-white/80">$180.000/noche</span>
                           </div>
                           <p className="text-[11px] text-white/70">Hasta 4 personas • Terraza privada con hamacas frente a la piscina.</p>
@@ -462,7 +462,7 @@ export const ConciergeWidget: React.FC = () => {
 
                         <div className="p-2.5 rounded-xl bg-white/5 border border-white/10">
                           <div className="flex justify-between items-baseline mb-1">
-                            <span className="font-serif font-bold text-[#E5C38F]">Casa Samán</span>
+                            <span className="font-serif font-bold text-[#F4F0E8]">Casa Samán</span>
                             <span className="text-[11px] text-white/80">$200.000/noche</span>
                           </div>
                           <p className="text-[11px] text-white/70">Hasta 5 personas • Espacio amplio, vista natural y hamaca doble.</p>
@@ -470,7 +470,7 @@ export const ConciergeWidget: React.FC = () => {
 
                         <div className="p-2.5 rounded-xl bg-white/5 border border-white/10">
                           <div className="flex justify-between items-baseline mb-1">
-                            <span className="font-serif font-bold text-[#E5C38F]">Casa Moriche</span>
+                            <span className="font-serif font-bold text-[#F4F0E8]">Casa Moriche</span>
                             <span className="text-[11px] text-white/80">$250.000/noche</span>
                           </div>
                           <p className="text-[11px] text-white/70">Hasta 6 personas • Kiosco BBQ privado y 3 alcobas.</p>
@@ -480,7 +480,7 @@ export const ConciergeWidget: React.FC = () => {
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.97 }}
                           onClick={handleSelectCheckAvailability}
-                          className="w-full mt-2 py-2 bg-[#C69A59] text-[#08110F] font-bold text-[11px] uppercase tracking-wider rounded-xl flex items-center justify-center gap-1.5 cursor-pointer"
+                          className="w-full mt-2 py-2 bg-[#F4F0E8] text-[#12201C] font-bold text-[11px] uppercase tracking-wider rounded-xl flex items-center justify-center gap-1.5 cursor-pointer"
                         >
                           <Calendar size={13} />
                           <span>Consultar Disponibilidad</span>
@@ -495,7 +495,7 @@ export const ConciergeWidget: React.FC = () => {
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.97 }}
                           onClick={handleOpenBookingModal}
-                          className="w-full py-2.5 px-3 bg-[#C69A59] hover:bg-[#b58947] text-[#08110F] text-xs font-bold uppercase tracking-wider rounded-xl transition-colors shadow-md flex items-center justify-center gap-1.5 cursor-pointer"
+                          className="w-full py-2.5 px-3 bg-[#F4F0E8] hover:bg-[#E5E0D4] text-[#12201C] text-xs font-bold uppercase tracking-wider rounded-xl transition-colors shadow-md flex items-center justify-center gap-1.5 cursor-pointer"
                         >
                           <Calendar size={14} />
                           <span>Abrir Calendario & Fechas</span>
@@ -513,7 +513,7 @@ export const ConciergeWidget: React.FC = () => {
                             whileHover={{ scale: 1.015, x: 2 }}
                             whileTap={{ scale: 0.98 }}
                             onClick={opt.action}
-                            className="text-left py-2 px-3 rounded-xl bg-white/5 hover:bg-white/15 border border-white/10 text-[#E5C38F] hover:text-white font-medium text-[11px] transition-colors flex items-center justify-between cursor-pointer"
+                            className="text-left py-2 px-3 rounded-xl bg-white/5 hover:bg-white/15 border border-white/10 text-[#F4F0E8] hover:text-white font-medium text-[11px] transition-colors flex items-center justify-between cursor-pointer"
                           >
                             <span>{opt.label}</span>
                             <ArrowRight size={12} className="opacity-60" />
@@ -532,9 +532,9 @@ export const ConciergeWidget: React.FC = () => {
               {/* Bot typing indicator */}
               {isTyping && (
                 <div className="flex items-center gap-1.5 p-3 rounded-2xl bg-white/10 w-16 text-white/50">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E5C38F] animate-bounce"></span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E5C38F] animate-bounce [animation-delay:0.2s]"></span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E5C38F] animate-bounce [animation-delay:0.4s]"></span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#F4F0E8] animate-bounce"></span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#F4F0E8] animate-bounce [animation-delay:0.2s]"></span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#F4F0E8] animate-bounce [animation-delay:0.4s]"></span>
                 </div>
               )}
 
@@ -591,7 +591,7 @@ export const ConciergeWidget: React.FC = () => {
                 placeholder="Escribe tu duda aquí..."
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                className="flex-1 bg-white/5 text-white placeholder-white/40 text-xs px-3.5 py-2.5 rounded-xl border border-white/10 focus:outline-none focus:border-[#C69A59] transition-colors"
+                className="flex-1 bg-white/5 text-white placeholder-white/40 text-xs px-3.5 py-2.5 rounded-xl border border-white/10 focus:outline-none focus:border-white/30 transition-colors"
               />
               <motion.button
                 type="submit"
@@ -600,7 +600,7 @@ export const ConciergeWidget: React.FC = () => {
                 disabled={!inputValue.trim()}
                 className={`w-9 h-9 rounded-xl flex items-center justify-center transition-colors cursor-pointer ${
                   inputValue.trim()
-                    ? 'bg-[#C69A59] text-[#08110F]'
+                    ? 'bg-[#F4F0E8] text-[#12201C]'
                     : 'bg-white/5 text-white/30 cursor-not-allowed'
                 }`}
               >
@@ -625,14 +625,14 @@ export const ConciergeWidget: React.FC = () => {
         whileTap={{ scale: 0.95 }}
         transition={springGentle}
         aria-label="Abrir Concierge Villa MCJ"
-        className="group relative px-4 py-3 sm:px-5 sm:py-3.5 rounded-full bg-[#0E1E1B] hover:bg-[#142723] text-white border border-[#C69A59]/40 shadow-[0_12px_35px_rgba(0,0,0,0.45)] flex items-center gap-3 cursor-pointer"
+        className="group relative px-4 py-3 sm:px-5 sm:py-3.5 rounded-full bg-[#12201C] hover:bg-[#1A2E28] text-white border border-white/15 shadow-[0_12px_35px_rgba(0,0,0,0.45)] flex items-center gap-3 cursor-pointer"
       >
-        <div className="w-8 h-8 rounded-full bg-[#C69A59] text-[#08110F] flex items-center justify-center font-bold shrink-0 transition-transform group-hover:scale-105">
+        <div className="w-8 h-8 rounded-full bg-[#F4F0E8] text-[#12201C] flex items-center justify-center font-bold shrink-0 transition-transform group-hover:scale-105">
           {isOpen ? <X size={16} /> : <Sparkles size={16} />}
         </div>
 
         <div className="text-left pr-1">
-          <span className="block text-[9px] font-bold uppercase tracking-[0.18em] text-[#E5C38F] leading-none mb-0.5">
+          <span className="block text-[9px] font-bold uppercase tracking-[0.18em] text-[#F4F0E8]/70 leading-none mb-0.5">
             Villa MCJ
           </span>
           <span className="text-xs font-semibold text-white leading-none">
