@@ -25,6 +25,7 @@ export const ConciergeWidget: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showIdleTooltip, setShowIdleTooltip] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
+  const [isScrolledPastHero, setIsScrolledPastHero] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
 
@@ -48,18 +49,24 @@ export const ConciergeWidget: React.FC = () => {
     }).catch(console.error);
   }, []);
 
-  // Idle tooltip trigger when user scrolls and stays stationary
+  // Scroll listener to toggle visibility past the first hero section
   useEffect(() => {
     const handleScroll = () => {
+      const pastHero = window.scrollY > 380;
+      setIsScrolledPastHero(pastHero);
+
       setShowIdleTooltip(false);
       if (scrollTimer.current) clearTimeout(scrollTimer.current);
 
-      if (window.scrollY > 240 && !hasInteracted && !isOpen) {
+      if (pastHero && !hasInteracted && !isOpen) {
         scrollTimer.current = setTimeout(() => {
           setShowIdleTooltip(true);
         }, 2200);
       }
     };
+
+    // Check initial scroll on mount
+    handleScroll();
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
@@ -68,13 +75,13 @@ export const ConciergeWidget: React.FC = () => {
     };
   }, [hasInteracted, isOpen]);
 
-  // First time auto-prompt after 9 seconds if untouched
+  // First time auto-prompt after 10 seconds if untouched and scrolled
   useEffect(() => {
     const promptTimer = setTimeout(() => {
-      if (!hasInteracted && !isOpen) {
+      if (!hasInteracted && !isOpen && window.scrollY > 380) {
         setShowIdleTooltip(true);
       }
-    }, 9000);
+    }, 10000);
     return () => clearTimeout(promptTimer);
   }, [hasInteracted, isOpen]);
 
@@ -612,40 +619,48 @@ export const ConciergeWidget: React.FC = () => {
         )}
       </AnimatePresence>
 
-      {/* 3. The ONE and ONLY Floating Action Capsule Button */}
-      <motion.button
-        onClick={() => {
-          if (isOpen) {
-            handleCloseWidget();
-          } else {
-            handleOpenWidget();
-          }
-        }}
-        whileHover={{ scale: 1.04, y: -2 }}
-        whileTap={{ scale: 0.95 }}
-        transition={springGentle}
-        aria-label="Abrir Concierge Villa MCJ"
-        className="group relative px-4 py-3 sm:px-5 sm:py-3.5 rounded-full bg-[#12201C] hover:bg-[#1A2E28] text-white border border-white/15 shadow-[0_12px_35px_rgba(0,0,0,0.45)] flex items-center gap-3 cursor-pointer"
-      >
-        <div className="w-8 h-8 rounded-full bg-[#F4F0E8] text-[#12201C] flex items-center justify-center font-bold shrink-0 transition-transform group-hover:scale-105">
-          {isOpen ? <X size={16} /> : <Sparkles size={16} />}
-        </div>
+      {/* 3. The Floating Action Capsule Button: Hidden on Hero, Glassmorphic Translucent */}
+      <AnimatePresence>
+        {(isScrolledPastHero || isOpen) && (
+          <motion.button
+            key="concierge-capsule-button"
+            initial={{ opacity: 0, scale: 0.88, y: 16 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.88, y: 12 }}
+            onClick={() => {
+              if (isOpen) {
+                handleCloseWidget();
+              } else {
+                handleOpenWidget();
+              }
+            }}
+            whileHover={{ scale: 1.04, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+            transition={springGentle}
+            aria-label="Abrir Concierge Villa MCJ"
+            className="group relative px-4 py-3 sm:px-5 sm:py-3.5 rounded-full bg-[#12201C]/55 hover:bg-[#12201C]/80 backdrop-blur-2xl text-white border border-white/20 shadow-[0_12px_40px_rgba(0,0,0,0.3)] flex items-center gap-3 cursor-pointer transition-colors"
+          >
+            <div className="w-8 h-8 rounded-full bg-white/15 text-white flex items-center justify-center font-bold shrink-0 transition-transform group-hover:scale-105 backdrop-blur-md border border-white/10">
+              {isOpen ? <X size={16} /> : <Sparkles size={16} className="text-[#F4F0E8]" />}
+            </div>
 
-        <div className="text-left pr-1">
-          <span className="block text-[9px] font-bold uppercase tracking-[0.18em] text-[#F4F0E8]/70 leading-none mb-0.5">
-            Villa MCJ
-          </span>
-          <span className="text-xs font-semibold text-white leading-none">
-            {isOpen ? 'Cerrar Concierge' : 'Concierge & Fechas'}
-          </span>
-        </div>
+            <div className="text-left pr-1">
+              <span className="block text-[9px] font-bold uppercase tracking-[0.18em] text-[#F4F0E8]/70 leading-none mb-0.5">
+                Villa MCJ
+              </span>
+              <span className="text-xs font-semibold text-white/95 leading-none">
+                {isOpen ? 'Cerrar Concierge' : 'Concierge & Fechas'}
+              </span>
+            </div>
 
-        {/* Emerald Live Pulse */}
-        <span className="relative flex h-2.5 w-2.5 ml-0.5">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-        </span>
-      </motion.button>
+            {/* Emerald Live Pulse */}
+            <span className="relative flex h-2.5 w-2.5 ml-0.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+            </span>
+          </motion.button>
+        )}
+      </AnimatePresence>
 
     </div>
   );
