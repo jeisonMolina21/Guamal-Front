@@ -5,7 +5,6 @@ import Footer from '../components/layout/Footer.astro';
 import { SmoothScroll } from '../components/editorial/SmoothScroll';
 import { CustomCursor } from '../components/editorial/CustomCursor';
 import { Scene1Apertura } from '../components/editorial/Scene1Apertura';
-import { Scene2Manifiesto } from '../components/editorial/Scene2Manifiesto';
 import { Scene3Cabanas } from '../components/editorial/Scene3Cabanas';
 import { DestinationExplorer } from '../components/home/DestinationExplorer';
 import ExperienceSection from '../components/home/ExperienceSection.astro';
@@ -19,11 +18,8 @@ import CTA from '../components/home/CTA.astro';
   <Navbar client:load />
   
   <main class="flex-grow">
-    <!-- ESCENA 1: Apertura (Foto central pequeña con inset que se expande a pantalla completa y título con parallax) -->
+    <!-- ESCENA 1: Apertura (Inicia con la frase poética editorial y se abre del centro a los bordes con física Apple) -->
     <Scene1Apertura client:load />
-
-    <!-- ESCENA 2: Manifiesto (Scrubbed text reveal con mutación de color de fondo) -->
-    <Scene2Manifiesto client:load />
 
     <!-- ESCENA 3: Las Cabañas (Pinned con scroll horizontal & clip-path wipe mask entre estancias a pantalla completa) -->
     <Scene3Cabanas client:load />

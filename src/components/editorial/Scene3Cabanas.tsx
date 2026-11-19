@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { motion, useScroll, useTransform, useMotionTemplate, AnimatePresence } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring, useMotionTemplate, AnimatePresence } from 'framer-motion';
 import { ArrowRight, ChevronLeft, ChevronRight, Compass } from 'lucide-react';
 import { MOCK_PROPERTIES } from '../../services/api';
 import type { Property } from '../../services/api';
@@ -70,16 +70,24 @@ export function Scene3Cabanas() {
     offset: ['start start', 'end end']
   });
 
+  // Physical Apple spring momentum smoother for fluid, natural 60 FPS transitions
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 85,
+    damping: 25,
+    mass: 0.8,
+    restDelta: 0.0001
+  });
+
   // Calculate current active cabin index based on scroll progress for indicators
   const [activeScrollIndex, setActiveScrollIndex] = useState(0);
 
   useEffect(() => {
-    const unsubscribe = scrollYProgress.on('change', (latest) => {
+    const unsubscribe = smoothProgress.on('change', (latest) => {
       const index = Math.min(Math.floor(latest * totalCabins), totalCabins - 1);
       setActiveScrollIndex(Math.max(0, index));
     });
     return () => unsubscribe();
-  }, [scrollYProgress, totalCabins]);
+  }, [smoothProgress, totalCabins]);
 
   const handleBookCabin = (propertyId: string) => {
     reservationStore.setKey('selectedPropertyId', propertyId);
@@ -150,7 +158,7 @@ export function Scene3Cabanas() {
                 isBase={isBase}
                 startRange={startRange}
                 endRange={endRange}
-                scrollYProgress={scrollYProgress}
+                scrollYProgress={smoothProgress}
                 onBook={handleBookCabin}
                 formatPrice={formatPrice}
               />

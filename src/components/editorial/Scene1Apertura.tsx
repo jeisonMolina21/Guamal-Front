@@ -1,5 +1,20 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform, useMotionTemplate } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring, useMotionTemplate } from 'framer-motion';
+
+const WORDS = [
+  { text: "El", italic: false },
+  { text: "río", italic: true },
+  { text: "murmura", italic: false },
+  { text: "entre", italic: false },
+  { text: "piedras.", italic: false },
+  { text: "La", italic: false },
+  { text: "selva", italic: false },
+  { text: "cobija", italic: false },
+  { text: "el", italic: false },
+  { text: "descanso", italic: true },
+  { text: "sin", italic: false },
+  { text: "afán.", italic: false }
+];
 
 export function Scene1Apertura() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -9,122 +24,161 @@ export function Scene1Apertura() {
     offset: ['start start', 'end end'],
   });
 
-  // Clip-path inset interpolation: begins centered with rounded corners, expands to 100% full-bleed
-  const topInset = useTransform(scrollYProgress, [0, 0.65], [35, 0]);
-  const rightInset = useTransform(scrollYProgress, [0, 0.65], [8, 0]);
-  const bottomInset = useTransform(scrollYProgress, [0, 0.65], [27, 0]);
-  const leftInset = useTransform(scrollYProgress, [0, 0.65], [8, 0]);
-  const radiusInset = useTransform(scrollYProgress, [0, 0.65], [32, 0]);
+  // Physics-based Apple spring smoother for scroll scrub (eliminates mechanical jank)
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 85,
+    damping: 24,
+    mass: 0.8,
+    restDelta: 0.0001
+  });
 
-  const clipPath = useMotionTemplate`inset(${topInset}% ${rightInset}% ${bottomInset}% ${leftInset}% round ${radiusInset}px)`;
+  // 1. Center-out expansion (Iris / Center-to-edges reveal mask)
+  // Starts as an intimate focal center (0%) and blooms organically to full-bleed (130%)
+  const circleRadius = useTransform(smoothProgress, [0.05, 0.72], [0, 130]);
+  const clipPath = useMotionTemplate`circle(${circleRadius}% at 50% 50%)`;
 
-  // Inner image scale counter-balance for depth
-  const imgScale = useTransform(scrollYProgress, [0, 0.65, 1], [1.14, 1.0, 1.04]);
+  // 2. Initial Manifest Phrase transforms: subtle natural zoom + fade as the portal blooms
+  const textScale = useTransform(smoothProgress, [0, 0.45], [1, 1.06]);
+  const textOpacity = useTransform(smoothProgress, [0.15, 0.5], [1, 0]);
+  const textY = useTransform(smoothProgress, [0, 0.5], [0, -25]);
 
-  // Typography splits letter-by-letter and drifts outward in parallax
-  const xLeftTitle = useTransform(scrollYProgress, [0, 0.55], ['0vw', '-22vw']);
-  const xRightTitle = useTransform(scrollYProgress, [0, 0.55], ['0vw', '22vw']);
-  const titleOpacity = useTransform(scrollYProgress, [0, 0.45], [1, 0]);
+  // 3. Subtle organic parallax on the revealed landscape photo
+  const imgScale = useTransform(smoothProgress, [0.05, 0.75, 1], [1.18, 1.0, 1.03]);
 
-  // Meta elements fade quickly on scroll
-  const metaOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
+  // 4. Coordinates & top label fade out early
+  const headerOpacity = useTransform(smoothProgress, [0, 0.25], [1, 0]);
 
-  // Subtle subtitle revealed once the image expands
-  const captionOpacity = useTransform(scrollYProgress, [0.6, 0.85], [0, 1]);
-  const captionY = useTransform(scrollYProgress, [0.6, 0.85], [20, 0]);
+  // 5. Revealed editorial identity once the portal is fully opened to the edges
+  const revealedBrandOpacity = useTransform(smoothProgress, [0.65, 0.88], [0, 1]);
+  const revealedBrandY = useTransform(smoothProgress, [0.65, 0.88], [30, 0]);
+
+  // 6. Scroll cue fading out on initial interaction
+  const scrollCueOpacity = useTransform(smoothProgress, [0, 0.15], [1, 0]);
 
   return (
-    <section ref={containerRef} className="relative h-[220vh] w-full" id="apertura">
+    <section ref={containerRef} className="relative h-[240vh] w-full" id="inicio">
       
       {/* Sticky Fullscreen Canvas */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-[#F4F0E8] select-none">
+      <div className="sticky top-0 h-screen w-full overflow-hidden select-none bg-[#F4F0E8]">
         
-        {/* Top Minimal Editorial Coordinates */}
-        <motion.div 
-          style={{ opacity: metaOpacity }}
-          className="absolute top-[88px] left-8 right-8 z-30 flex items-center justify-between text-[11px] font-sans uppercase tracking-[0.22em] text-[#12201C]/60"
-        >
-          <div className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#12201C]/80"></span>
-            <span>4.0744° N, 73.7661° W</span>
-          </div>
-          <span className="hidden sm:inline">Guamal, Meta • Colombia</span>
-          <span className="hidden sm:inline">A orillas del río Humadea</span>
-        </motion.div>
-
-        {/* Massive Editorial Headline Split (Layered behind/around the central photo) */}
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-between pt-[clamp(110px,15vh,150px)] pb-[clamp(60px,9vh,100px)] pointer-events-none px-4">
+        {/* ========================================================================= */}
+        {/* LAYER 1: BASE STAGE - The Poetic Manifest Phrase (Frase 02)              */}
+        {/* ========================================================================= */}
+        <div className="absolute inset-0 z-10 flex flex-col justify-between p-8 sm:p-14 lg:p-20 text-[#12201C]">
           
-          {/* Top Word: VILLA */}
+          {/* Top Editorial Coordinates */}
           <motion.div 
-            style={{ x: xLeftTitle, opacity: titleOpacity }}
-            className="flex items-center justify-center font-display-serif text-[clamp(4.5rem,14vw,17rem)] font-light leading-[0.88] tracking-[-0.04em] text-[#12201C]"
+            style={{ opacity: headerOpacity }}
+            className="flex items-center justify-between text-[11px] font-sans uppercase tracking-[0.25em] text-[#12201C]/65 pt-12 sm:pt-14"
           >
-            <span>V</span>
-            <span>I</span>
-            <span className="font-editorial-italic font-normal">L</span>
-            <span>L</span>
-            <span>A</span>
+            <div className="flex items-center gap-2.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#12201C]/80 animate-pulse" />
+              <span>4.0744° N, 73.7661° W</span>
+            </div>
+            <span className="hidden sm:inline">Guamal, Meta • Colombia</span>
+            <span className="hidden md:inline text-[#12201C]/50">A orillas del río Humadea</span>
           </motion.div>
 
-          {/* Bottom Word: MCJ with Character Serif Italic */}
+          {/* The Massive Architectural Phrase at Viewport Center */}
           <motion.div 
-            style={{ x: xRightTitle, opacity: titleOpacity }}
-            className="flex items-center justify-center font-display-serif text-[clamp(4.5rem,14vw,17rem)] font-light leading-[0.88] tracking-[-0.04em] text-[#12201C]"
+            style={{ 
+              scale: textScale, 
+              opacity: textOpacity, 
+              y: textY 
+            }}
+            className="max-w-5xl mx-auto w-full my-auto text-center px-4"
           >
-            <span className="font-editorial-italic font-normal text-[#C25E3E]">M</span>
-            <span>C</span>
-            <span>J</span>
+            <h1 className="font-display-serif text-[clamp(2.6rem,6.8vw,6.4rem)] font-light leading-[1.08] tracking-[-0.035em] text-[#12201C] text-balance">
+              {WORDS.map((w, idx) => (
+                <span 
+                  key={idx} 
+                  className={`inline-block mr-[0.26em] last:mr-0 ${
+                    w.italic ? 'font-editorial-italic font-normal text-[#C25E3E]' : 'font-light'
+                  }`}
+                >
+                  {w.text}
+                </span>
+              ))}
+            </h1>
+
+            <p className="mt-6 text-xs sm:text-sm font-sans uppercase tracking-[0.24em] text-[#12201C]/55 font-normal">
+              Estancias bioclimáticas & Naturaleza privada
+            </p>
+          </motion.div>
+
+          {/* Bottom Gentle Scroll Indicator */}
+          <motion.div 
+            style={{ opacity: scrollCueOpacity }}
+            className="flex items-center justify-between text-[11px] font-sans uppercase tracking-[0.22em] text-[#12201C]/50 pb-4"
+          >
+            <span>Villa MCJ</span>
+            <div className="flex items-center gap-2 animate-bounce">
+              <span>Desliza para adentrarte</span>
+              <span className="text-sm">↓</span>
+            </div>
+            <span>01 / 06</span>
           </motion.div>
 
         </div>
 
-        {/* Central Expanding Photo Portal (Full Bleed on scroll) */}
+        {/* ========================================================================= */}
+        {/* LAYER 2: THE REVEAL PORTAL (Opens from Center to Edges via Mask Wipe)     */}
+        {/* ========================================================================= */}
         <motion.div 
           style={{ clipPath }}
-          className="absolute inset-0 w-full h-full z-20 overflow-hidden shadow-[0_30px_90px_rgba(18,32,28,0.2)]"
+          className="absolute inset-0 w-full h-full z-20 overflow-hidden will-change-[clip-path]"
           data-cursor="Explorar"
         >
-          <motion.img 
-            src="/hero-cabanas.jpg" 
-            alt="Villa MCJ, cabañas bioclimáticas y piscina frente a la vegetación nativa en Guamal, Meta"
-            style={{ scale: imgScale }}
-            className="w-full h-full object-cover object-center filter brightness-[0.96] contrast-[1.03]"
-            loading="eager"
-            fetchpriority="high"
-          />
-
-          {/* Vignette Overlay for Depth */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
-
-          {/* Caption revealed once photo is full screen */}
+          {/* Natural Depth Full-Bleed Photography */}
           <motion.div 
-            style={{ opacity: captionOpacity, y: captionY }}
-            className="absolute bottom-12 left-8 sm:left-14 right-8 sm:right-14 z-30 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 text-white"
+            style={{ scale: imgScale }}
+            className="absolute inset-0 w-full h-full"
           >
-            <div>
-              <span className="text-[10px] font-sans uppercase tracking-[0.25em] text-white/60 block mb-1">
-                Amanecer en el piedemonte
+            <img 
+              src="/hero-cabanas.jpg" 
+              alt="Villa MCJ, arquitectura bioclimática y piscina frente a la vegetación en Guamal, Meta"
+              className="w-full h-full object-cover object-center filter brightness-[0.94] contrast-[1.02]"
+              loading="eager"
+              fetchpriority="high"
+            />
+
+            {/* Natural Cinematographic Gradient for Contrast & Atmosphere */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#070A09] via-transparent to-[#070A09]/40 pointer-events-none" />
+            <div className="absolute inset-0 bg-radial-[at_50%_50%] from-transparent via-[#070A09]/10 to-[#070A09]/60 pointer-events-none" />
+          </motion.div>
+
+          {/* Editorial Identity Revealed Once the Portal Reaches the Edges */}
+          <motion.div 
+            style={{ 
+              opacity: revealedBrandOpacity, 
+              y: revealedBrandY 
+            }}
+            className="absolute inset-0 z-30 flex flex-col justify-between p-8 sm:p-14 lg:p-20 text-[#F4F0E8] pointer-events-none"
+          >
+            {/* Top Minimal Pill */}
+            <div className="flex items-center justify-between text-[11px] font-sans tracking-[0.25em] uppercase text-white/70 pt-12 sm:pt-14">
+              <span className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                Guamal, Meta • Colombia
               </span>
-              <p className="font-display-serif text-2xl sm:text-4xl text-white font-light tracking-tight max-w-xl">
-                Cabañas bioclimáticas entre brisa cordillerana y el río Humadea.
+              <span>Río Humadea</span>
+            </div>
+
+            {/* Bottom Monogram Title & Micro Essence */}
+            <div className="max-w-4xl pb-6">
+              <span className="block font-sans text-xs sm:text-sm uppercase tracking-[0.3em] text-[#F4F0E8]/70 mb-3">
+                Refugio de Descanso
+              </span>
+              <h2 className="text-[clamp(3.2rem,8vw,8rem)] font-display-serif font-light leading-[0.92] tracking-tight text-[#F4F0E8] mb-5">
+                Villa <span className="font-editorial-italic font-normal text-[#F4F0E8]">MCJ</span>
+              </h2>
+              <p className="text-sm sm:text-lg text-[#F4F0E8]/85 font-light font-sans max-w-xl leading-relaxed">
+                Seis cabañas independientes rodeadas de bosque nativo, aire puro y el sonido apacible del río.
               </p>
             </div>
 
-            <div className="text-right text-[11px] font-sans text-white/60 uppercase tracking-[0.2em]">
-              <span>Desliza para adentrarte ↓</span>
-            </div>
           </motion.div>
 
-        </motion.div>
-
-        {/* Bottom Scroll Cue */}
-        <motion.div 
-          style={{ opacity: metaOpacity }}
-          className="absolute bottom-28 sm:bottom-8 left-1/2 -translate-x-1/2 z-30 text-[10px] font-sans uppercase tracking-[0.25em] text-[#12201C]/50 flex items-center gap-2"
-        >
-          <span className="w-1 h-3 rounded-full border border-[#12201C]/40 inline-block animate-bounce"></span>
-          <span>Desplaza para abrir el día</span>
         </motion.div>
 
       </div>
