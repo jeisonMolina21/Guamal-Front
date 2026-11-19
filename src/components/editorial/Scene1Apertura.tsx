@@ -34,29 +34,29 @@ export function Scene1Apertura() {
 
   // 1. Center-out expansion (Iris / Center-to-edges reveal mask)
   // Starts as an intimate focal center (0%) and blooms organically to full-bleed (130%)
-  const circleRadius = useTransform(smoothProgress, [0.05, 0.72], [0, 130]);
+  const circleRadius = useTransform(smoothProgress, [0.02, 0.62], [0, 130]);
   const clipPath = useMotionTemplate`circle(${circleRadius}% at 50% 50%)`;
 
   // 2. Initial Manifest Phrase transforms: subtle natural zoom + fade as the portal blooms
-  const textScale = useTransform(smoothProgress, [0, 0.45], [1, 1.06]);
-  const textOpacity = useTransform(smoothProgress, [0.15, 0.5], [1, 0]);
-  const textY = useTransform(smoothProgress, [0, 0.5], [0, -25]);
+  const textScale = useTransform(smoothProgress, [0, 0.38], [1, 1.05]);
+  const textOpacity = useTransform(smoothProgress, [0.06, 0.38], [1, 0]);
+  const textY = useTransform(smoothProgress, [0, 0.38], [0, -20]);
 
   // 3. Subtle organic parallax on the revealed landscape photo
-  const imgScale = useTransform(smoothProgress, [0.05, 0.75, 1], [1.18, 1.0, 1.03]);
+  const imgScale = useTransform(smoothProgress, [0.02, 0.65, 1], [1.14, 1.0, 1.02]);
 
   // 4. Coordinates & top label fade out early
-  const headerOpacity = useTransform(smoothProgress, [0, 0.25], [1, 0]);
+  const headerOpacity = useTransform(smoothProgress, [0, 0.20], [1, 0]);
 
   // 5. Revealed editorial identity once the portal is fully opened to the edges
-  const revealedBrandOpacity = useTransform(smoothProgress, [0.65, 0.88], [0, 1]);
-  const revealedBrandY = useTransform(smoothProgress, [0.65, 0.88], [30, 0]);
+  const revealedBrandOpacity = useTransform(smoothProgress, [0.55, 0.82], [0, 1]);
+  const revealedBrandY = useTransform(smoothProgress, [0.55, 0.82], [25, 0]);
 
   // 6. Scroll cue fading out on initial interaction
-  const scrollCueOpacity = useTransform(smoothProgress, [0, 0.15], [1, 0]);
+  const scrollCueOpacity = useTransform(smoothProgress, [0, 0.12], [1, 0]);
 
   return (
-    <section ref={containerRef} className="relative h-[240vh] w-full" id="inicio">
+    <section ref={containerRef} className="relative h-[135vh] w-full" id="inicio">
       
       {/* Sticky Fullscreen Canvas */}
       <div className="sticky top-0 h-screen w-full overflow-hidden select-none bg-[#F4F0E8]">
