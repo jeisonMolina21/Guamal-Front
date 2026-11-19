@@ -1,12 +1,11 @@
 ---
-// ExperienceSection.astro — Rediseño de Pantalla Única (Single Viewport)
-// Foto grande a la izquierda con texto superpuesto + Grilla 2x4 a la derecha
+// ExperienceSection.astro — Rediseño Inmersivo: Foto de Fondo Full-Bleed + Tabla Translúcida
 const AMENITIES = [
   {
     num: "01",
     tag: "Acuática",
     title: "Piscina & Solárium",
-    desc: "Agua cristalina entre jardines nativos y tumbonas con sombra natural."
+    desc: "Agua cristalina entre jardines nativos y tumbonas de descanso."
   },
   {
     num: "02",
@@ -24,7 +23,7 @@ const AMENITIES = [
     num: "04",
     tag: "Ubicación",
     title: "Río Humadea a 10 min",
-    desc: "Cercanía inmediata a los balnearios más apetecidos del Meta."
+    desc: "Cercanía inmediata a los balnearios naturales más famosos del Meta."
   },
   {
     num: "05",
@@ -55,79 +54,78 @@ const AMENITIES = [
 
 <section 
   id="experiencia" 
-  class="relative w-full lg:h-screen min-h-[680px] bg-[#F4F0E8] text-[#12201C] flex items-center justify-center py-12 lg:py-0 px-4 sm:px-8 lg:px-12 select-none overflow-hidden"
+  class="relative w-full lg:h-screen min-h-[720px] bg-[#070A09] text-[#F4F0E8] flex items-center justify-center py-16 lg:py-0 px-6 sm:px-10 lg:px-16 select-none overflow-hidden"
 >
-  <div class="max-w-[1400px] w-full mx-auto flex flex-col lg:flex-row gap-6 lg:gap-8 items-stretch h-full max-h-[860px] my-auto">
+  
+  <!-- ========================================================================= -->
+  <!-- 1. FULL-BLEED BACKGROUND PHOTOGRAPHY                                      -->
+  <!-- ========================================================================= -->
+  <div class="absolute inset-0 w-full h-full overflow-hidden">
+    <img 
+      src="https://images.unsplash.com/photo-1540541338287-41700207dee6?q=80&w=1600&auto=format&fit=crop" 
+      alt="Piscina campestre y solárium rodeado de jardines autóctonos en Villa MCJ" 
+      class="w-full h-full object-cover object-center filter brightness-[0.82] contrast-[1.05] scale-105 transition-transform duration-1000 ease-out"
+      loading="lazy"
+    />
+
+    <!-- Cinematographic Vignette Overlays for Flawless Text & Glass Contrast -->
+    <div class="absolute inset-0 bg-gradient-to-r from-[#070A09]/95 via-[#070A09]/75 to-[#070A09]/85 pointer-events-none"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-[#070A09] via-transparent to-[#070A09]/70 pointer-events-none"></div>
+    <div class="absolute inset-0 bg-radial-[at_50%_50%] from-transparent via-black/20 to-black/60 pointer-events-none"></div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- 2. FOREGROUND CONTENT: Left Headline + Right Translucent 2x4 Matrix       -->
+  <!-- ========================================================================= -->
+  <div class="max-w-[1420px] w-full mx-auto relative z-10 flex flex-col lg:flex-row gap-10 lg:gap-14 items-center justify-between my-auto">
     
-    <!-- ========================================================================= -->
-    <!-- PARTE IZQUIERDA: Foto grande con titular y esencia narrativa superpuesta  -->
-    <!-- ========================================================================= -->
-    <div class="w-full lg:w-7/12 relative rounded-3xl overflow-hidden min-h-[440px] lg:min-h-0 flex flex-col justify-between p-8 sm:p-12 lg:p-14 shadow-2xl border border-[#12201C]/10 group">
+    <!-- LEFT COLUMN: Monumental Narrative Title & Essence -->
+    <div class="w-full lg:w-5/12 text-[#F4F0E8]">
       
-      <!-- High-res background photography -->
-      <img 
-        src="https://images.unsplash.com/photo-1540541338287-41700207dee6?q=80&w=1400&auto=format&fit=crop" 
-        alt="Piscina campestre rodeada de vegetación nativa en Villa MCJ" 
-        class="absolute inset-0 w-full h-full object-cover object-center filter brightness-[0.92] contrast-[1.03] transition-transform duration-1000 ease-out group-hover:scale-105"
-        loading="lazy"
-      />
-
-      <!-- Cinematographic Vignette Overlays for Flawless Text Readability -->
-      <div class="absolute inset-0 bg-gradient-to-t from-[#070A09]/95 via-[#070A09]/45 to-transparent pointer-events-none"></div>
-      <div class="absolute inset-0 bg-gradient-to-b from-[#070A09]/70 via-transparent to-transparent pointer-events-none"></div>
-
-      <!-- Top Overlay Badge -->
-      <div class="relative z-10 flex items-center justify-between text-white/80">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-[10px] font-sans font-medium uppercase tracking-[0.2em]">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-          La Vida en Villa MCJ
-        </div>
-        <span class="text-[11px] font-mono tracking-widest text-white/60">04 / Entorno</span>
+      {/* Top Editorial Pill */}
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-[10px] font-sans font-medium uppercase tracking-[0.22em] text-[#F4F0E8]/80 mb-6">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>04 / Entorno · La Vida en Villa MCJ</span>
       </div>
 
-      <!-- Bottom Superimposed Content: Title + Micro-phrase (As requested) -->
-      <div class="relative z-10 text-[#F4F0E8] max-w-xl">
-        <h2 class="text-3xl sm:text-4xl lg:text-[2.85rem] font-serif font-light leading-[1.06] tracking-tight mb-4 text-balance">
-          Días de sol y agua cristalina. <br />
-          <span class="font-editorial-italic font-normal text-[#F4F0E8]">Noches de brisa fresca y fogata.</span>
-        </h2>
-        
-        <p class="text-xs sm:text-sm lg:text-base text-white/85 font-light leading-relaxed font-sans">
-          Cada rincón fue concebido para romper el ritmo acelerado de la ciudad. Una piscina rodeada de jardines autóctonos, asadores para compartir carne a la llanera y hamacas con vista al horizonte.
-        </p>
+      <h2 class="text-3xl sm:text-5xl lg:text-[3.25rem] font-serif font-light leading-[1.04] tracking-tight mb-6 text-balance text-[#F4F0E8]">
+        Días de sol y agua cristalina. <br />
+        <span class="font-editorial-italic font-normal text-[#F4F0E8]">Noches de brisa fresca y fogata.</span>
+      </h2>
+      
+      <p class="text-sm sm:text-base lg:text-lg text-[#F4F0E8]/85 font-light leading-relaxed font-sans max-w-xl mb-8">
+        Cada rincón fue concebido para romper el ritmo acelerado de la ciudad. Una piscina rodeada de jardines autóctonos, asadores para compartir carne a la llanera y hamacas con vista al horizonte.
+      </p>
 
-        <!-- Subtle coordinate hint -->
-        <div className="mt-6 flex items-center gap-4 text-[10px] uppercase font-mono tracking-widest text-white/50 pt-4 border-t border-white/15">
-          <span>Clima cálido 28°C</span>
-          <span>•</span>
-          <span>Brisa de piedemonte</span>
-          <span>•</span>
-          <span>Guamal, Meta</span>
-        </div>
+      {/* Atmospheric Micro-Meta */}
+      <div class="flex items-center gap-4 text-xs font-mono tracking-widest text-[#F4F0E8]/50 pt-5 border-t border-white/15">
+        <span>Clima cálido 28°C</span>
+        <span>•</span>
+        <span>Brisa de piedemonte</span>
+        <span>•</span>
+        <span>Río Humadea</span>
       </div>
 
     </div>
 
-    <!-- ========================================================================= -->
-    <!-- PARTE DERECHA: Grilla directa 2 x 4 de amenidades (sin marco envolvente)   -->
-    <!-- ========================================================================= -->
-    <div class="w-full lg:w-5/12 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-3.5 my-auto">
+    <!-- RIGHT COLUMN: Translucent Glassmorphic 2 x 4 Grid Directly Over the Background -->
+    <div class="w-full lg:w-7/12 grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4 my-auto">
       {AMENITIES.map((item) => (
-        <div class="group p-4 sm:p-4.5 rounded-2xl bg-white/85 hover:bg-white backdrop-blur-md border border-[#12201C]/10 shadow-[0_4px_20px_rgba(18,32,28,0.04)] hover:shadow-[0_10px_25px_rgba(18,32,28,0.08)] transition-all duration-300 flex flex-col justify-between">
+        <div class="group p-4 sm:p-5 rounded-2xl bg-black/40 hover:bg-black/60 backdrop-blur-2xl border border-white/15 hover:border-white/30 shadow-[0_8px_32px_rgba(0,0,0,0.35)] transition-all duration-300 flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between mb-2">
-              <span class="font-mono text-[10px] text-[#C25E3E] font-medium tracking-wider">
+              <span class="font-mono text-[11px] text-[#C25E3E] font-medium tracking-wider">
                 {item.num}
               </span>
-              <span class="text-[9px] uppercase tracking-widest text-[#12201C]/50 font-sans font-medium">
+              <span class="text-[9px] uppercase tracking-widest text-white/50 font-sans font-medium">
                 {item.tag}
               </span>
             </div>
-            <h3 class="font-serif font-bold text-xs sm:text-sm text-[#12201C] group-hover:text-[#C25E3E] transition-colors leading-snug mb-1.5">
+            <h3 class="font-serif font-bold text-sm sm:text-base text-white group-hover:text-[#F4F0E8] transition-colors leading-snug mb-1.5">
               {item.title}
             </h3>
           </div>
-          <p class="text-[11px] sm:text-xs text-[#12201C]/75 font-light leading-relaxed font-sans">
+          <p class="text-xs text-white/75 font-light leading-relaxed font-sans">
             {item.desc}
           </p>
         </div>
@@ -135,4 +133,5 @@ const AMENITIES = [
     </div>
 
   </div>
+
 </section>
