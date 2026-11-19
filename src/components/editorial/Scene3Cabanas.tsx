@@ -46,7 +46,7 @@ const CABIN_EDITORIAL_META: Record<string, { italicWord: string; restWord: strin
   }
 };
 
-const AUTO_INTERVAL_MS = 6500; // 6.5 seconds per cabin scene
+const AUTO_INTERVAL_MS = 5000; // 5.0 seconds per cabin scene (requested by user)
 
 export function Scene3Cabanas() {
   const [properties] = useState<Property[]>(MOCK_PROPERTIES);

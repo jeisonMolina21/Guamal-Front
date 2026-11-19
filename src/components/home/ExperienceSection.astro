@@ -1,132 +1,161 @@
 ---
-import { Leaf, Users, Sparkles, Waves, Flame, Compass, ArrowRight, ShieldCheck, Moon, Sun } from 'lucide-astro';
-import { TourismGallery } from './TourismGallery';
+// ExperienceSection.astro — Rediseño de Pantalla Única (Single Viewport)
+// Foto grande a la izquierda con texto superpuesto + Grilla 2x4 a la derecha
+const AMENITIES = [
+  {
+    num: "01",
+    tag: "Acuática",
+    title: "Piscina & Solárium",
+    desc: "Agua cristalina entre jardines nativos y tumbonas con sombra natural."
+  },
+  {
+    num: "02",
+    tag: "Gastronomía",
+    title: "Kiosco BBQ Criollo",
+    desc: "Instalaciones para asados al carbón o leña y sancocho al aire libre."
+  },
+  {
+    num: "03",
+    tag: "Relajación",
+    title: "Hamacas del Piedemonte",
+    desc: "Brisa fresca continua de cordillera para descanso profundo."
+  },
+  {
+    num: "04",
+    tag: "Ubicación",
+    title: "Río Humadea a 10 min",
+    desc: "Cercanía inmediata a los balnearios más apetecidos del Meta."
+  },
+  {
+    num: "05",
+    tag: "Seguridad",
+    title: "Predio Seguro & Parking",
+    desc: "Parqueadero interno privado con portón de acceso controlado."
+  },
+  {
+    num: "06",
+    tag: "Exclusividad",
+    title: "100% Silencio Nocturno",
+    desc: "Aislamiento campestre garantizado sin multitudes ni ruidos."
+  },
+  {
+    num: "07",
+    tag: "Accesibilidad",
+    title: "Acceso Pavimentado",
+    desc: "Llegada directa sin dificultades de terreno ni caminos destapados."
+  },
+  {
+    num: "08",
+    tag: "Confort",
+    title: "WiFi & Clima Interior",
+    desc: "Fibra óptica, aire acondicionado silencioso y ventilación bioclimática."
+  }
+];
 ---
 
-<section class="py-32 bg-[#FAF7F2] relative overflow-hidden" id="experiencia">
-  
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+<section 
+  id="experiencia" 
+  class="relative w-full lg:h-screen min-h-[680px] bg-[#F4F0E8] text-[#12201C] flex items-center justify-center py-12 lg:py-0 px-4 sm:px-8 lg:px-12 select-none overflow-hidden"
+>
+  <div class="max-w-[1400px] w-full mx-auto flex flex-col lg:flex-row gap-6 lg:gap-8 items-stretch h-full max-h-[860px] my-auto">
     
-    <!-- Narrative Header -->
-    <div class="max-w-3xl mb-20">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#142723]/5 border border-[#142723]/10 text-[#142723] text-xs font-bold uppercase tracking-[0.16em] mb-4">
-        <Sparkles size={13} class="text-[#142723]" />
-        La Vida en Villa MCJ
+    <!-- ========================================================================= -->
+    <!-- PARTE IZQUIERDA: Foto grande con titular y esencia narrativa superpuesta  -->
+    <!-- ========================================================================= -->
+    <div class="w-full lg:w-7/12 relative rounded-3xl overflow-hidden min-h-[440px] lg:min-h-0 flex flex-col justify-between p-8 sm:p-12 lg:p-14 shadow-2xl border border-[#12201C]/10 group">
+      
+      <!-- High-res background photography -->
+      <img 
+        src="https://images.unsplash.com/photo-1540541338287-41700207dee6?q=80&w=1400&auto=format&fit=crop" 
+        alt="Piscina campestre rodeada de vegetación nativa en Villa MCJ" 
+        class="absolute inset-0 w-full h-full object-cover object-center filter brightness-[0.92] contrast-[1.03] transition-transform duration-1000 ease-out group-hover:scale-105"
+        loading="lazy"
+      />
+
+      <!-- Cinematographic Vignette Overlays for Flawless Text Readability -->
+      <div class="absolute inset-0 bg-gradient-to-t from-[#070A09]/95 via-[#070A09]/45 to-transparent pointer-events-none"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-[#070A09]/70 via-transparent to-transparent pointer-events-none"></div>
+
+      <!-- Top Overlay Badge -->
+      <div class="relative z-10 flex items-center justify-between text-white/80">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-[10px] font-sans font-medium uppercase tracking-[0.2em]">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          La Vida en Villa MCJ
+        </div>
+        <span class="text-[11px] font-mono tracking-widest text-white/60">04 / Entorno</span>
       </div>
-      <h2 class="text-3xl sm:text-5xl lg:text-6xl font-serif font-bold text-[#142723] leading-[1.08] tracking-tight">
-        Días de sol y agua cristalina. <br />
-        <span class="font-editorial-italic font-normal text-[#1E3A34]">Noches de brisa fresca y fogata.</span>
-      </h2>
-      <p class="text-base sm:text-lg text-gray-600 mt-6 font-light leading-relaxed">
-        Cada rincón fue concebido para romper el ritmo acelerado de la ciudad. Una piscina rodeada de jardines autóctonos, asadores para compartir carne a la llanera y hamacas con vista al horizonte.
-      </p>
+
+      <!-- Bottom Superimposed Content: Title + Micro-phrase (As requested) -->
+      <div class="relative z-10 text-[#F4F0E8] max-w-xl">
+        <h2 class="text-3xl sm:text-4xl lg:text-[2.85rem] font-serif font-light leading-[1.06] tracking-tight mb-4 text-balance">
+          Días de sol y agua cristalina. <br />
+          <span class="font-editorial-italic font-normal text-[#F4F0E8]">Noches de brisa fresca y fogata.</span>
+        </h2>
+        
+        <p class="text-xs sm:text-sm lg:text-base text-white/85 font-light leading-relaxed font-sans">
+          Cada rincón fue concebido para romper el ritmo acelerado de la ciudad. Una piscina rodeada de jardines autóctonos, asadores para compartir carne a la llanera y hamacas con vista al horizonte.
+        </p>
+
+        <!-- Subtle coordinate hint -->
+        <div className="mt-6 flex items-center gap-4 text-[10px] uppercase font-mono tracking-widest text-white/50 pt-4 border-t border-white/15">
+          <span>Clima cálido 28°C</span>
+          <span>•</span>
+          <span>Brisa de piedemonte</span>
+          <span>•</span>
+          <span>Guamal, Meta</span>
+        </div>
+      </div>
+
     </div>
 
-    <!-- Editorial Bento Layout with Asymmetric Hierarchy -->
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 mb-16">
+    <!-- ========================================================================= -->
+    <!-- PARTE DERECHA: Tablita / Grilla 2 x 4 de amenidades y comodidades         -->
+    <!-- ========================================================================= -->
+    <div class="w-full lg:w-5/12 flex flex-col justify-between rounded-3xl bg-white/60 backdrop-blur-xl border border-[#12201C]/10 p-6 sm:p-7 shadow-lg">
       
-      <!-- Bento Item 1 (8 cols): Piscina & Solárium with Real Atmosphere -->
-      <div class="md:col-span-8 group relative rounded-3xl overflow-hidden min-h-[420px] sm:min-h-[480px] shadow-xl border border-[#C4B9A7]/40 flex flex-col justify-end p-8 sm:p-12 transition-all duration-500 hover:shadow-2xl">
-        <img 
-          src="https://images.unsplash.com/photo-1540541338287-41700207dee6?q=80&w=1200&auto=format&fit=crop" 
-          alt="Piscina campestre y solárium en Villa MCJ" 
-          class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-          loading="lazy"
-        />
-        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent"></div>
-
-        <div class="relative z-10 text-white">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-xs font-semibold uppercase tracking-wider mb-3">
-            <Waves size={14} class="text-white" />
-            Zona Acuática & Solárium
-          </div>
-          <h3 class="text-2xl sm:text-4xl font-serif font-bold mb-3">Piscina privada entre jardines nativos</h3>
-          <p class="text-white/85 text-xs sm:text-base max-w-xl font-light leading-relaxed">
-            Sumérgete durante las cálidas tardes llaneras y descansa en tumbonas con sombra natural. Agua cristalina tratada y perímetro seguro para niños.
-          </p>
-        </div>
+      <!-- Top Grid Header -->
+      <div class="flex items-center justify-between pb-3 border-b border-[#12201C]/10 text-[11px] font-mono uppercase tracking-wider text-[#12201C]/60">
+        <span>Amenidades & Comodidades</span>
+        <span>8 Especificaciones</span>
       </div>
 
-      <!-- Bento Item 2 (4 cols): Kiosco BBQ & Asados -->
-      <div class="md:col-span-4 group relative rounded-3xl overflow-hidden min-h-[420px] sm:min-h-[480px] shadow-xl border border-[#C4B9A7]/40 flex flex-col justify-end p-8 transition-all duration-500 hover:shadow-2xl">
-        <img 
-          src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=800&auto=format&fit=crop" 
-          alt="Zona de asados y Kiosco BBQ" 
-          class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-          loading="lazy"
-        />
-        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent"></div>
-
-        <div class="relative z-10 text-white">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-xs font-semibold uppercase tracking-wider mb-3">
-            <Flame size={14} class="text-white" />
-            Kiosco & Asador Criollo
+      <!-- 2 x 4 Grid Matrix -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-3.5 my-auto py-3">
+        {AMENITIES.map((item) => (
+          <div class="group p-3.5 sm:p-4 rounded-2xl bg-[#12201C]/[0.03] hover:bg-[#12201C]/[0.07] border border-[#12201C]/[0.08] transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="font-mono text-[10px] text-[#C25E3E] font-medium tracking-wider">
+                  {item.num}
+                </span>
+                <span class="text-[9px] uppercase tracking-widest text-[#12201C]/45 font-sans font-medium">
+                  {item.tag}
+                </span>
+              </div>
+              <h3 class="font-serif font-bold text-xs sm:text-sm text-[#12201C] group-hover:text-[#C25E3E] transition-colors leading-snug mb-1">
+                {item.title}
+              </h3>
+            </div>
+            <p class="text-[11px] text-[#12201C]/70 font-light leading-relaxed font-sans">
+              {item.desc}
+            </p>
           </div>
-          <h3 class="text-xl sm:text-2xl font-serif font-bold mb-2">Asados a la leña o carbón</h3>
-          <p class="text-white/85 text-xs sm:text-sm font-light">
-            Instalaciones listas para compartir mamona, carnes a la brasa y sancocho de gallina al aire libre.
-          </p>
-        </div>
+        ))}
       </div>
 
-      <!-- Bento Item 3 (4 cols): Hamacas & Silencio -->
-      <div class="md:col-span-4 bg-white rounded-3xl p-8 sm:p-10 border border-[#C4B9A7]/40 shadow-lg flex flex-col justify-between group transition-all duration-300 hover:shadow-xl">
-        <div>
-          <div class="w-12 h-12 rounded-2xl bg-[#142723]/5 text-[#1E3A34] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-            <Leaf size={24} />
-          </div>
-          <span class="text-xs font-bold uppercase tracking-[0.2em] text-[#142723] block mb-2">Desconexión Consciente</span>
-          <h3 class="text-xl font-serif font-bold text-[#142723] mb-3">Hamacas & Brisa del Piedemonte</h3>
-          <p class="text-gray-600 text-xs sm:text-sm font-light leading-relaxed">
-            Cada cabaña cuenta con amplios corredores exteriores equipados con hamacas dobles tejidas, perfectas para una siesta con brisa continua.
-          </p>
-        </div>
-        <div class="pt-6 border-t border-gray-100 flex items-center justify-between text-xs font-semibold text-[#1E3A34]">
-          <span>Silencio nocturno garantizado</span>
-          <span class="text-emerald-700 font-bold">100% Privado</span>
-        </div>
-      </div>
-
-      <!-- Bento Item 4 (4 cols): Ubicación Estratégica -->
-      <div class="md:col-span-4 bg-white rounded-3xl p-8 sm:p-10 border border-[#C4B9A7]/40 shadow-lg flex flex-col justify-between group transition-all duration-300 hover:shadow-xl">
-        <div>
-          <div class="w-12 h-12 rounded-2xl bg-[#142723]/5 text-[#1E3A34] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-            <Compass size={24} />
-          </div>
-          <span class="text-xs font-bold uppercase tracking-[0.2em] text-[#142723] block mb-2">Cercanía Privilegiada</span>
-          <h3 class="text-xl font-serif font-bold text-[#142723] mb-3">Río Humadea a solo 10 minutos</h3>
-          <p class="text-gray-600 text-xs sm:text-sm font-light leading-relaxed">
-            Sin trancones ni largos desplazamientos. Sal de tu cabaña y en 10 minutos estarás sumergido en los balnearios de aguas más famosas del Meta.
-          </p>
-        </div>
-        <div class="pt-6 border-t border-gray-100 flex items-center justify-between text-xs font-semibold text-[#1E3A34]">
-          <span>Vía pavimentada</span>
-          <span class="text-emerald-700 font-bold">Acceso directo</span>
-        </div>
-      </div>
-
-      <!-- Bento Item 5 (4 cols): Seguridad & Confort -->
-      <div class="md:col-span-4 bg-white rounded-3xl p-8 sm:p-10 border border-[#C4B9A7]/40 shadow-lg flex flex-col justify-between group transition-all duration-300 hover:shadow-xl">
-        <div>
-          <div class="w-12 h-12 rounded-2xl bg-[#142723]/5 text-[#1E3A34] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-            <ShieldCheck size={24} />
-          </div>
-          <span class="text-xs font-bold uppercase tracking-[0.2em] text-[#C69A59] block mb-2">Seguridad & Comodidad</span>
-          <h3 class="text-xl font-serif font-bold text-[#142723] mb-3">Predio Seguro & Parqueadero</h3>
-          <p class="text-gray-600 text-xs sm:text-sm font-light leading-relaxed">
-            Parqueadero interno privado dentro de la propiedad, portón de acceso controlado y atención personalizada por sus anfitriones.
-          </p>
-        </div>
-        <div class="pt-6 border-t border-gray-100 flex items-center justify-between text-xs font-semibold text-[#1E3A34]">
-          <span>Parqueadero incluido</span>
-          <span class="text-emerald-700 font-bold">Sin costo adicional</span>
-        </div>
+      <!-- Bottom Minimal CTA strip inside the right table -->
+      <div class="pt-3 border-t border-[#12201C]/10 flex items-center justify-between text-xs">
+        <span class="text-[#12201C]/60 text-[11px]">¿Preguntas sobre el predio?</span>
+        <a 
+          href="/contacto" 
+          class="font-medium text-[#12201C] hover:text-[#C25E3E] transition-colors flex items-center gap-1.5 text-xs underline underline-offset-4"
+        >
+          <span>Consultar al anfitrión</span>
+          <span>→</span>
+        </a>
       </div>
 
     </div>
 
   </div>
 </section>
-
-<!-- Guamal Tourism Showcase Slider -->
-<TourismGallery client:load />

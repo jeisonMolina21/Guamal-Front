@@ -21,13 +21,15 @@ import CTA from '../components/home/CTA.astro';
     <!-- ESCENA 1: Apertura (Inicia con la frase poética editorial y se abre del centro a los bordes con física Apple) -->
     <Scene1Apertura client:load />
 
-    <!-- ESCENA 3: Las Cabañas (Pinned con scroll horizontal & clip-path wipe mask entre estancias a pantalla completa) -->
+    <!-- ESCENA 3: Las Cabañas (Pantalla completa con auto-avance cada 5s & clip-path wipe mask) -->
     <Scene3Cabanas client:load />
 
-    <!-- Resto de secciones previas (A la espera de aprobación para implementar Escenas 4, 5 y 6) -->
+    <!-- ESCENA 4: La Vida en Villa MCJ (Single-Screen: Foto grande a la izq con título superpuesto + Grilla 2x4 a la der) -->
+    <ExperienceSection />
+
+    <!-- Resto de secciones de destinos y galería -->
     <div id="resto-de-la-villa">
       <DestinationExplorer client:load />
-      <ExperienceSection />
       <Gallery />
       <CTA />
     </div>
