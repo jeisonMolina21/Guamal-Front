@@ -10,10 +10,10 @@ export function Scene1Apertura() {
   });
 
   // Clip-path inset interpolation: begins centered with rounded corners, expands to 100% full-bleed
-  const topInset = useTransform(scrollYProgress, [0, 0.65], [18, 0]);
-  const rightInset = useTransform(scrollYProgress, [0, 0.65], [22, 0]);
-  const bottomInset = useTransform(scrollYProgress, [0, 0.65], [18, 0]);
-  const leftInset = useTransform(scrollYProgress, [0, 0.65], [22, 0]);
+  const topInset = useTransform(scrollYProgress, [0, 0.65], [35, 0]);
+  const rightInset = useTransform(scrollYProgress, [0, 0.65], [8, 0]);
+  const bottomInset = useTransform(scrollYProgress, [0, 0.65], [27, 0]);
+  const leftInset = useTransform(scrollYProgress, [0, 0.65], [8, 0]);
   const radiusInset = useTransform(scrollYProgress, [0, 0.65], [32, 0]);
 
   const clipPath = useMotionTemplate`inset(${topInset}% ${rightInset}% ${bottomInset}% ${leftInset}% round ${radiusInset}px)`;
@@ -42,18 +42,18 @@ export function Scene1Apertura() {
         {/* Top Minimal Editorial Coordinates */}
         <motion.div 
           style={{ opacity: metaOpacity }}
-          className="absolute top-8 left-8 right-8 z-30 flex items-center justify-between text-[11px] font-sans uppercase tracking-[0.22em] text-[#12201C]/60"
+          className="absolute top-[88px] left-8 right-8 z-30 flex items-center justify-between text-[11px] font-sans uppercase tracking-[0.22em] text-[#12201C]/60"
         >
           <div className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-[#12201C]/80"></span>
             <span>4.0744° N, 73.7661° W</span>
           </div>
-          <span>Guamal, Meta • Colombia</span>
+          <span className="hidden sm:inline">Guamal, Meta • Colombia</span>
           <span className="hidden sm:inline">A orillas del río Humadea</span>
         </motion.div>
 
         {/* Massive Editorial Headline Split (Layered behind/around the central photo) */}
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none px-4">
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-between pt-[clamp(110px,15vh,150px)] pb-[clamp(60px,9vh,100px)] pointer-events-none px-4">
           
           {/* Top Word: VILLA */}
           <motion.div 
@@ -70,7 +70,7 @@ export function Scene1Apertura() {
           {/* Bottom Word: MCJ with Character Serif Italic */}
           <motion.div 
             style={{ x: xRightTitle, opacity: titleOpacity }}
-            className="flex items-center justify-center font-display-serif text-[clamp(4.5rem,14vw,17rem)] font-light leading-[0.88] tracking-[-0.04em] text-[#12201C] mt-[-1vw]"
+            className="flex items-center justify-center font-display-serif text-[clamp(4.5rem,14vw,17rem)] font-light leading-[0.88] tracking-[-0.04em] text-[#12201C]"
           >
             <span className="font-editorial-italic font-normal text-[#C25E3E]">M</span>
             <span>C</span>
@@ -121,7 +121,7 @@ export function Scene1Apertura() {
         {/* Bottom Scroll Cue */}
         <motion.div 
           style={{ opacity: metaOpacity }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 text-[10px] font-sans uppercase tracking-[0.25em] text-[#12201C]/50 flex items-center gap-2"
+          className="absolute bottom-28 sm:bottom-8 left-1/2 -translate-x-1/2 z-30 text-[10px] font-sans uppercase tracking-[0.25em] text-[#12201C]/50 flex items-center gap-2"
         >
           <span className="w-1 h-3 rounded-full border border-[#12201C]/40 inline-block animate-bounce"></span>
           <span>Desplaza para abrir el día</span>

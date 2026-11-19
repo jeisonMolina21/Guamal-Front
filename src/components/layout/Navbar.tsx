@@ -46,7 +46,7 @@ export function Navbar() {
               <span className="font-serif text-xl sm:text-2xl font-bold tracking-tight leading-none text-white transition-colors">
                 Villa MCJ
               </span>
-              <span className="text-[9px] uppercase tracking-[0.24em] font-medium text-white/60 mt-1">
+              <span className="hidden sm:block whitespace-nowrap text-[9px] uppercase tracking-[0.24em] font-medium text-white/60 mt-1">
                 Guamal, Meta • Eco-Refugio
               </span>
             </div>

@@ -12,6 +12,13 @@
   --color-night-obsidian: #070A09;
   --color-clay-terracotta: #C25E3E;
   --color-chalk-white: #FFFFFF;
+
+  /* Legacy tokens: still used by ~190 classes in admin, booking, auth, footer.
+     Restored and mapped onto the editorial palette so those views get styled again. */
+  --color-guamal-green: #12201C;
+  --color-guamal-green-light: #485955;
+  --color-guamal-cream: #F4F0E8;
+  --color-guamal-text: #12201C;
 }
 
 @layer base {
@@ -98,4 +105,12 @@
     will-change: transform;
     mix-blend-mode: difference;
   }
+}
+
+/* Glass pill used by the navbar menu trigger (was referenced but never defined) */
+.glass-pill-light {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
