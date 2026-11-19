@@ -3,7 +3,6 @@ import { useStore } from '@nanostores/react';
 import { reservationStore } from '../../store/reservationStore';
 import { api } from '../../services/api';
 import { motion, AnimatePresence } from 'framer-motion';
-import './CheckoutForm.css';
 
 export const CheckoutForm: React.FC<{ onSuccess?: (resId: string) => void }> = ({ onSuccess }) => {
   const state = useStore(reservationStore);
@@ -20,7 +19,7 @@ export const CheckoutForm: React.FC<{ onSuccess?: (resId: string) => void }> = (
         propertyId: state.selectedPropertyId,
         checkInDate: state.checkInDate,
         checkOutDate: state.checkOutDate,
-        guestsCount: Number(state.guestsCount),
+        guestsCount: Number(state.guestsCount || 2),
         guest: {
           name: state.guestName,
           email: state.guestEmail,
@@ -48,25 +47,18 @@ export const CheckoutForm: React.FC<{ onSuccess?: (resId: string) => void }> = (
     reservationStore.set({ ...state, [field]: value });
   };
 
-  if (!state.selectedPropertyId) {
-    return (
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-16">
-        <p className="text-red-500 font-medium text-lg">Por favor selecciona una propiedad primero.</p>
-        <a href="/reservar/disponibilidad" className="mt-6 inline-block bg-guamal-green text-white px-6 py-2 rounded-full font-medium">Volver a Casas</a>
-      </motion.div>
-    );
-  }
-
   return (
     <motion.div 
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-xl border border-white p-8 md:p-12 relative overflow-hidden"
+      transition={{ duration: 0.35 }}
+      className="p-1 sm:p-2 text-white"
     >
-      <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-guamal-green-light to-guamal-green"></div>
-      
-      <h2 className="text-3xl font-serif font-bold text-guamal-green mb-8">Tus Datos Personales</h2>
+      <div className="mb-6">
+        <span className="text-[10px] uppercase font-bold tracking-widest text-white/40 block mb-1">Paso Final</span>
+        <h2 className="text-2xl font-serif font-bold text-white">Datos de Contacto</h2>
+        <p className="text-xs text-white/60 font-light mt-1">Completa tus datos para enviarte la confirmación oficial.</p>
+      </div>
       
       <AnimatePresence>
         {error && (
@@ -74,71 +66,69 @@ export const CheckoutForm: React.FC<{ onSuccess?: (resId: string) => void }> = (
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 rounded-r-lg mb-8 text-sm"
+            className="bg-red-500/10 border border-red-500/30 text-red-300 p-4 rounded-2xl mb-6 text-xs"
           >
             {error}
           </motion.div>
         )}
       </AnimatePresence>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-1">
-          <label className="block text-xs font-bold tracking-wider text-gray-500 uppercase ml-1">Nombre Completo</label>
+          <label className="block text-[10px] font-bold tracking-widest text-white/50 uppercase ml-1">Nombre Completo</label>
           <input 
             type="text" 
             required 
-            value={state.guestName}
+            value={state.guestName || ''}
             onChange={(e) => updateField('guestName', e.target.value)}
-            className="w-full bg-gray-50 border border-gray-200 rounded-xl px-5 py-3.5 focus:bg-white focus:ring-2 focus:ring-guamal-green/20 focus:border-guamal-green outline-none transition-all shadow-sm"
+            className="w-full bg-white/[0.05] border border-white/10 rounded-2xl px-4 py-3 text-xs text-white placeholder-white/30 focus:border-white focus:outline-none transition-all"
             placeholder="Ej. Juan Pérez"
           />
         </div>
         
         <div className="space-y-1">
-          <label className="block text-xs font-bold tracking-wider text-gray-500 uppercase ml-1">Correo Electrónico</label>
+          <label className="block text-[10px] font-bold tracking-widest text-white/50 uppercase ml-1">Correo Electrónico</label>
           <input 
             type="email" 
             required 
-            value={state.guestEmail}
+            value={state.guestEmail || ''}
             onChange={(e) => updateField('guestEmail', e.target.value)}
-            className="w-full bg-gray-50 border border-gray-200 rounded-xl px-5 py-3.5 focus:bg-white focus:ring-2 focus:ring-guamal-green/20 focus:border-guamal-green outline-none transition-all shadow-sm"
+            className="w-full bg-white/[0.05] border border-white/10 rounded-2xl px-4 py-3 text-xs text-white placeholder-white/30 focus:border-white focus:outline-none transition-all"
             placeholder="juan@ejemplo.com"
           />
         </div>
 
         <div className="space-y-1">
-          <label className="block text-xs font-bold tracking-wider text-gray-500 uppercase ml-1">WhatsApp / Teléfono</label>
+          <label className="block text-[10px] font-bold tracking-widest text-white/50 uppercase ml-1">WhatsApp / Teléfono Móvil</label>
           <input 
             type="tel" 
             required 
-            value={state.guestPhone}
+            value={state.guestPhone || ''}
             onChange={(e) => updateField('guestPhone', e.target.value)}
-            className="w-full bg-gray-50 border border-gray-200 rounded-xl px-5 py-3.5 focus:bg-white focus:ring-2 focus:ring-guamal-green/20 focus:border-guamal-green outline-none transition-all shadow-sm"
+            className="w-full bg-white/[0.05] border border-white/10 rounded-2xl px-4 py-3 text-xs text-white placeholder-white/30 focus:border-white focus:outline-none transition-all"
             placeholder="+57 300 000 0000"
           />
         </div>
 
-        <div className="pt-8">
-          <motion.button 
-            whileHover={{ scale: loading ? 1 : 1.02 }}
-            whileTap={{ scale: loading ? 1 : 0.98 }}
+        <div className="pt-4">
+          <button 
             type="submit" 
             disabled={loading}
-            className="relative w-full bg-guamal-green text-white font-bold text-lg py-4 rounded-xl hover:bg-guamal-green-light transition-colors disabled:opacity-80 overflow-hidden shadow-lg"
+            className="w-full py-4 rounded-full bg-white hover:bg-white/90 text-[#070B0A] font-bold text-xs uppercase tracking-wider transition-all duration-200 active:scale-95 shadow-[0_6px_30px_rgba(255,255,255,0.2)] disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2"
           >
             {loading ? (
               <motion.div 
                 animate={{ rotate: 360 }}
                 transition={{ repeat: Infinity, ease: "linear", duration: 1 }}
-                className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full mx-auto"
+                className="w-5 h-5 border-2 border-[#070B0A]/30 border-t-[#070B0A] rounded-full"
               />
             ) : (
-              'Completar Solicitud'
+              'Completar Solicitud de Reserva →'
             )}
-          </motion.button>
-          <p className="text-xs text-center text-gray-400 mt-6 flex items-center justify-center gap-2">
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
-            Tus datos están protegidos y encriptados.
+          </button>
+          
+          <p className="text-[11px] text-center text-white/40 mt-4 leading-relaxed">
+            Tus datos están protegidos. Te enviaremos la confirmación oficial y comprobante por WhatsApp.
           </p>
         </div>
       </form>

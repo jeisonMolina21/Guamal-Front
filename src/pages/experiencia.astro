@@ -2,139 +2,108 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { Navbar } from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer.astro';
-import { Waves, UtensilsCrossed, Sun, Compass, Sparkles, MessageCircle, HeartHandshake } from 'lucide-astro';
+import { Waves, Flame, Leaf, Compass, Sparkles, ArrowRight } from 'lucide-astro';
 
 const experiences = [
   {
-    title: "Tardes de Piscina y Sol",
-    description: "Nuestra piscina está diseñada para el disfrute de grandes y chicos. Rodeada de palmeras y vegetación llanera, es el punto de encuentro ideal para refrescarse durante los días cálidos de Guamal.",
-    image: "https://images.unsplash.com/photo-1540541338287-41700207dee6?q=80&w=800&auto=format&fit=crop",
-    highlight: "Zona húmeda & Solárium"
+    title: "Piscina & Solárium entre Palmeras",
+    tagline: "Frescura & Calma",
+    description: "Nuestra piscina es un remanso de agua cristalina rodeada de jardines nativos. Diseñada para refrescarse durante las tardes soleadas del piedemonte y descansar en cómodas tumbonas con sombra natural.",
+    image: "https://images.unsplash.com/photo-1540541338287-41700207dee6?q=80&w=1200&auto=format&fit=crop",
+    detail: "Zona húmeda privada • Apta para familias y niños"
   },
   {
-    title: "Zona BBQ y Asados Llaneros",
-    description: "Un espacio equipado con parrilla para que prepares tus mejores cortes de carne al estilo llanero. Comparte historias, música y deliciosas comidas al aire libre con tus seres queridos.",
-    image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=800&auto=format&fit=crop",
-    highlight: "Asador campestre"
+    title: "Asados Criollos en el Kiosco BBQ",
+    tagline: "Tradición Llanera",
+    description: "Instalaciones completamente equipadas para preparar cortes al carbón o leña. El punto de reunión perfecto para compartir historias, carnes asadas y sobremesas sin afán al caer la tarde.",
+    image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=1200&auto=format&fit=crop",
+    detail: "Parrilla campestre • Mesas amplias al aire libre"
   },
   {
-    title: "Desconexión en Hamacas",
-    description: "Siente la brisa llanera, lee un libro o duerme una siesta reparadora en nuestras terrazas con hamacas tradicionales colombianas mientras escuchas el trinar de las aves.",
-    image: "https://images.unsplash.com/photo-1588880331179-bc9b93a8cb65?q=80&w=800&auto=format&fit=crop",
-    highlight: "Paz & Tranquilidad"
+    title: "Tardes de Hamaca & Brisa Pura",
+    tagline: "Desconexión Consciente",
+    description: "Siente la brisa continua que desciende de la cordillera al atardecer. Cada cabaña cuenta con corredores exteriores con hamacas dobles tradicionales para leer, meditar o tomar una siesta reparadora.",
+    image: "https://images.unsplash.com/photo-1588880331179-bc9b93a8cb65?q=80&w=1200&auto=format&fit=crop",
+    detail: "Hamacas tejidas dobles • Silencio y cantos de aves"
   },
   {
-    title: "Paseos y Río Humadea",
-    description: "A solo pocos minutos del hostal se encuentra el emblemático Río Humadea, famoso por sus aguas cristalinas, balnearios naturales y deliciosas opciones gastronómicas a la orilla del río.",
-    image: "https://images.unsplash.com/photo-1596489311497-6a56e1804d9c?q=80&w=800&auto=format&fit=crop",
-    highlight: "Ecoturismo local"
+    title: "Balnearios y Pozos de Río Humadea",
+    tagline: "A 10 min de Villa MCJ",
+    description: "A solo diez minutos en vehículo se encuentran las aguas transparentes y templadas de Río Humadea, sus balnearios naturales de piedra y quioscos gastronómicos donde degustar sancocho criollo y pescado fresco.",
+    image: "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=1200&auto=format&fit=crop",
+    detail: "Aguas del Sumapaz • Paseos de olla tradicionales"
   }
 ];
 ---
 
-<BaseLayout title="Experiencia | Guamal Mini Barrio">
+<BaseLayout title="Experiencia | Villa MCJ">
   <Navbar client:load />
 
-  <main class="flex-grow pt-28 pb-24 bg-guamal-cream/40">
-    <!-- Header Hero -->
-    <div class="relative py-16 bg-gradient-to-b from-guamal-green/10 to-transparent">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <span class="text-xs font-bold tracking-widest text-guamal-green uppercase mb-3 inline-block bg-guamal-green/10 px-4 py-1.5 rounded-full">
-          Vive el Llano sin Afán
-        </span>
-        <h1 class="text-4xl md:text-6xl font-serif font-bold text-guamal-green mb-6 leading-tight">
-          Mucho más que un alojamiento
-        </h1>
-        <p class="text-lg md:text-xl text-gray-600 font-light max-w-2xl mx-auto leading-relaxed">
-          En Guamal Mini Barrio creamos momentos de pausa, reencuentro y armonía con el entorno natural de la región del Ariari.
-        </p>
-      </div>
+  <main class="flex-grow pt-32 pb-28 bg-[#FAF7F2]">
+    
+    <!-- Header -->
+    <div class="max-w-4xl mx-auto px-6 sm:px-8 text-center mb-24">
+      <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#142723]/5 border border-[#142723]/10 text-[#142723] text-xs font-bold uppercase tracking-[0.16em] mb-4">
+        <Sparkles size={13} class="text-[#C69A59]" />
+        La Experiencia en Villa MCJ
+      </span>
+      <h1 class="text-4xl sm:text-6xl font-serif font-bold text-[#142723] leading-[1.08] tracking-tight mb-6">
+        Tiempo para contemplar, <br />
+        <span class="font-editorial-italic font-normal text-[#1E3A34]">descansar y reencontrarse.</span>
+      </h1>
+      <p class="text-base sm:text-lg text-gray-600 font-light max-w-2xl mx-auto leading-relaxed">
+        Lejos del ruido urbano y las pantallas. En Villa MCJ cada momento está pensado para que disfrutes del sol, el agua pura y la calidez llanera.
+      </p>
     </div>
 
-    <!-- Experience Cards -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-        {experiences.map((item) => (
-          <div class="bg-white rounded-3xl overflow-hidden shadow-lg border border-gray-100 flex flex-col group hover:shadow-2xl transition-all duration-300">
-            <div class="aspect-[16/10] relative overflow-hidden">
+    <!-- Editorial Staggered Feed -->
+    <div class="max-w-6xl mx-auto px-6 sm:px-8 space-y-24">
+      {experiences.map((exp, idx) => (
+        <article class={`grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center ${idx % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
+          
+          <div class={`lg:col-span-7 relative rounded-3xl overflow-hidden shadow-xl border border-[#C4B9A7]/30 group ${idx % 2 === 1 ? 'lg:order-2' : ''}`}>
+            <div class="aspect-[16/11] overflow-hidden">
               <img 
-                src={item.image} 
-                alt={item.title} 
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                src={exp.image} 
+                alt={exp.title} 
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-103"
+                loading="lazy"
               />
-              <span class="absolute top-4 left-4 bg-black/60 backdrop-blur-md text-white text-xs font-bold px-3.5 py-1.5 rounded-full">
-                {item.highlight}
+              <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+            </div>
+
+            <div class="absolute top-5 left-5">
+              <span class="px-3.5 py-1 rounded-full bg-[#142723]/85 backdrop-blur-md text-white text-[11px] font-bold uppercase tracking-wider">
+                {exp.tagline}
               </span>
             </div>
-            <div class="p-8 md:p-10 flex flex-col flex-grow">
-              <h2 class="text-2xl font-serif font-bold text-guamal-green mb-3">{item.title}</h2>
-              <p class="text-gray-600 leading-relaxed font-light mb-6 flex-grow">{item.description}</p>
-              <div class="pt-4 border-t border-gray-100 flex items-center justify-between">
-                <span class="text-xs font-semibold text-guamal-green-light uppercase tracking-wider">Disponible para huéspedes</span>
-                <span class="text-sm font-bold text-green-600">✓ Incluido</span>
-              </div>
+          </div>
+
+          <div class={`lg:col-span-5 space-y-6 ${idx % 2 === 1 ? 'lg:order-1' : ''}`}>
+            <div>
+              <span class="text-xs font-bold uppercase tracking-[0.2em] text-[#C69A59]">
+                0{idx + 1} • Experiencia
+              </span>
+              <h2 class="text-3xl sm:text-4xl font-serif font-bold text-[#142723] mt-1">
+                {exp.title}
+              </h2>
+            </div>
+
+            <p class="text-sm sm:text-base text-gray-600 font-light leading-relaxed">
+              {exp.description}
+            </p>
+
+            <div class="pt-4 border-t border-gray-200/70 text-xs font-semibold text-[#1E3A34] flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-[#C69A59]"></span>
+              <span>{exp.detail}</span>
             </div>
           </div>
-        ))}
-      </div>
 
-      <!-- Culture and Gastronomy Banner -->
-      <div class="mt-16 bg-white rounded-3xl p-8 md:p-14 border border-gray-100 shadow-xl flex flex-col lg:flex-row items-center gap-10">
-        <div class="lg:w-1/2">
-          <span class="text-xs font-bold tracking-widest text-guamal-green uppercase mb-3 block">Gastronomía y Tradición</span>
-          <h3 class="text-3xl md:text-4xl font-serif font-bold text-guamal-green mb-4">
-            Sabores auténticos de los Llanos
-          </h3>
-          <p class="text-gray-600 leading-relaxed mb-6 font-light">
-            Guamal es reconocido por sus delicias típicas: mamona (carne a la llanera), pan de arroz artesanal, tungos de plátano y guarapo fresco. Te asesoramos con recomendaciones de los mejores restaurantes y piqueteaderos tradicionales de la zona.
-          </p>
-          <div class="flex flex-wrap gap-4">
-            <button 
-              id="exp-book-btn"
-              class="bg-guamal-green hover:bg-guamal-green-light text-white px-7 py-3.5 rounded-full font-bold shadow-md transition-all flex items-center gap-2 cursor-pointer"
-            >
-              <Sparkles size={18} />
-              Planear mi Estadía
-            </button>
-            <a 
-              href="https://wa.me/573001234567?text=Hola,%20me%20gustaria%20saber%20mas%20sobre%20las%20experiencias%20en%20Guamal" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              class="border border-guamal-green text-guamal-green hover:bg-guamal-green/5 px-7 py-3.5 rounded-full font-medium transition-colors flex items-center gap-2"
-            >
-              <MessageCircle size={18} />
-              Preguntar a nuestro anfitrión
-            </a>
-          </div>
-        </div>
-        <div class="lg:w-1/2 rounded-2xl overflow-hidden shadow-lg aspect-[4/3] w-full">
-          <img 
-            src="https://images.unsplash.com/photo-1563212004-9580b3950244?q=80&w=800&auto=format&fit=crop" 
-            alt="Cultura y paisaje llanero" 
-            class="w-full h-full object-cover"
-          />
-        </div>
-      </div>
-
+        </article>
+      ))}
     </div>
+
   </main>
 
   <Footer />
 </BaseLayout>
-
-<script>
-  import { isBookingModalOpen } from '../store/uiStore';
-
-  function initExpButtons() {
-    const btn = document.getElementById('exp-book-btn');
-    if (btn) {
-      btn.onclick = (e) => {
-        e.preventDefault();
-        isBookingModalOpen.set(true);
-      };
-    }
-  }
-
-  initExpButtons();
-  document.addEventListener('astro:page-load', initExpButtons);
-</script>

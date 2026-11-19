@@ -24,16 +24,29 @@ export const WhatsAppWidget: React.FC = () => {
     }).catch(console.error);
   }, []);
 
-  // Automatically open the popup window after 4 seconds on first visit
+  // Automatically open the popup window after 8 seconds on first visit,
+  // and automatically close it after 15 seconds of inactivity if the user doesn't interact
   useEffect(() => {
-    const timer = setTimeout(() => {
+    // Open timer (8 seconds)
+    const openTimer = setTimeout(() => {
       if (!hasInteracted) {
         setIsOpen(true);
       }
-    }, 4000);
+    }, 8000);
 
-    return () => clearTimeout(timer);
+    return () => clearTimeout(openTimer);
   }, [hasInteracted]);
+
+  // Auto-close timeout after 15 seconds if it was auto-opened
+  useEffect(() => {
+    if (isOpen && !hasInteracted) {
+      const closeTimer = setTimeout(() => {
+        setIsOpen(false);
+      }, 15000);
+
+      return () => clearTimeout(closeTimer);
+    }
+  }, [isOpen, hasInteracted]);
 
   const handleToggle = () => {
     setHasInteracted(true);
@@ -76,10 +89,10 @@ export const WhatsAppWidget: React.FC = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 15 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 15 }}
-            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+            initial={{ opacity: 0, scale: 0.94, y: 12, filter: "blur(4px)" }}
+            animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
+            exit={{ opacity: 0, scale: 0.96, y: 8, filter: "blur(2px)" }}
+            transition={{ type: "spring", stiffness: 320, damping: 28, mass: 0.8 }}
             className="mb-3 w-80 sm:w-88 bg-white rounded-3xl shadow-2xl border border-gray-100/80 overflow-hidden"
           >
             {/* Header */}
@@ -147,31 +160,28 @@ export const WhatsAppWidget: React.FC = () => {
 
               <button
                 onClick={handleSendWhatsApp}
-                className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold py-3 px-4 rounded-xl shadow-md hover:shadow-lg flex items-center justify-center gap-2 text-sm transition-all cursor-pointer"
+                className="w-full bg-[#1E3A34] hover:bg-[#142723] text-white font-medium py-3.5 px-4 rounded-xl shadow-md hover:shadow-lg flex items-center justify-center gap-2 text-xs uppercase tracking-wider transition-all cursor-pointer"
               >
-                <Send size={16} />
-                Chatear por WhatsApp
+                <Send size={15} className="text-[#E0BA80]" />
+                <span>Contactar vía WhatsApp</span>
               </button>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Floating Circular Message Icon Button */}
+      {/* Floating Circular Message Icon Button - Refined and tranquil */}
       <motion.button
         onClick={handleToggle}
-        whileHover={{ scale: 1.08 }}
+        whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         aria-label="Abrir chat de WhatsApp"
-        className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white flex items-center justify-center shadow-[0_8px_30px_rgba(37,211,102,0.4)] hover:shadow-[0_8px_35px_rgba(37,211,102,0.6)] transition-all cursor-pointer group"
+        className="relative w-13 h-13 sm:w-14 sm:h-14 rounded-full bg-[#142723] hover:bg-[#1E3A34] text-[#E0BA80] border border-[#C69A59]/40 flex items-center justify-center shadow-[0_10px_30px_rgba(0,0,0,0.25)] transition-all cursor-pointer group"
       >
-        {/* Pulsing indicator ring */}
-        <span className="absolute -inset-1 rounded-full bg-[#25D366] opacity-30 animate-ping group-hover:opacity-0" style={{ animationDuration: '3s' }}></span>
+        <MessageCircle size={22} className="relative z-10 transition-transform group-hover:scale-105" />
 
-        <MessageCircle size={28} className="relative z-10 transition-transform group-hover:scale-110" />
-
-        {/* Badge dot */}
-        <span className="absolute top-0 right-0 w-4 h-4 bg-red-500 border-2 border-white rounded-full"></span>
+        {/* Discreet status dot */}
+        <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-emerald-400 border border-[#142723] rounded-full"></span>
       </motion.button>
     </div>
   );

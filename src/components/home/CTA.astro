@@ -1,54 +1,98 @@
 ---
-import './CTA.css';
+import { ArrowRight, Phone, MessageSquare, ShieldCheck, Sparkles, MapPin } from 'lucide-astro';
 ---
 
-<section class="relative py-24 bg-guamal-green overflow-hidden">
-  <div class="absolute inset-0">
+<section class="py-28 bg-[#142723] text-white relative overflow-hidden">
+  
+  {/* Atmospheric Background Media */}
+  <div class="absolute inset-0 z-0">
     <img 
       src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=2070&auto=format&fit=crop" 
-      alt="Amanecer llanero" 
-      class="w-full h-full object-cover opacity-20"
+      alt="Amanecer llanero en Guamal" 
+      class="w-full h-full object-cover opacity-15 filter contrast-125"
+      loading="lazy"
     />
-    <div class="absolute inset-0 bg-gradient-to-r from-guamal-green via-guamal-green/80 to-transparent"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-[#142723] via-[#142723]/90 to-[#142723]/70"></div>
   </div>
-  
+
   <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="max-w-2xl">
-      <h2 class="text-4xl md:text-5xl font-serif font-bold text-white mb-6">
-        ¿Listo para desconectarte?
-      </h2>
-      <p class="text-xl text-guamal-cream/90 mb-10 font-light">
-        Consulta disponibilidad y encuentra la casa ideal para tu estadía.
-      </p>
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
       
-      <div class="flex flex-wrap gap-4">
-        <button 
-          id="cta-book-btn"
-          class="bg-white hover:bg-gray-50 text-guamal-green px-8 py-4 rounded-full font-medium transition-all shadow-lg hover:shadow-xl flex items-center gap-2 cursor-pointer"
-        >
-          Consultar disponibilidad
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-          </svg>
-        </button>
+      {/* Narrative Offer */}
+      <div class="lg:col-span-8">
+        <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 text-white/80 text-xs font-bold uppercase tracking-[0.16em] mb-4">
+          <Sparkles size={13} class="text-white" />
+          Planifica tu Escapada
+        </span>
+        <h2 class="text-3xl sm:text-5xl lg:text-6xl font-serif font-bold text-white leading-tight mb-6">
+          ¿Listo para desconectarte <br />
+          <span class="font-editorial-italic font-normal text-white/70">en Villa MCJ?</span>
+        </h2>
+        <p class="text-base sm:text-lg text-white/80 max-w-xl font-light leading-relaxed mb-8">
+          Consulta disponibilidad en tiempo real o escríbenos directamente por WhatsApp para recibir atención personalizada, cotizaciones grupales y mapas de llegada.
+        </p>
+
+        <div class="flex flex-wrap items-center gap-4">
+          <button 
+            id="cta-book-btn"
+            class="px-8 py-4 rounded-full bg-white hover:bg-white/90 text-[#070B0A] font-bold text-xs uppercase tracking-wider transition-all duration-300 shadow-[0_10px_35px_rgba(255,255,255,0.15)] active:scale-95 flex items-center gap-3 cursor-pointer group"
+          >
+            <span>Consultar Disponibilidad</span>
+            <ArrowRight size={15} class="group-hover:translate-x-1.5 transition-transform" />
+          </button>
+
+          <a 
+            href="https://wa.me/573001234567?text=Hola,%20quisiera%20asesoria%20para%20reservar%20en%20Villa%20MCJ%20Guamal"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-6 py-4 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white font-medium text-xs uppercase tracking-wider transition-all flex items-center gap-2"
+          >
+            <MessageSquare size={15} class="text-white/80" />
+            <span>Chatear con Anfitrión</span>
+          </a>
+        </div>
       </div>
+
+      {/* Info Card Strip */}
+      <div class="lg:col-span-4 bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 text-white space-y-6">
+        <div>
+          <span class="text-[10px] uppercase font-bold tracking-[0.2em] text-white/50 block mb-1">Ubicación Física</span>
+          <p class="text-sm font-light text-white/90">
+            Sector Campestre Vía Humadea, Guamal, Meta, Colombia.
+          </p>
+        </div>
+
+        <div class="pt-4 border-t border-white/10">
+          <span class="text-[10px] uppercase font-bold tracking-[0.2em] text-white/50 block mb-1">Horarios Oficiales</span>
+          <p class="text-sm font-light text-white/90">
+            Check-in: 3:00 PM • Check-out: 1:00 PM
+          </p>
+        </div>
+
+        <div class="pt-4 border-t border-white/10 flex items-center gap-3 text-xs text-emerald-300">
+          <ShieldCheck size={18} />
+          <span>Reserva directa con confirmación inmediata</span>
+        </div>
+      </div>
+
     </div>
   </div>
-  
-  <script>
-    import { isBookingModalOpen } from '../../store/uiStore';
-    
-    function initCTA() {
-      const ctaBtn = document.getElementById('cta-book-btn');
-      if (ctaBtn) {
-        ctaBtn.onclick = (e) => {
-          e.preventDefault();
-          isBookingModalOpen.set(true);
-        };
-      }
-    }
 
-    initCTA();
-    document.addEventListener('astro:page-load', initCTA);
-  </script>
 </section>
+
+<script>
+  import { isBookingModalOpen } from '../../store/uiStore';
+  
+  function initCTA() {
+    const ctaBtn = document.getElementById('cta-book-btn');
+    if (ctaBtn) {
+      ctaBtn.onclick = (e) => {
+        e.preventDefault();
+        isBookingModalOpen.set(true);
+      };
+    }
+  }
+
+  initCTA();
+  document.addEventListener('astro:page-load', initCTA);
+</script>

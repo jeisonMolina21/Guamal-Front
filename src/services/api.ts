@@ -65,7 +65,7 @@ export const MOCK_PROPERTIES: Property[] = [
   {
     id: '11111111-1111-1111-1111-111111111111',
     name: 'Casa Ceiba',
-    description: 'Hermosa cabaña prefabricada con vista al jardín, terraza privada con hamacas, aire acondicionado y cocina dotada.',
+    description: 'Orientada estratégicamente para capturar las corrientes de aire fresco de la cordillera. Terraza privada con hamacas dobles frente al solárium y piscina.',
     pricePerNight: 180000,
     basePrice: 180000,
     capacity: 4,
@@ -77,26 +77,62 @@ export const MOCK_PROPERTIES: Property[] = [
   {
     id: '22222222-2222-2222-2222-222222222222',
     name: 'Casa Samán',
-    description: 'Espaciosa y fresca, perfecta para familias o grupos de amigos en busca de descanso profundo y confort.',
+    description: 'Diseñada con ventilación bioclimática cruzada, sala abierta con vista al jardín autóctono y comedor exterior cubierto. Ideal para descanso profundo.',
     pricePerNight: 200000,
     basePrice: 200000,
     capacity: 5,
     maxGuests: 5,
     bedrooms: 2,
     bathrooms: 1,
-    imageUrl: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=800&auto=format&fit=crop'
+    imageUrl: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=1400&auto=format&fit=crop'
   },
   {
     id: '33333333-3333-3333-3333-333333333333',
     name: 'Casa Moriche',
-    description: 'La cabaña más amplia del mini barrio, con tres habitaciones, dos baños y zona BBQ privada.',
+    description: 'Nuestra cabaña insignia de mayor capacidad. Cuenta con su propio kiosco BBQ para asados privados a la leña, 3 habitaciones independientes y terraza mirador.',
     pricePerNight: 250000,
     basePrice: 250000,
     capacity: 6,
     maxGuests: 6,
     bedrooms: 3,
     bathrooms: 2,
-    imageUrl: 'https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?q=80&w=800&auto=format&fit=crop'
+    imageUrl: 'https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?q=80&w=1400&auto=format&fit=crop'
+  },
+  {
+    id: '44444444-4444-4444-4444-444444444444',
+    name: 'Cabaña Guayacán',
+    description: 'Rodeada de árboles nativos y palmas de moriche. Su diseño resalta la sombra natural y el canto de las aves al amanecer, con corredor perimetral y hamacas.',
+    pricePerNight: 195000,
+    basePrice: 195000,
+    capacity: 4,
+    maxGuests: 4,
+    bedrooms: 2,
+    bathrooms: 1,
+    imageUrl: 'https://images.unsplash.com/photo-1587061949409-02df41d5e562?q=80&w=1400&auto=format&fit=crop'
+  },
+  {
+    id: '55555555-5555-5555-5555-555555555555',
+    name: 'Suite Yarumo',
+    description: 'Espacio boutique íntimo para escapadas en pareja. Cama king campestre, baño con acabados rústicos en piedra y solárium privado.',
+    pricePerNight: 165000,
+    basePrice: 165000,
+    capacity: 2,
+    maxGuests: 2,
+    bedrooms: 1,
+    bathrooms: 1,
+    imageUrl: 'https://images.unsplash.com/photo-1510798831971-661eb04b3739?q=80&w=1400&auto=format&fit=crop'
+  },
+  {
+    id: '66666666-6666-6666-6666-666666666666',
+    name: 'Refugio Palma Real',
+    description: 'La estancia más amplia de Villa MCJ para encuentros familiares extendidos. Amplia zona social integrada, comedor campestre y senderos directos.',
+    pricePerNight: 320000,
+    basePrice: 320000,
+    capacity: 8,
+    maxGuests: 8,
+    bedrooms: 4,
+    bathrooms: 2,
+    imageUrl: 'https://images.unsplash.com/photo-1542314831-c5a4d40715af?q=80&w=1400&auto=format&fit=crop'
   }
 ];
 

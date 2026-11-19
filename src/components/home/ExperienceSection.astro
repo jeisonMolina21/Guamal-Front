@@ -1,87 +1,132 @@
 ---
-import { Leaf, Users } from 'lucide-astro';
-import './ExperienceSection.css';
+import { Leaf, Users, Sparkles, Waves, Flame, Compass, ArrowRight, ShieldCheck, Moon, Sun } from 'lucide-astro';
 import { TourismGallery } from './TourismGallery';
 ---
 
-<section class="py-24 bg-white border-y border-guamal-cream">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex flex-col lg:flex-row gap-16 items-center">
-      
-      <!-- Image Side -->
-      <div class="lg:w-1/2 w-full relative">
-        <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl relative z-10">
-          <img 
-            src="https://images.unsplash.com/photo-1540541338287-41700207dee6?q=80&w=1000&auto=format&fit=crop" 
-            alt="Piscina y naturaleza en Guamal" 
-            class="w-full h-full object-cover"
-          />
-        </div>
-        <!-- Floating Experience Badge -->
-        <div class="absolute -bottom-4 right-4 sm:right-6 bg-white/95 backdrop-blur-md px-5 py-3 rounded-2xl shadow-xl border border-gray-100 flex items-center gap-3 z-20">
-          <div class="w-10 h-10 rounded-xl bg-guamal-cream text-guamal-green flex items-center justify-center font-bold">
-            <Leaf size={20} />
-          </div>
-          <div>
-            <span class="block text-xs font-bold text-gray-900 font-serif">100% Naturaleza Llanera</span>
-            <span class="text-[11px] text-gray-500">Exclusividad y tranquilidad</span>
-          </div>
-        </div>
-        <!-- Decorative elements -->
-        <div class="absolute top-10 -left-10 w-24 h-24 bg-guamal-cream rounded-full -z-10 blur-xl opacity-60"></div>
-        <div class="absolute -bottom-10 right-10 w-32 h-32 bg-green-100 rounded-full -z-10 blur-xl opacity-60"></div>
+<section class="py-32 bg-[#FAF7F2] relative overflow-hidden" id="experiencia">
+  
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    
+    <!-- Narrative Header -->
+    <div class="max-w-3xl mb-20">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#142723]/5 border border-[#142723]/10 text-[#142723] text-xs font-bold uppercase tracking-[0.16em] mb-4">
+        <Sparkles size={13} class="text-[#142723]" />
+        La Vida en Villa MCJ
       </div>
-
-      <!-- Content Side -->
-      <div class="lg:w-1/2 w-full pt-8 lg:pt-0">
-        <span class="text-xs font-bold tracking-widest text-guamal-green uppercase mb-3 block">Tu Experiencia</span>
-        <h2 class="text-4xl md:text-5xl font-serif font-bold text-guamal-green mb-6 leading-tight">
-          Descansar, compartir y descubrir
-        </h2>
-        <p class="text-guamal-text/80 text-lg leading-relaxed mb-10 max-w-lg">
-          Aquí no solo te hospedas, vives una experiencia rodeada de naturaleza, buena energía y la calidez de nuestra tierra llanera.
-        </p>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-10">
-          
-          <div class="space-y-3">
-            <div class="w-12 h-12 bg-guamal-cream rounded-xl flex items-center justify-center text-guamal-green mb-4">
-              <Leaf size={24} />
-            </div>
-            <h3 class="font-bold text-guamal-green text-lg">Descansar</h3>
-            <p class="text-sm text-gray-600">Espacios privados para desconectarte.</p>
-            <ul class="space-y-1.5 mt-3 text-sm text-gray-500">
-              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg> WiFi</li>
-              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg> TV</li>
-              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg> Aire acondicionado</li>
-              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg> Baño privado</li>
-            </ul>
-          </div>
-
-          <div class="space-y-3">
-            <div class="w-12 h-12 bg-guamal-cream rounded-xl flex items-center justify-center text-guamal-green mb-4">
-              <Users size={24} />
-            </div>
-            <h3 class="font-bold text-guamal-green text-lg">Compartir</h3>
-            <p class="text-sm text-gray-600">Un lugar pensado para disfrutar juntos.</p>
-            <ul class="space-y-1.5 mt-3 text-sm text-gray-500">
-              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg> Piscina</li>
-              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg> Zona BBQ</li>
-              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg> Parqueadero</li>
-              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg> Áreas comunes</li>
-            </ul>
-          </div>
-
-        </div>
-
-        <a href="/experiencia" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-white bg-guamal-green hover:bg-guamal-green-light transition-colors shadow-md">
-          Conoce más
-        </a>
-
-      </div>
+      <h2 class="text-3xl sm:text-5xl lg:text-6xl font-serif font-bold text-[#142723] leading-[1.08] tracking-tight">
+        Días de sol y agua cristalina. <br />
+        <span class="font-editorial-italic font-normal text-[#1E3A34]">Noches de brisa fresca y fogata.</span>
+      </h2>
+      <p class="text-base sm:text-lg text-gray-600 mt-6 font-light leading-relaxed">
+        Cada rincón fue concebido para romper el ritmo acelerado de la ciudad. Una piscina rodeada de jardines autóctonos, asadores para compartir carne a la llanera y hamacas con vista al horizonte.
+      </p>
     </div>
+
+    <!-- Editorial Bento Layout with Asymmetric Hierarchy -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 mb-16">
+      
+      <!-- Bento Item 1 (8 cols): Piscina & Solárium with Real Atmosphere -->
+      <div class="md:col-span-8 group relative rounded-3xl overflow-hidden min-h-[420px] sm:min-h-[480px] shadow-xl border border-[#C4B9A7]/40 flex flex-col justify-end p-8 sm:p-12 transition-all duration-500 hover:shadow-2xl">
+        <img 
+          src="https://images.unsplash.com/photo-1540541338287-41700207dee6?q=80&w=1200&auto=format&fit=crop" 
+          alt="Piscina campestre y solárium en Villa MCJ" 
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          loading="lazy"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent"></div>
+
+        <div class="relative z-10 text-white">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-xs font-semibold uppercase tracking-wider mb-3">
+            <Waves size={14} class="text-white" />
+            Zona Acuática & Solárium
+          </div>
+          <h3 class="text-2xl sm:text-4xl font-serif font-bold mb-3">Piscina privada entre jardines nativos</h3>
+          <p class="text-white/85 text-xs sm:text-base max-w-xl font-light leading-relaxed">
+            Sumérgete durante las cálidas tardes llaneras y descansa en tumbonas con sombra natural. Agua cristalina tratada y perímetro seguro para niños.
+          </p>
+        </div>
+      </div>
+
+      <!-- Bento Item 2 (4 cols): Kiosco BBQ & Asados -->
+      <div class="md:col-span-4 group relative rounded-3xl overflow-hidden min-h-[420px] sm:min-h-[480px] shadow-xl border border-[#C4B9A7]/40 flex flex-col justify-end p-8 transition-all duration-500 hover:shadow-2xl">
+        <img 
+          src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=800&auto=format&fit=crop" 
+          alt="Zona de asados y Kiosco BBQ" 
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          loading="lazy"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent"></div>
+
+        <div class="relative z-10 text-white">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-xs font-semibold uppercase tracking-wider mb-3">
+            <Flame size={14} class="text-white" />
+            Kiosco & Asador Criollo
+          </div>
+          <h3 class="text-xl sm:text-2xl font-serif font-bold mb-2">Asados a la leña o carbón</h3>
+          <p class="text-white/85 text-xs sm:text-sm font-light">
+            Instalaciones listas para compartir mamona, carnes a la brasa y sancocho de gallina al aire libre.
+          </p>
+        </div>
+      </div>
+
+      <!-- Bento Item 3 (4 cols): Hamacas & Silencio -->
+      <div class="md:col-span-4 bg-white rounded-3xl p-8 sm:p-10 border border-[#C4B9A7]/40 shadow-lg flex flex-col justify-between group transition-all duration-300 hover:shadow-xl">
+        <div>
+          <div class="w-12 h-12 rounded-2xl bg-[#142723]/5 text-[#1E3A34] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <Leaf size={24} />
+          </div>
+          <span class="text-xs font-bold uppercase tracking-[0.2em] text-[#142723] block mb-2">Desconexión Consciente</span>
+          <h3 class="text-xl font-serif font-bold text-[#142723] mb-3">Hamacas & Brisa del Piedemonte</h3>
+          <p class="text-gray-600 text-xs sm:text-sm font-light leading-relaxed">
+            Cada cabaña cuenta con amplios corredores exteriores equipados con hamacas dobles tejidas, perfectas para una siesta con brisa continua.
+          </p>
+        </div>
+        <div class="pt-6 border-t border-gray-100 flex items-center justify-between text-xs font-semibold text-[#1E3A34]">
+          <span>Silencio nocturno garantizado</span>
+          <span class="text-emerald-700 font-bold">100% Privado</span>
+        </div>
+      </div>
+
+      <!-- Bento Item 4 (4 cols): Ubicación Estratégica -->
+      <div class="md:col-span-4 bg-white rounded-3xl p-8 sm:p-10 border border-[#C4B9A7]/40 shadow-lg flex flex-col justify-between group transition-all duration-300 hover:shadow-xl">
+        <div>
+          <div class="w-12 h-12 rounded-2xl bg-[#142723]/5 text-[#1E3A34] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <Compass size={24} />
+          </div>
+          <span class="text-xs font-bold uppercase tracking-[0.2em] text-[#142723] block mb-2">Cercanía Privilegiada</span>
+          <h3 class="text-xl font-serif font-bold text-[#142723] mb-3">Río Humadea a solo 10 minutos</h3>
+          <p class="text-gray-600 text-xs sm:text-sm font-light leading-relaxed">
+            Sin trancones ni largos desplazamientos. Sal de tu cabaña y en 10 minutos estarás sumergido en los balnearios de aguas más famosas del Meta.
+          </p>
+        </div>
+        <div class="pt-6 border-t border-gray-100 flex items-center justify-between text-xs font-semibold text-[#1E3A34]">
+          <span>Vía pavimentada</span>
+          <span class="text-emerald-700 font-bold">Acceso directo</span>
+        </div>
+      </div>
+
+      <!-- Bento Item 5 (4 cols): Seguridad & Confort -->
+      <div class="md:col-span-4 bg-white rounded-3xl p-8 sm:p-10 border border-[#C4B9A7]/40 shadow-lg flex flex-col justify-between group transition-all duration-300 hover:shadow-xl">
+        <div>
+          <div class="w-12 h-12 rounded-2xl bg-[#142723]/5 text-[#1E3A34] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <ShieldCheck size={24} />
+          </div>
+          <span class="text-xs font-bold uppercase tracking-[0.2em] text-[#C69A59] block mb-2">Seguridad & Comodidad</span>
+          <h3 class="text-xl font-serif font-bold text-[#142723] mb-3">Predio Seguro & Parqueadero</h3>
+          <p class="text-gray-600 text-xs sm:text-sm font-light leading-relaxed">
+            Parqueadero interno privado dentro de la propiedad, portón de acceso controlado y atención personalizada por sus anfitriones.
+          </p>
+        </div>
+        <div class="pt-6 border-t border-gray-100 flex items-center justify-between text-xs font-semibold text-[#1E3A34]">
+          <span>Parqueadero incluido</span>
+          <span class="text-emerald-700 font-bold">Sin costo adicional</span>
+        </div>
+      </div>
+
+    </div>
+
   </div>
 </section>
 
-<!-- Guamal Tourism Gallery (Dynamic Horizontal Slider) -->
+<!-- Guamal Tourism Showcase Slider -->
 <TourismGallery client:load />

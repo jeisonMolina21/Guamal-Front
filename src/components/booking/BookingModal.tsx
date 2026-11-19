@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useStore } from '@nanostores/react';
 import { isBookingModalOpen } from '../../store/uiStore';
 import { reservationStore } from '../../store/reservationStore';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ArrowLeft, CheckCircle2 } from 'lucide-react';
+import { X, ArrowLeft, CheckCircle2, Calendar, Users, Shield, Sparkles, MessageSquare } from 'lucide-react';
 import { BookingSearch } from '../home/BookingSearch';
 import { CheckoutForm } from './CheckoutForm';
 import { findBookingBundles, type BookingBundle } from '../../utils/bookingEngine';
-import './BookingModal.css';
+import { MOCK_PROPERTIES } from '../../services/api';
+
+const emilSpring = { type: 'spring' as const, stiffness: 300, damping: 28, mass: 0.8 };
 
 export const BookingModal: React.FC = () => {
   const isOpen = useStore(isBookingModalOpen);
@@ -17,9 +19,22 @@ export const BookingModal: React.FC = () => {
   const [confirmedId, setConfirmedId] = useState('');
   const [bundles, setBundles] = useState<BookingBundle[]>([]);
 
+  // Find cabin image or default
+  const selectedCabin = MOCK_PROPERTIES.find(p => p.id === resState.selectedPropertyId) || MOCK_PROPERTIES[0];
+
+  useEffect(() => {
+    if (isOpen) {
+      if (resState.checkInDate && resState.checkOutDate) {
+        setStep('CHECKOUT');
+      } else {
+        setStep('SEARCH');
+      }
+    }
+  }, [isOpen]);
+
   const handleSearchComplete = async () => {
     const state = reservationStore.get();
-    const guests = parseInt(state.guestsCount || '1');
+    const guests = parseInt(state.guestsCount || '2');
     const result = await findBookingBundles(guests, state.checkInDate || '', state.checkOutDate || '');
     setBundles(result);
     setStep('RESULTS');
@@ -33,165 +48,204 @@ export const BookingModal: React.FC = () => {
     setStep('CHECKOUT');
   };
 
-  if (!isOpen) {
-    if (step !== 'SEARCH') setStep('SEARCH'); // Reset on close
-    return null;
-  }
-
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={() => isBookingModalOpen.set(false)}
-          className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-        />
-
-        <motion.div 
-          initial={{ scale: 0.95, opacity: 0, y: 20 }}
-          animate={{ scale: 1, opacity: 1, y: 0 }}
-          exit={{ scale: 0.95, opacity: 0, y: 20 }}
-          className="relative w-full max-w-5xl bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row max-h-[90vh] overflow-y-auto"
-        >
-          <button 
+      {isOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+          
+          {/* Backdrop with deep blur */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.28, ease: "easeOut" }}
             onClick={() => isBookingModalOpen.set(false)}
-            className="absolute top-4 right-4 z-10 bg-white/50 hover:bg-white rounded-full p-2 text-gray-800 transition-colors backdrop-blur-md shadow-sm"
+            className="fixed inset-0 bg-black/80 backdrop-blur-xl"
+          />
+
+          {/* Modal Container: Architectural Obsidian Card */}
+          <motion.div 
+            initial={{ scale: 0.95, opacity: 0, y: 16 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.96, opacity: 0, y: 10 }}
+            transition={emilSpring}
+            className="relative w-full max-w-5xl bg-[#090E0C] text-white rounded-[32px] sm:rounded-[36px] border border-white/10 shadow-[0_30px_90px_rgba(0,0,0,0.9)] overflow-hidden flex flex-col md:flex-row max-h-[92vh] z-10"
           >
-            <X size={24} />
-          </button>
+            {/* Close Button */}
+            <button 
+              onClick={() => isBookingModalOpen.set(false)}
+              aria-label="Cerrar modal"
+              className="absolute top-5 right-5 z-20 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all cursor-pointer active:scale-90"
+            >
+              <X size={18} />
+            </button>
 
-          {/* Left Side - Image */}
-          <div className="hidden md:block w-2/5 relative">
-            <img 
-              src="https://images.unsplash.com/photo-1542314831-c5a4d40715af?q=80&w=1000&auto=format&fit=crop" 
-              alt="Cabaña Guamal" 
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-8">
-              <h3 className="text-2xl font-serif font-bold text-white mb-2">Reserva tu descanso</h3>
-              <p className="text-white/80 text-sm">Disponibilidad en tiempo real</p>
-            </div>
-          </div>
+            {/* Left Stage - Immersive Cabin Photography */}
+            <div className="hidden md:block w-2/5 relative bg-black/50 overflow-hidden">
+              <img 
+                src={selectedCabin.imageUrl || "/hero-cabanas.jpg"} 
+                alt={selectedCabin.name} 
+                className="absolute inset-0 w-full h-full object-cover brightness-[0.9]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#090E0C] via-[#090E0C]/40 to-black/20 flex flex-col justify-between p-8 z-10">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/50 backdrop-blur-md border border-white/15 text-[11px] text-white/90 self-start">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  <span>Villa MCJ • Guamal, Meta</span>
+                </div>
 
-          {/* Right Side - Dynamic Content */}
-          <div className="w-full md:w-3/5 p-8 md:p-12 bg-guamal-cream/30 flex flex-col min-h-[400px]">
-            {step === 'SEARCH' ? (
-              <motion.div 
-                key="search"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                className="flex flex-col justify-center h-full"
-              >
-                <h2 className="text-3xl font-serif font-bold text-gray-900 mb-2">Consultar Disponibilidad</h2>
-                <p className="text-gray-600 mb-8">Ingresa tus fechas para conocer el aforo disponible.</p>
-                <BookingSearch isModal={true} onSearchComplete={handleSearchComplete} />
-              </motion.div>
-            ) : step === 'RESULTS' ? (
-              <motion.div 
-                key="results"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                className="flex flex-col h-full"
-              >
-                <button 
-                  onClick={() => setStep('SEARCH')}
-                  className="flex items-center gap-2 text-guamal-green font-medium mb-6 hover:underline"
-                >
-                  <ArrowLeft size={16} /> Volver a buscar
-                </button>
-                <h2 className="text-2xl font-serif font-bold text-gray-900 mb-2">Opciones Disponibles</h2>
-                <p className="text-gray-600 mb-6">Encontramos estas opciones para {resState.guestsCount} personas, del {resState.checkInDate} al {resState.checkOutDate}.</p>
-                
-                <div className="flex flex-col gap-4 overflow-y-auto pr-2 pb-8">
-                  {bundles.map(bundle => (
-                    <div key={bundle.id} className="bg-white border border-gray-200 rounded-2xl p-5 hover:border-guamal-green/50 transition-colors shadow-sm">
-                      <div className="flex justify-between items-start mb-3">
-                        <div>
-                          <h4 className="font-bold text-lg text-gray-900 flex items-center gap-2">
-                            {bundle.type === 'BUNDLE' ? 'Paquete Grupal' : bundle.properties[0].name}
-                            {bundle.type === 'BUNDLE' && <span className="bg-guamal-green/10 text-guamal-green text-xs px-2 py-1 rounded-full">Sugerido</span>}
-                          </h4>
-                          <p className="text-sm text-gray-500">{bundle.description}</p>
-                        </div>
-                        <div className="text-right">
-                          <p className="text-xl font-bold text-guamal-green">${bundle.totalPrice.toLocaleString('es-CO')}</p>
-                          <p className="text-xs text-gray-400">por noche</p>
-                        </div>
-                      </div>
-                      
-                      <div className="bg-gray-50 rounded-lg p-3 mb-4">
-                        <p className="text-sm text-gray-700 flex items-center gap-2">
-                          <CheckCircle2 size={16} className="text-guamal-green"/>
-                          Capacidad total: {bundle.totalCapacity} personas
-                        </p>
-                      </div>
-
-                      <button 
-                        onClick={() => handleSelectBundle(bundle)}
-                        className="w-full bg-guamal-green text-white py-3 rounded-xl font-medium hover:bg-guamal-green-light transition-colors"
-                      >
-                        Reservar esta opción
-                      </button>
-                    </div>
-                  ))}
+                <div>
+                  <span className="text-[10px] uppercase tracking-widest text-white/50 block mb-1">Alojamiento</span>
+                  <h3 className="text-3xl font-serif font-bold text-white mb-1">{selectedCabin.name}</h3>
+                  <p className="text-white/70 text-xs mb-4 font-light leading-relaxed">{selectedCabin.description}</p>
                   
-                  {bundles.length === 0 && (
-                    <div className="text-center p-8 bg-gray-50 rounded-2xl border border-gray-100 text-gray-500">
-                      Lo sentimos, no hay suficiente capacidad disponible para las fechas seleccionadas.
-                    </div>
-                  )}
+                  <div className="flex items-baseline gap-2 pt-3 border-t border-white/15">
+                    <span className="text-2xl font-serif font-bold text-white">${selectedCabin.pricePerNight?.toLocaleString('es-CO')}</span>
+                    <span className="text-[10px] uppercase tracking-wider text-white/50 font-sans">COP / noche</span>
+                  </div>
                 </div>
-              </motion.div>
-            ) : step === 'CHECKOUT' ? (
-              <motion.div 
-                key="checkout"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                className="flex flex-col h-full"
-              >
-                <button 
-                  onClick={() => setStep('RESULTS')}
-                  className="flex items-center gap-2 text-guamal-green font-medium mb-6 hover:underline"
+              </div>
+            </div>
+
+            {/* Right Side - Dynamic SaaS Reservation Flow */}
+            <div className="w-full md:w-3/5 p-6 sm:p-10 md:p-12 bg-[#090E0C] flex flex-col min-h-[440px] overflow-y-auto">
+              {step === 'SEARCH' ? (
+                <motion.div 
+                  key="search"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.3 }}
+                  className="flex flex-col justify-center h-full"
                 >
-                  <ArrowLeft size={16} /> Volver a opciones
-                </button>
-                <CheckoutForm onSuccess={(resId) => {
-                  setConfirmedId(resId);
-                  setStep('CONFIRMATION');
-                }} />
-              </motion.div>
-            ) : (
-              <motion.div 
-                key="confirmation"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="flex flex-col items-center justify-center h-full text-center"
-              >
-                <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center text-green-600 mb-6">
-                  <CheckCircle2 size={40} />
-                </div>
-                <h2 className="text-3xl font-serif font-bold text-gray-900 mb-4">¡Reserva Confirmada!</h2>
-                <p className="text-gray-600 mb-2">Tu código de reserva es: <strong className="text-guamal-green text-lg">{confirmedId}</strong></p>
-                <p className="text-gray-500 mb-8">Hemos enviado los detalles a tu correo electrónico y a tu WhatsApp.</p>
-                <button 
-                  onClick={() => {
-                    isBookingModalOpen.set(false);
-                    setStep('SEARCH');
-                  }}
-                  className="bg-guamal-green text-white px-8 py-3 rounded-xl font-medium hover:bg-guamal-green-light transition-colors"
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/70 text-[10px] font-semibold tracking-widest uppercase mb-3 self-start">
+                    <span>Paso 01 • Disponibilidad</span>
+                  </div>
+                  <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white mb-2">Consulta tus Fechas</h2>
+                  <p className="text-white/60 text-xs sm:text-sm mb-8 font-light">Verifica en tiempo real el aforo y las tarifas para tu estancia.</p>
+                  
+                  <BookingSearch isModal={true} onSearchComplete={handleSearchComplete} />
+                </motion.div>
+              ) : step === 'RESULTS' ? (
+                <motion.div 
+                  key="results"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.3 }}
+                  className="flex flex-col h-full"
                 >
-                  Entendido, volver al inicio
-                </button>
-              </motion.div>
-            )}
-          </div>
-        </motion.div>
-      </div>
+                  <button 
+                    onClick={() => setStep('SEARCH')}
+                    className="flex items-center gap-2 text-white/60 text-xs font-semibold uppercase tracking-wider mb-6 hover:text-white transition-colors cursor-pointer"
+                  >
+                    <ArrowLeft size={14} /> Modificar Fechas
+                  </button>
+                  <h2 className="text-2xl font-serif font-bold text-white mb-2">Opciones Disponibles</h2>
+                  <p className="text-white/60 text-xs mb-6 font-light">Opciones para {resState.guestsCount} personas, del {resState.checkInDate} al {resState.checkOutDate}.</p>
+                  
+                  <div className="space-y-3 overflow-y-auto pr-1 pb-6">
+                    {bundles.map(bundle => (
+                      <div key={bundle.id} className="bg-white/[0.04] border border-white/10 rounded-2xl p-5 hover:border-white/30 transition-all">
+                        <div className="flex justify-between items-start mb-3">
+                          <div>
+                            <h4 className="font-serif font-bold text-lg text-white">
+                              {bundle.type === 'BUNDLE' ? 'Paquete Grupal Completo' : bundle.properties[0].name}
+                            </h4>
+                            <p className="text-xs text-white/60 font-light mt-0.5">{bundle.description}</p>
+                          </div>
+                          <div className="text-right">
+                            <p className="text-lg font-serif font-bold text-white">${bundle.totalPrice.toLocaleString('es-CO')}</p>
+                            <span className="text-[10px] text-white/50 uppercase">por noche</span>
+                          </div>
+                        </div>
+                        
+                        <div className="py-2.5 px-3 rounded-xl bg-white/[0.03] border border-white/5 flex items-center justify-between text-xs text-white/80 mb-4">
+                          <span>Capacidad total garantizada</span>
+                          <strong className="text-white">{bundle.totalCapacity} Huéspedes</strong>
+                        </div>
+
+                        <button 
+                          onClick={() => handleSelectBundle(bundle)}
+                          className="w-full py-3 rounded-full bg-white hover:bg-white/90 text-[#070B0A] font-bold text-xs uppercase tracking-wider transition-all active:scale-95 cursor-pointer shadow-md"
+                        >
+                          Seleccionar Esta Cabaña →
+                        </button>
+                      </div>
+                    ))}
+                    
+                    {bundles.length === 0 && (
+                      <div className="text-center p-8 bg-white/[0.02] rounded-2xl border border-white/10 text-white/60 text-xs">
+                        No hay disponibilidad para el aforo completo en esas fechas. Intenta con otras fechas o consúltanos directamente por WhatsApp.
+                      </div>
+                    )}
+                  </div>
+                </motion.div>
+              ) : step === 'CHECKOUT' ? (
+                <motion.div 
+                  key="checkout"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.3 }}
+                  className="flex flex-col h-full"
+                >
+                  <button 
+                    onClick={() => setStep('SEARCH')}
+                    className="flex items-center gap-2 text-white/60 text-xs font-semibold uppercase tracking-wider mb-6 hover:text-white transition-colors cursor-pointer"
+                  >
+                    <ArrowLeft size={14} /> Cambiar Datos
+                  </button>
+                  <CheckoutForm onSuccess={(resId) => {
+                    setConfirmedId(resId);
+                    setStep('CONFIRMATION');
+                  }} />
+                </motion.div>
+              ) : (
+                <motion.div 
+                  key="confirmation"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.4 }}
+                  className="flex flex-col items-center justify-center h-full text-center py-6"
+                >
+                  <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center mb-6">
+                    <CheckCircle2 size={36} />
+                  </div>
+                  <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white mb-2">¡Reserva Registrada!</h2>
+                  <p className="text-white/70 text-xs sm:text-sm mb-4">Código de seguimiento: <strong className="text-white font-mono text-base">{confirmedId}</strong></p>
+                  
+                  <p className="text-white/60 text-xs max-w-sm mb-8 font-light leading-relaxed">
+                    Hemos registrado tu solicitud. Te enviaremos el comprobante y datos de confirmación para coordinar el ingreso.
+                  </p>
+
+                  <div className="flex flex-col sm:flex-row gap-3 w-full max-w-sm">
+                    <a
+                      href={`https://wa.me/573001234567?text=Hola,%20acabo%20de%20reservar%20con%20el%20código%20${confirmedId}%20en%20Villa%20MCJ`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 py-3.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2"
+                    >
+                      <MessageSquare size={14} />
+                      <span>Verificar por WhatsApp</span>
+                    </a>
+
+                    <button 
+                      onClick={() => {
+                        isBookingModalOpen.set(false);
+                        setStep('SEARCH');
+                      }}
+                      className="flex-1 py-3.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-semibold text-xs uppercase tracking-wider transition-all cursor-pointer"
+                    >
+                      Cerrar
+                    </button>
+                  </div>
+                </motion.div>
+              )}
+            </div>
+
+          </motion.div>
+        </div>
+      )}
     </AnimatePresence>
   );
 };
