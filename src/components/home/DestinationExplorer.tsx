@@ -1,3 +1,11 @@
+/**
+ * @fileoverview Explorador de Destinos & Galería de Guamal - Escena 5
+ * @description Escenario de pantalla única (Single Viewport 100vh) que integra
+ * la guía georreferenciada de balnearios del río Humadea y senderos del piedemonte
+ * conmutables con la galería fotográfica viva de Villa MCJ.
+ * @module DestinationExplorer
+ */
+
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Compass, Clock, Navigation, ExternalLink, ArrowRight, Camera } from 'lucide-react';

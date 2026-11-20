@@ -1,5 +1,13 @@
+/**
+ * @fileoverview Colección de Estancias - Escena 3
+ * @description Escaparate cinematográfico full-bleed de las 6 cabañas de Villa MCJ.
+ * Opera de forma autónoma con temporizador de 5 segundos, transición por máscara de
+ * cortina arquitectónica (clip-path wipe), pausa reactiva al cursor y soporte WCAG para movimiento reducido.
+ * @module Scene3Cabanas
+ */
+
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { ArrowRight, ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
 import { MOCK_PROPERTIES } from '../../services/api';
 import type { Property } from '../../services/api';
@@ -116,12 +124,16 @@ export function Scene3Cabanas() {
     }).format(price);
   };
 
-  // Kinetic architectural curtain wipe mask variants
+  const shouldReduceMotion = useReducedMotion();
+
+  // Kinetic architectural curtain wipe mask variants (with WCAG reduced motion support)
   const wipeVariants = {
     enter: (dir: number) => ({
-      clipPath: dir > 0 ? 'inset(0% 0% 0% 100%)' : 'inset(0% 100% 0% 0%)',
-      scale: 1.05,
-      opacity: 1,
+      clipPath: shouldReduceMotion 
+        ? 'inset(0% 0% 0% 0%)' 
+        : (dir > 0 ? 'inset(0% 0% 0% 100%)' : 'inset(0% 100% 0% 0%)'),
+      scale: shouldReduceMotion ? 1.0 : 1.05,
+      opacity: shouldReduceMotion ? 0 : 1,
       zIndex: 20
     }),
     center: {
@@ -130,16 +142,17 @@ export function Scene3Cabanas() {
       opacity: 1,
       zIndex: 20,
       transition: {
-        clipPath: { duration: 0.72, ease: [0.22, 1, 0.36, 1] },
-        scale: { duration: 0.85, ease: [0.22, 1, 0.36, 1] }
+        clipPath: { duration: shouldReduceMotion ? 0.3 : 0.72, ease: [0.22, 1, 0.36, 1] },
+        scale: { duration: shouldReduceMotion ? 0.3 : 0.85, ease: [0.22, 1, 0.36, 1] },
+        opacity: { duration: 0.35 }
       }
     },
     exit: (dir: number) => ({
-      scale: 0.98,
-      opacity: 0.6,
+      scale: shouldReduceMotion ? 1.0 : 0.98,
+      opacity: shouldReduceMotion ? 0 : 0.6,
       zIndex: 10,
       transition: {
-        duration: 0.65,
+        duration: shouldReduceMotion ? 0.25 : 0.65,
         ease: [0.22, 1, 0.36, 1]
       }
     })

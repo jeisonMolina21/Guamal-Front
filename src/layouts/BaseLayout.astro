@@ -25,6 +25,39 @@ const { title, description = "Casas privadas, tranquilidad y una experiencia par
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400;1,6..72,500;1,6..72,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <meta name="generator" content={Astro.generator} />
     <title>{title} | Villa MCJ - Guamal, Meta</title>
+
+    {/* OpenGraph & Social Cards */}
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={`${title} | Villa MCJ`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/hero-cabanas.jpg" />
+    <meta property="og:locale" content="es_CO" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${title} | Villa MCJ`} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="/hero-cabanas.jpg" />
+
+    {/* Structured Data: Schema.org LodgingBusiness */}
+    <script type="application/ld+json" is:inline set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "LodgingBusiness",
+      "name": "Villa MCJ",
+      "description": "Refugio campestre y cabañas bioclimáticas a orillas del río Humadea en Guamal, Meta, Colombia.",
+      "image": "/hero-cabanas.jpg",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Guamal",
+        "addressRegion": "Meta",
+        "addressCountry": "CO"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 4.0744,
+        "longitude": -73.7661
+      },
+      "priceRange": "COP 165.000 - 320.000"
+    })} />
+
     <ClientRouter />
   </head>
   <body class="bg-guamal-cream text-guamal-text antialiased min-h-screen flex flex-col font-sans">

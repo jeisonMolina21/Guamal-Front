@@ -1,5 +1,13 @@
+/**
+ * @fileoverview Apertura Cinemática - Escena 1
+ * @description Experiencia de entrada con frase poética central (Manifiesto de la Villa)
+ * y portal de imagen en iris orgánico que se expande del centro hacia los bordes
+ * impulsado por física analógica de resorte (Apple & Emil Kowalski standards).
+ * @module Scene1Apertura
+ */
+
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform, useSpring, useMotionTemplate } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring, useMotionTemplate, useReducedMotion } from 'framer-motion';
 
 const WORDS = [
   { text: "El", italic: false },
@@ -32,10 +40,13 @@ export function Scene1Apertura() {
     restDelta: 0.0001
   });
 
+  const shouldReduceMotion = useReducedMotion();
+
   // 1. Center-out expansion (Iris / Center-to-edges reveal mask)
   // Starts slowly and blooms majestically across a generous scroll window [0.12 -> 0.82]
   const circleRadius = useTransform(smoothProgress, [0.12, 0.82], [0, 135]);
-  const clipPath = useMotionTemplate`circle(${circleRadius}% at 50% 50%)`;
+  const animatedClipPath = useMotionTemplate`circle(${circleRadius}% at 50% 50%)`;
+  const clipPath = shouldReduceMotion ? 'circle(100% at 50% 50%)' : animatedClipPath;
 
   // 2. Initial Manifest Phrase transforms: slow, serene float and fade
   const textScale = useTransform(smoothProgress, [0.08, 0.50], [1, 1.06]);
