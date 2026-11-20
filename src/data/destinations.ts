@@ -23,7 +23,7 @@ export const GUAMAL_DESTINATIONS: DestinationSpot[] = [
     distanceMinutes: 10,
     highlight: 'Aguas cristalinas del Sumapaz',
     description: 'El principal atractivo natural de Guamal. Pozos profundos de agua pura y templada que desciende de la cordillera, riberas de piedra para descanso y quioscos gastronómicos.',
-    imageUrl: 'https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=1200&auto=format&fit=crop',
+    imageUrl: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=1400&auto=format&fit=crop',
     mapsQuery: 'Centro+Turistico+Humadea+Guamal+Meta',
     badge: 'Imperdible #1',
     tips: 'Ideal para paseo de olla, nadar en aguas calmas y tomar fotos en el parador "Yo Amo Guamal".'

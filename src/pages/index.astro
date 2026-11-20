@@ -27,23 +27,8 @@ import CTA from '../components/home/CTA.astro';
     <!-- ESCENA 4: La Vida en Villa MCJ (Single-Screen: Foto grande a la izq con título superpuesto + Grilla 2x4 a la der) -->
     <ExperienceSection />
 
-    <!-- ESCENA 5: Destinos & Galería de Guamal (Unificados en una sola sección armónica) -->
-    <section class="py-24 sm:py-32 bg-[#0D1815] text-[#F4F0E8] relative overflow-hidden" id="destinos-guamal">
-      {/* Luz ambiental natural */}
-      <div class="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-emerald-500/[0.04] rounded-full blur-[160px] pointer-events-none"></div>
-      <div class="absolute bottom-1/4 right-10 w-[500px] h-[500px] bg-white/[0.015] rounded-full blur-[140px] pointer-events-none"></div>
-
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-20 sm:space-y-28">
-        <!-- Componente 1: Explorador Interactivo de Destinos Reales -->
-        <DestinationExplorer client:visible />
-
-        <!-- Línea sutil divisoria arquitectónica -->
-        <div class="w-full h-px bg-gradient-to-r from-transparent via-white/15 to-transparent"></div>
-
-        <!-- Componente 2: Galería Viva de Guamal -->
-        <Gallery />
-      </div>
-    </section>
+    <!-- ESCENA 5: Destinos & Galería de Guamal (Single-Screen 100vh: Gran Foto Hero a la izq + Cuadrícula estructurada a la der) -->
+    <DestinationExplorer client:load />
 
     <!-- Cierre / CTA -->
     <CTA />
