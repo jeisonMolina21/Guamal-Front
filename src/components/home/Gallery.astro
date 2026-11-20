@@ -1,38 +1,74 @@
 ---
-import './Gallery.css';
-
+// Gallery.astro — Subcomponente de Galería Viva integrado en la sección de Destinos
 const galleryImages = [
-  "https://images.unsplash.com/photo-1587061949409-02df41d5e562?q=80&w=600&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=600&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1540541338287-41700207dee6?q=80&w=600&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1510798831971-661eb04b3739?q=80&w=600&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1588880331179-bc9b93a8cb65?q=80&w=600&auto=format&fit=crop"
+  {
+    url: "https://images.unsplash.com/photo-1587061949409-02df41d5e562?q=80&w=800&auto=format&fit=crop",
+    caption: "Cabañas entre la vegetación"
+  },
+  {
+    url: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=800&auto=format&fit=crop",
+    caption: "Interiores cálidos y bioclimáticos"
+  },
+  {
+    url: "https://images.unsplash.com/photo-1540541338287-41700207dee6?q=80&w=800&auto=format&fit=crop",
+    caption: "Solárium y tardes de piscina"
+  },
+  {
+    url: "https://images.unsplash.com/photo-1510798831971-661eb04b3739?q=80&w=800&auto=format&fit=crop",
+    caption: "Rincones íntimos en la selva"
+  },
+  {
+    url: "https://images.unsplash.com/photo-1588880331179-bc9b93a8cb65?q=80&w=800&auto=format&fit=crop",
+    caption: "Atardeceres frente a la cordillera"
+  }
 ];
 ---
 
-<section class="py-24 bg-white">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-      <div class="max-w-2xl">
-        <span class="text-xs font-bold tracking-widest text-guamal-green uppercase mb-3 block">Galería</span>
-        <h2 class="text-4xl md:text-5xl font-serif font-bold text-guamal-green mb-4">Así se vive en Guamal</h2>
-        <p class="text-guamal-text/80 text-lg">
-          Conoce más sobre nuestro mini barrio hostal y todo lo que tenemos para ti.
-        </p>
-      </div>
-      <div>
-        <a href="/galeria" class="inline-flex items-center justify-center px-6 py-3 border border-guamal-green text-base font-medium rounded-full text-guamal-green hover:bg-guamal-green hover:text-white transition-colors">
-          Ver galería completa
-        </a>
-      </div>
+<div class="relative w-full text-[#F4F0E8]" id="galeria-viva">
+  
+  {/* Header de la Galería Integrada */}
+  <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 sm:mb-12 gap-6">
+    <div class="max-w-2xl">
+      <span class="text-[11px] font-sans font-medium tracking-[0.25em] text-white/60 uppercase block mb-3">
+        05 / Miradas & Postales
+      </span>
+      <h3 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-light text-[#F4F0E8] leading-[1.08] tracking-tight">
+        Así se vive <span class="font-editorial-italic font-normal text-[#F4F0E8]">en Guamal</span>
+      </h3>
+      <p class="text-white/75 text-sm sm:text-base font-light font-sans mt-3 max-w-xl leading-relaxed">
+        Postales espontáneas de nuestro refugio, la sombra de los árboles autóctonos y el ritmo sereno del piedemonte.
+      </p>
     </div>
 
-    <div class="flex gap-4 overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-hide" style="scrollbar-width: none;">
-      {galleryImages.map((img, i) => (
-        <div class={`flex-none w-64 md:w-80 aspect-[4/3] rounded-2xl overflow-hidden shadow-sm snap-center ${i === 0 ? 'ml-0' : ''}`}>
-          <img src={img} alt={`Galería ${i+1}`} class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
-        </div>
-      ))}
+    <div>
+      <a 
+        href="/galeria" 
+        class="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-white/10 hover:bg-[#F4F0E8] text-[#F4F0E8] hover:text-[#12201C] border border-white/20 transition-all duration-300 text-xs font-semibold uppercase tracking-wider shadow-md group cursor-pointer"
+      >
+        <span>Ver galería completa</span>
+        <span class="transition-transform group-hover:translate-x-1">→</span>
+      </a>
     </div>
   </div>
-</section>
+
+  {/* Fila Horizontal Fluida de Fotografías */}
+  <div class="flex gap-4 sm:gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-none" style="scrollbar-width: none;">
+    {galleryImages.map((item, i) => (
+      <div class="flex-none w-72 sm:w-80 md:w-96 aspect-[4/3] rounded-3xl overflow-hidden relative border border-white/15 shadow-xl snap-center group">
+        <img 
+          src={item.url} 
+          alt={item.caption} 
+          class="w-full h-full object-cover filter brightness-[0.92] contrast-[1.02] transition-transform duration-700 ease-out group-hover:scale-105" 
+          loading="lazy"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none opacity-80 group-hover:opacity-100 transition-opacity"></div>
+        <div class="absolute bottom-4 left-5 right-5 pointer-events-none">
+          <span class="text-xs text-white/90 font-serif font-light block">
+            {item.caption}
+          </span>
+        </div>
+      </div>
+    ))}
+  </div>
+
+</div>

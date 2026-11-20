@@ -20,13 +20,13 @@ export function DestinationExplorer() {
     : GUAMAL_DESTINATIONS.filter(d => d.category === activeCategory);
 
   return (
-    <section className="py-32 bg-[#142723] text-white relative overflow-hidden" id="destinos-guamal">
+    <div className="relative w-full text-white" id="destinos-explorer">
       
       {/* Background ambient lighting */}
-      <div className="absolute top-10 left-1/4 w-[500px] h-[500px] bg-[#C69A59]/10 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-10 right-10 w-[450px] h-[450px] bg-emerald-600/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute -top-10 left-1/4 w-[500px] h-[500px] bg-emerald-500/5 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute -bottom-10 right-10 w-[450px] h-[450px] bg-white/[0.02] rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="relative z-10">
         
         {/* Editorial Section Header */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-8">
@@ -183,7 +183,7 @@ export function DestinationExplorer() {
 
                   <div className="shrink-0">
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
-                      isSelected ? 'bg-[#C69A59] text-[#142723]' : 'bg-white/10 text-white/40'
+                      isSelected ? 'bg-[#F4F0E8] text-[#12201C]' : 'bg-white/10 text-white/40'
                     }`}>
                       <ArrowRight size={14} />
                     </div>
@@ -196,6 +196,6 @@ export function DestinationExplorer() {
         </div>
 
       </div>
-    </section>
+    </div>
   );
 }
