@@ -142,9 +142,9 @@ export function Scene3Cabanas() {
       opacity: 1,
       zIndex: 20,
       transition: {
-        clipPath: { duration: shouldReduceMotion ? 0.3 : 0.72, ease: [0.22, 1, 0.36, 1] },
-        scale: { duration: shouldReduceMotion ? 0.3 : 0.85, ease: [0.22, 1, 0.36, 1] },
-        opacity: { duration: 0.35 }
+        clipPath: { duration: shouldReduceMotion ? 0.2 : 0.38, ease: [0.22, 1, 0.36, 1] },
+        scale: { duration: shouldReduceMotion ? 0.2 : 0.42, ease: [0.22, 1, 0.36, 1] },
+        opacity: { duration: 0.25 }
       }
     },
     exit: (dir: number) => ({
@@ -152,24 +152,24 @@ export function Scene3Cabanas() {
       opacity: shouldReduceMotion ? 0 : 0.6,
       zIndex: 10,
       transition: {
-        duration: shouldReduceMotion ? 0.25 : 0.65,
+        duration: shouldReduceMotion ? 0.18 : 0.32,
         ease: [0.22, 1, 0.36, 1]
       }
     })
   };
 
-  // Content stagger transitions
+  // Content stagger transitions (sub-300ms, zero lag)
   const contentVariants = {
-    initial: { opacity: 0, y: 22 },
+    initial: { opacity: 0, y: 16 },
     animate: { 
       opacity: 1, 
       y: 0, 
-      transition: { duration: 0.55, delay: 0.15, ease: [0.22, 1, 0.36, 1] } 
+      transition: { duration: 0.32, delay: 0.04, ease: [0.22, 1, 0.36, 1] } 
     },
     exit: { 
       opacity: 0, 
-      y: -15, 
-      transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] } 
+      y: -10, 
+      transition: { duration: 0.20, ease: [0.22, 1, 0.36, 1] } 
     }
   };
 

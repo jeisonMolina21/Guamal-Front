@@ -32,43 +32,43 @@ export function Scene1Apertura() {
     offset: ['start start', 'end end'],
   });
 
-  // Physical Apple spring with gentle mass & low stiffness for a slow, organic, cinematic pace
+  // High-responsiveness Apple spring: eliminates delay while maintaining natural organic motion
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 55,
-    damping: 22,
-    mass: 1.0,
+    stiffness: 240,
+    damping: 30,
+    mass: 0.15,
     restDelta: 0.0001
   });
 
   const shouldReduceMotion = useReducedMotion();
 
   // 1. Center-out expansion (Iris / Center-to-edges reveal mask)
-  // Starts slowly and blooms majestically across a generous scroll window [0.12 -> 0.82]
-  const circleRadius = useTransform(smoothProgress, [0.12, 0.82], [0, 135]);
+  // Reacts immediately on scroll without dead-zone delay
+  const circleRadius = useTransform(smoothProgress, [0.01, 0.58], [0, 130]);
   const animatedClipPath = useMotionTemplate`circle(${circleRadius}% at 50% 50%)`;
   const clipPath = shouldReduceMotion ? 'circle(100% at 50% 50%)' : animatedClipPath;
 
-  // 2. Initial Manifest Phrase transforms: slow, serene float and fade
-  const textScale = useTransform(smoothProgress, [0.08, 0.50], [1, 1.06]);
-  const textOpacity = useTransform(smoothProgress, [0.18, 0.50], [1, 0]);
-  const textY = useTransform(smoothProgress, [0.08, 0.50], [0, -25]);
+  // 2. Initial Manifest Phrase transforms: immediate and tactile feedback
+  const textScale = useTransform(smoothProgress, [0, 0.35], [1, 1.05]);
+  const textOpacity = useTransform(smoothProgress, [0.02, 0.35], [1, 0]);
+  const textY = useTransform(smoothProgress, [0, 0.35], [0, -20]);
 
   // 3. Subtle slow optical parallax on the revealed landscape photo
-  const imgScale = useTransform(smoothProgress, [0.12, 0.85, 1], [1.22, 1.0, 1.02]);
+  const imgScale = useTransform(smoothProgress, [0, 0.65, 1], [1.14, 1.0, 1.02]);
 
   // 4. Coordinates & top label fade out gently as scroll begins
-  const headerOpacity = useTransform(smoothProgress, [0.05, 0.28], [1, 0]);
+  const headerOpacity = useTransform(smoothProgress, [0, 0.20], [1, 0]);
 
-  // 5. Revealed editorial identity once the portal is fully opened to the edges
-  const revealedBrandOpacity = useTransform(smoothProgress, [0.72, 0.92], [0, 1]);
-  const revealedBrandY = useTransform(smoothProgress, [0.72, 0.92], [28, 0]);
+  // 5. Revealed editorial identity once the portal is opened
+  const revealedBrandOpacity = useTransform(smoothProgress, [0.48, 0.72], [0, 1]);
+  const revealedBrandY = useTransform(smoothProgress, [0.48, 0.72], [20, 0]);
 
   // 6. Scroll cue fading out on initial interaction
-  const scrollCueOpacity = useTransform(smoothProgress, [0, 0.16], [1, 0]);
+  const scrollCueOpacity = useTransform(smoothProgress, [0, 0.12], [1, 0]);
 
   return (
-    // Height set to 250vh for an unhurried, luxurious, cinematic scroll pace
-    <section ref={containerRef} className="relative h-[250vh] w-full" id="inicio">
+    // Height set to 175vh for immediate, responsive, elegant progression
+    <section ref={containerRef} className="relative h-[175vh] w-full" id="inicio">
       
       {/* Sticky Fullscreen Canvas */}
       <div className="sticky top-0 h-screen w-full overflow-hidden select-none bg-[#F4F0E8]">

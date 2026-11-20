@@ -149,14 +149,14 @@ export function DestinationExplorer() {
         {/* ----------------------------------------------------------------------- */}
         <div className="lg:col-span-7 relative rounded-3xl overflow-hidden shadow-2xl border border-white/15 flex flex-col justify-between p-6 sm:p-10 group bg-[#070A09]">
           
-          {/* Active Big Picture */}
-          <AnimatePresence mode="wait">
+          {/* Active Big Picture (Immediate crossfade without mode="wait" blocking) */}
+          <AnimatePresence>
             <motion.div
               key={activeSpot.id}
-              initial={{ opacity: 0.5, scale: 1.04 }}
+              initial={{ opacity: 0.3, scale: 1.02 }}
               animate={{ opacity: 1, scale: 1.0 }}
-              exit={{ opacity: 0.6 }}
-              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
               className="absolute inset-0 w-full h-full"
             >
               <img

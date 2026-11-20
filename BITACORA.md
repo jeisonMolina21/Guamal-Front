@@ -1,5 +1,23 @@
 # 📓 Bitácora de Ingeniería y Cambios: Guamal Frontend
 
+## [2026-11-20 18:05] - Calibración de Latencia y Snappiness (Eliminación de Delay en Animaciones)
+- **Diagnóstico**: Las animaciones se percibían pesadas y con retardo ("delay"). El análisis de profiling identificó 4 fuentes acumulativas de latencia:
+  1. `Scene1Apertura.tsx`: Resorte con inercia excesiva (`stiffness: 55, mass: 1.0`), amortiguamiento que demoraba ~850ms en reaccionar y umbral muerto inicial del 12% (`[0.12, 0.82]`) que no respondía al inicio del scroll.
+  2. `SmoothScroll.tsx`: Lenis con `duration: 1.2s` y amortiguamiento `0.9` que añadía más de 1 segundo de interpolación a cada movimiento del mouse.
+  3. `Scene3Cabanas.tsx`: Transición de cortina (`clip-path`) con duraciones de 720ms a 850ms y retardo artificial (`delay: 0.15s`), haciendo los cambios lentos.
+  4. `DestinationExplorer.tsx`: Modo de espera bloqueante (`mode="wait"`) en `AnimatePresence` con duración de 550ms que retrasaba el cambio de fotos al hacer clic.
+  5. `CustomCursor.tsx`: Resorte con masa alta (`0.5`) que causaba arrastre desfasado del puntero.
+- **Acciones Realizadas**:
+  - `Scene1Apertura.tsx`: Resorte de alta responsividad Apple (`stiffness: 240, damping: 30, mass: 0.15`), inicio inmediato en `[0.01, 0.58]` (cero zona muerta) y altura reducida a `175vh` para apertura instantánea al menor scroll.
+  - `SmoothScroll.tsx`: Lenis acelerado a `duration: 0.55s` con `wheelMultiplier: 1.1` para respuesta táctil inmediata.
+  - `Scene3Cabanas.tsx`: Transición de cortina optimizada a 380ms/420ms con salida a 320ms y retardo reducido a 40ms, cumpliendo el umbral sub-400ms de Emil Kowalski.
+  - `DestinationExplorer.tsx`: Eliminado `mode="wait"` y reducido a crossfade instantáneo de 320ms con entrada paralela inmediata.
+  - `CustomCursor.tsx`: Resorte optimizado (`stiffness: 800, damping: 35, mass: 0.1`) sin retraso respecto al cursor físico.
+- **Validación**:
+  - Compilación exitosa en 3.15s (`npm run build`). Respuesta táctil inmediata al scroll y a la interacción con clics.
+
+---
+
 ## [2026-11-20 06:35] - Optimización Integral, Buenas Prácticas y Documentación de Calidad
 - **Diagnóstico**: Finalización del rediseño editorial del frontend de Villa MCJ. Se requería auditar la performance de las animaciones, añadir soporte WCAG de movimiento reducido (`prefers-reduced-motion`), garantizar accesibilidad del login, estructurar metadatos SEO y unificar la documentación técnica.
 - **Acciones Realizadas**:
