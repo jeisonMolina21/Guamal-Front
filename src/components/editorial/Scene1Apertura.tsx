@@ -24,39 +24,40 @@ export function Scene1Apertura() {
     offset: ['start start', 'end end'],
   });
 
-  // Physics-based Apple spring smoother for scroll scrub (eliminates mechanical jank)
+  // Physical Apple spring with gentle mass & low stiffness for a slow, organic, cinematic pace
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 85,
-    damping: 24,
-    mass: 0.8,
+    stiffness: 55,
+    damping: 22,
+    mass: 1.0,
     restDelta: 0.0001
   });
 
   // 1. Center-out expansion (Iris / Center-to-edges reveal mask)
-  // Starts as an intimate focal center (0%) and blooms organically to full-bleed (130%)
-  const circleRadius = useTransform(smoothProgress, [0.02, 0.62], [0, 130]);
+  // Starts slowly and blooms majestically across a generous scroll window [0.12 -> 0.82]
+  const circleRadius = useTransform(smoothProgress, [0.12, 0.82], [0, 135]);
   const clipPath = useMotionTemplate`circle(${circleRadius}% at 50% 50%)`;
 
-  // 2. Initial Manifest Phrase transforms: subtle natural zoom + fade as the portal blooms
-  const textScale = useTransform(smoothProgress, [0, 0.38], [1, 1.05]);
-  const textOpacity = useTransform(smoothProgress, [0.06, 0.38], [1, 0]);
-  const textY = useTransform(smoothProgress, [0, 0.38], [0, -20]);
+  // 2. Initial Manifest Phrase transforms: slow, serene float and fade
+  const textScale = useTransform(smoothProgress, [0.08, 0.50], [1, 1.06]);
+  const textOpacity = useTransform(smoothProgress, [0.18, 0.50], [1, 0]);
+  const textY = useTransform(smoothProgress, [0.08, 0.50], [0, -25]);
 
-  // 3. Subtle organic parallax on the revealed landscape photo
-  const imgScale = useTransform(smoothProgress, [0.02, 0.65, 1], [1.14, 1.0, 1.02]);
+  // 3. Subtle slow optical parallax on the revealed landscape photo
+  const imgScale = useTransform(smoothProgress, [0.12, 0.85, 1], [1.22, 1.0, 1.02]);
 
-  // 4. Coordinates & top label fade out early
-  const headerOpacity = useTransform(smoothProgress, [0, 0.20], [1, 0]);
+  // 4. Coordinates & top label fade out gently as scroll begins
+  const headerOpacity = useTransform(smoothProgress, [0.05, 0.28], [1, 0]);
 
   // 5. Revealed editorial identity once the portal is fully opened to the edges
-  const revealedBrandOpacity = useTransform(smoothProgress, [0.55, 0.82], [0, 1]);
-  const revealedBrandY = useTransform(smoothProgress, [0.55, 0.82], [25, 0]);
+  const revealedBrandOpacity = useTransform(smoothProgress, [0.72, 0.92], [0, 1]);
+  const revealedBrandY = useTransform(smoothProgress, [0.72, 0.92], [28, 0]);
 
   // 6. Scroll cue fading out on initial interaction
-  const scrollCueOpacity = useTransform(smoothProgress, [0, 0.12], [1, 0]);
+  const scrollCueOpacity = useTransform(smoothProgress, [0, 0.16], [1, 0]);
 
   return (
-    <section ref={containerRef} className="relative h-[135vh] w-full" id="inicio">
+    // Height set to 250vh for an unhurried, luxurious, cinematic scroll pace
+    <section ref={containerRef} className="relative h-[250vh] w-full" id="inicio">
       
       {/* Sticky Fullscreen Canvas */}
       <div className="sticky top-0 h-screen w-full overflow-hidden select-none bg-[#F4F0E8]">
@@ -69,7 +70,7 @@ export function Scene1Apertura() {
           {/* Top Editorial Coordinates */}
           <motion.div 
             style={{ opacity: headerOpacity }}
-            className="flex items-center justify-between text-[11px] font-sans uppercase tracking-[0.25em] text-[#12201C]/65 pt-12 sm:pt-14"
+            className="flex items-center justify-between text-[11px] font-sans uppercase tracking-[0.25em] text-[#12201C]/65 pt-14 sm:pt-16"
           >
             <div className="flex items-center gap-2.5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#12201C]/80 animate-pulse" />
@@ -137,7 +138,7 @@ export function Scene1Apertura() {
             <img 
               src="/hero-cabanas.jpg" 
               alt="Villa MCJ, arquitectura bioclimática y piscina frente a la vegetación en Guamal, Meta"
-              className="w-full h-full object-cover object-center filter brightness-[0.94] contrast-[1.02]"
+              className="w-full h-full object-cover object-center filter brightness-[0.93] contrast-[1.02]"
               loading="eager"
               fetchpriority="high"
             />
@@ -156,7 +157,7 @@ export function Scene1Apertura() {
             className="absolute inset-0 z-30 flex flex-col justify-between p-8 sm:p-14 lg:p-20 text-[#F4F0E8] pointer-events-none"
           >
             {/* Top Minimal Pill */}
-            <div className="flex items-center justify-between text-[11px] font-sans tracking-[0.25em] uppercase text-white/70 pt-12 sm:pt-14">
+            <div className="flex items-center justify-between text-[11px] font-sans tracking-[0.25em] uppercase text-white/70 pt-14 sm:pt-16">
               <span className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                 Guamal, Meta • Colombia

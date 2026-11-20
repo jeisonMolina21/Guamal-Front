@@ -53,21 +53,42 @@ export function Navbar() {
           </a>
 
           {/* Right Action Cluster */}
-          <div className="flex items-center gap-3 sm:gap-4">
+          <div className="flex items-center gap-2 sm:gap-3.5">
             
+            {/* Login / Acceso Button — Always accessible directly */}
+            {user ? (
+              <a
+                href="/admin"
+                className="px-3 py-2 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white text-xs font-semibold uppercase tracking-[0.12em] transition-all active:scale-95 flex items-center gap-1.5 cursor-pointer"
+                title={`Panel de administración (${user.name})`}
+              >
+                <User size={13} className="text-emerald-400" />
+                <span className="hidden md:inline font-mono">{user.name.split(' ')[0]}</span>
+              </a>
+            ) : (
+              <button
+                onClick={() => isAuthModalOpen.set(true)}
+                className="px-3 py-2 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white/90 hover:text-white text-xs font-semibold uppercase tracking-[0.12em] transition-all active:scale-95 flex items-center gap-1.5 cursor-pointer"
+                title="Acceso administrativo / Iniciar sesión"
+              >
+                <User size={13} className="text-white/80" />
+                <span className="hidden sm:inline">Ingresar</span>
+              </button>
+            )}
+
             {/* Minimal Menu Trigger */}
             <button
               onClick={() => setIsMenuOpen(true)}
-              className="px-4 py-2 rounded-full glass-pill-light text-white text-xs font-semibold uppercase tracking-[0.14em] hover:bg-white/20 transition-all active:scale-95 flex items-center gap-2 cursor-pointer"
+              className="px-3.5 py-2 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white text-xs font-semibold uppercase tracking-[0.12em] transition-all active:scale-95 flex items-center gap-1.5 cursor-pointer"
             >
-              <Menu size={14} className="text-white/80" />
+              <Menu size={13} className="text-white/80" />
               <span className="hidden sm:inline">Explorar</span>
             </button>
 
             {/* Direct Reservation CTA */}
             <button
               onClick={() => isBookingModalOpen.set(true)}
-              className="px-5 py-2.5 rounded-full bg-white hover:bg-white/90 text-[#070B0A] text-xs font-bold uppercase tracking-[0.14em] transition-all duration-300 shadow-[0_4px_25px_rgba(255,255,255,0.2)] active:scale-95 flex items-center gap-2 cursor-pointer"
+              className="px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-white hover:bg-white/90 text-[#070B0A] text-xs font-bold uppercase tracking-[0.12em] transition-all duration-300 shadow-[0_4px_25px_rgba(255,255,255,0.2)] active:scale-95 flex items-center gap-1.5 cursor-pointer"
             >
               <Calendar size={13} />
               <span>Reservar</span>
