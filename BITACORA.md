@@ -1,5 +1,23 @@
 # 📓 Bitácora de Ingeniería y Cambios: Guamal Frontend
 
+## [2026-11-21] - Pulido de animaciones y diseño clean (rama `pulido-ux`)
+- **Criterio**: una foto, una frase y una acción por pantalla. Se conserva la paleta, la tipografía, el hero VILLA/MCJ, el wipe de cabañas y el auto-avance de 5 s. Se quita lo decorativo.
+- **Rendimiento / movimiento**:
+  - `Scene1Apertura.tsx`: se elimina el `useSpring` (Lenis ya suaviza; el resorte añadía latencia y trabajo por frame), el `filter` sobre la imagen que escala y la sombra bajo `clip-path` (quedaba recortada). Encuadre y tamaño del titular ajustados para que la foto no pise "MCJ".
+  - `Scene3Cabanas.tsx`: el temporizador de 65 ms que re-renderizaba el componente ~15 veces por segundo pasa a una animación CSS (`.cabin-progress`) cuyo `animationend` avanza la cabaña. El avance se pausa fuera de pantalla, con la pestaña oculta, por hover (solo ratón) o por botón. Precarga de cabaña previa y siguiente. Se quitan los `backdrop-blur` sobre fotos en movimiento y una capa de gradiente.
+  - Con `prefers-reduced-motion` no hay auto-avance.
+  - Sistema de entrada único (`[data-reveal]` + IntersectionObserver en `BaseLayout.astro`) y `ParallaxPhoto.tsx` (solo `transform`), usados únicamente en Experiencia y en el cierre.
+- **Secciones**:
+  - `ExperienceSection.astro`: de 8 tarjetas a una frase y 4 líneas; lo práctico en una sola frase.
+  - `DestinationExplorer.tsx`: lista simple + foto grande; muestra los 6 destinos (antes `slice(0, 4)` ocultaba Río Orotoy y Amaneceres). Todas las fotos montadas con cruce por opacidad. Se retira la pestaña "Galería de la villa" (queda el enlace a `/galeria`).
+  - `CTA.astro`: sin foto de fondo, sin tarjeta ni etiquetas.
+  - `ConciergeWidget.tsx`: de píldora a círculo de 48 px sin `ping`; ya no tapa contenido.
+- **Correcciones**: "Cotizar villa completa" ya no preselecciona Casa Ceiba.
+- **Código muerto eliminado**: `Scene2Manifiesto.tsx`, `CabinCenterStage.tsx`.
+- **Validación**: build de 26 páginas sin errores; pruebas en navegador de autoavance, pausas, reduced-motion, clics de destinos y desborde horizontal en móvil.
+
+---
+
 ## [2026-11-20 20:10] - Restauración de la Animación de Apertura Icónica (VILLA / MCJ Split & Portal)
 - **Diagnóstico**: La animación inicial de apertura que dividía el titular monumental `VILLA` / `MCJ` con desplazamiento en paralaje y expansión del portal fotográfico central enmarcado (`round 32px`) había sido reemplazada involuntariamente. El usuario solicitó expresamente restituir esta animación emblemática de la marca.
 - **Acciones Realizadas**:

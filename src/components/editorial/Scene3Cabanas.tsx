@@ -1,8 +1,9 @@
 /**
  * @fileoverview Colección de Estancias - Escena 3
  * @description Escaparate cinematográfico full-bleed de las 6 cabañas de Villa MCJ.
- * Opera de forma autónoma con temporizador de 5 segundos, transición por máscara de
- * cortina arquitectónica (clip-path wipe), pausa reactiva al cursor y soporte WCAG para movimiento reducido.
+ * Opera de forma autónoma con animación CSS (.cabin-progress), transición por máscara de
+ * cortina arquitectónica (clip-path wipe), pausa automática fuera de pantalla y por pestaña,
+ * precarga de imágenes contiguas y soporte WCAG para movimiento reducido.
  * @module Scene3Cabanas
  */
 
@@ -14,39 +15,39 @@ import type { Property } from '../../services/api';
 import { isBookingModalOpen } from '../../store/uiStore';
 import { reservationStore } from '../../store/reservationStore';
 
-// Architectural curated details for the 6 properties (max 12 words per micro-phrase)
+// Architectural editorial dictionary for each cabin
 const CABIN_EDITORIAL_META: Record<string, { italicWord: string; restWord: string; microEssence: string; specs: string }> = {
-  '11111111-1111-1111-1111-111111111111': {
+  '1': {
     italicWord: 'Ceiba',
     restWord: 'Casa',
-    microEssence: 'Brisa cordillerana al caer la tarde, frente al solárium y piscina.',
+    microEssence: 'Frente al solárium y piscina. Captura la brisa fresca del piedemonte al atardecer.',
     specs: '4 Huéspedes · 2 Alcobas · 1 Baño'
   },
-  '22222222-2222-2222-2222-222222222222': {
+  '2': {
     italicWord: 'Samán',
     restWord: 'Casa',
-    microEssence: 'Ventilación bioclimática continua y sala abierta hacia el jardín autóctono.',
+    microEssence: 'Ventilación bioclimática cruzada con sala abierta y vista al jardín autóctono.',
     specs: '5 Huéspedes · 2 Alcobas · 1 Baño'
   },
-  '33333333-3333-3333-3333-333333333333': {
+  '3': {
     italicWord: 'Moriche',
     restWord: 'Casa',
-    microEssence: 'Estancia insignia con asador BBQ privado a la leña y mirador.',
+    microEssence: 'Estancia insignia con kiosco asador BBQ privado y terraza mirador panorámica.',
     specs: '6 Huéspedes · 3 Alcobas · 2 Baños'
   },
-  '44444444-4444-4444-4444-444444444444': {
+  '4': {
     italicWord: 'Guayacán',
     restWord: 'Cabaña',
-    microEssence: 'Sombra natural continua entre palmas nativas y trino de aves matutinas.',
+    microEssence: 'Rodeada de sombra natural de palmas de moriche y canto de aves al alba.',
     specs: '4 Huéspedes · 2 Alcobas · 1 Baño'
   },
-  '55555555-5555-5555-5555-555555555555': {
+  '5': {
     italicWord: 'Yarumo',
     restWord: 'Suite',
-    microEssence: 'Refugio íntimo en pareja con solárium privado y acabados en piedra.',
-    specs: '2 Huéspedes · Cama King · Solárium'
+    microEssence: 'Espacio boutique íntimo para parejas con deck de solárium y silencio absoluto.',
+    specs: '2 Huéspedes · 1 Suite King · 1 Baño'
   },
-  '66666666-6666-6666-6666-666666666666': {
+  '6': {
     italicWord: 'Palma Real',
     restWord: 'Refugio',
     microEssence: 'Gran formato familiar con doble terraza y senderos directos al bosque.',
@@ -54,14 +55,17 @@ const CABIN_EDITORIAL_META: Record<string, { italicWord: string; restWord: strin
   }
 };
 
-const AUTO_INTERVAL_MS = 5000; // 5.0 seconds per cabin scene (requested by user)
-
 export function Scene3Cabanas() {
   const [properties] = useState<Property[]>(MOCK_PROPERTIES);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1); // 1 = forward (right to left), -1 = backward
-  const [isPaused, setIsPaused] = useState(false);
-  const [progressPercent, setProgressPercent] = useState(0);
+  const [manualPause, setManualPause] = useState(false);
+  const [hovering, setHovering] = useState(false);
+  const [inView, setInView] = useState(false);
+  const [tabVisible, setTabVisible] = useState(true);
+  const sectionRef = useRef<HTMLElement>(null);
+  // El avance corre solo si el usuario no lo pausó, no está encima, la sección se ve y la pestaña está activa.
+  const running = !manualPause && !hovering && inView && tabVisible;
 
   const totalCabins = properties.length;
   const currentCabin = properties[currentIndex];
@@ -75,44 +79,51 @@ export function Scene3Cabanas() {
   const nextCabin = useCallback(() => {
     setDirection(1);
     setCurrentIndex((prev) => (prev + 1) % totalCabins);
-    setProgressPercent(0);
   }, [totalCabins]);
 
   const prevCabin = useCallback(() => {
     setDirection(-1);
     setCurrentIndex((prev) => (prev - 1 + totalCabins) % totalCabins);
-    setProgressPercent(0);
   }, [totalCabins]);
 
   const selectCabin = (index: number) => {
     if (index === currentIndex) return;
     setDirection(index > currentIndex ? 1 : -1);
     setCurrentIndex(index);
-    setProgressPercent(0);
   };
 
-  // Autoplay timer with linear micro-progress line
+  // Visibilidad de la sección y de la pestaña (pausa el avance cuando nadie lo mira).
   useEffect(() => {
-    if (isPaused) return;
+    const el = sectionRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { threshold: 0.35 });
+    io.observe(el);
+    const onVisibility = () => setTabVisible(!document.hidden);
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => {
+      io.disconnect();
+      document.removeEventListener('visibilitychange', onVisibility);
+    };
+  }, []);
 
-    const intervalStep = 65; // update every 65ms
-    const stepIncrement = (intervalStep / AUTO_INTERVAL_MS) * 100;
-
-    const timer = setInterval(() => {
-      setProgressPercent((prev) => {
-        if (prev >= 100) {
-          nextCabin();
-          return 0;
-        }
-        return prev + stepIncrement;
-      });
-    }, intervalStep);
-
-    return () => clearInterval(timer);
-  }, [isPaused, nextCabin]);
+  // Precarga de la cabaña anterior y la siguiente: el wipe nunca revela una foto sin cargar.
+  useEffect(() => {
+    if (totalCabins < 2) return;
+    [(currentIndex + 1) % totalCabins, (currentIndex - 1 + totalCabins) % totalCabins].forEach((i) => {
+      const img = new Image();
+      img.decoding = 'async';
+      img.src = properties[i].imageUrl;
+    });
+  }, [currentIndex, properties, totalCabins]);
 
   const handleBookCabin = (propertyId: string) => {
     reservationStore.setKey('selectedPropertyId', propertyId);
+    isBookingModalOpen.set(true);
+  };
+
+  // "Villa completa" no es una cabaña: se abre el motor sin preseleccionar ninguna.
+  const handleBookVilla = () => {
+    reservationStore.setKey('selectedPropertyId', '');
     isBookingModalOpen.set(true);
   };
 
@@ -176,10 +187,11 @@ export function Scene3Cabanas() {
   return (
     <section 
       id="alojamiento"
+      ref={sectionRef}
       // Normal single-screen height: independent of vertical scroll!
       className="relative h-screen min-h-[680px] w-full overflow-hidden bg-[#070A09] text-[#F4F0E8] select-none"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
+      onPointerEnter={(e) => e.pointerType === 'mouse' && setHovering(true)}
+      onPointerLeave={() => setHovering(false)}
     >
       {/* 
         FULL-BLEED BACKGROUND STAGE WITH CLIP-PATH WIPE MASK
@@ -198,13 +210,12 @@ export function Scene3Cabanas() {
             <img
               src={currentCabin.imageUrl}
               alt={currentCabin.name}
-              className="w-full h-full object-cover object-center filter brightness-[0.93] contrast-[1.02]"
+              className="w-full h-full object-cover object-center"
               loading="eager"
             />
 
             {/* Architectural Cinematographic Gradient Vignette for Contrast */}
             <div className="absolute inset-0 bg-gradient-to-t from-[#070A09] via-[#070A09]/30 to-[#070A09]/50 pointer-events-none" />
-            <div className="absolute inset-0 bg-radial-[at_50%_50%] from-transparent via-[#070A09]/15 to-[#070A09]/70 pointer-events-none" />
           </motion.div>
         </AnimatePresence>
       </div>
@@ -217,19 +228,19 @@ export function Scene3Cabanas() {
         {/* Top Minimal Header & Autoplay Status */}
         <div className="flex items-center justify-between text-[11px] font-sans tracking-[0.25em] uppercase text-white/70 pt-8 sm:pt-4">
           <div className="flex items-center gap-3">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
             <span>Colección de Estancias</span>
           </div>
 
           <div className="flex items-center gap-4 sm:gap-6 pointer-events-auto">
             {/* Auto indicator pill */}
             <button
-              onClick={() => setIsPaused(!isPaused)}
-              className="flex items-center gap-2 py-1 px-3 rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-white/60 hover:text-white transition-colors cursor-pointer text-[10px]"
-              title={isPaused ? "Reanudar auto-avance" : "Pausar auto-avance"}
+              onClick={() => setManualPause(!manualPause)}
+              className="flex items-center gap-2 py-1 px-3 rounded-full bg-black/50 border border-white/10 text-white/60 hover:text-white transition-colors cursor-pointer text-[10px]"
+              title={manualPause ? "Reanudar auto-avance" : "Pausar auto-avance"}
+              aria-label={manualPause ? "Reanudar auto-avance" : "Pausar auto-avance"}
             >
-              {isPaused ? <Play size={10} /> : <Pause size={10} />}
-              <span className="hidden sm:inline">{isPaused ? "Pausado" : "Auto-avance"}</span>
+              {manualPause ? <Play size={10} /> : <Pause size={10} />}
+              <span className="hidden sm:inline">{manualPause ? "Pausado" : "Auto-avance"}</span>
             </button>
 
             {/* Current Index */}
@@ -303,14 +314,14 @@ export function Scene3Cabanas() {
                   <button
                     onClick={prevCabin}
                     aria-label="Cabaña anterior"
-                    className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/15 flex items-center justify-center text-white transition-colors cursor-pointer"
+                    className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 flex items-center justify-center text-white transition-colors cursor-pointer"
                   >
                     <ChevronLeft size={18} />
                   </button>
                   <button
                     onClick={nextCabin}
                     aria-label="Cabaña siguiente"
-                    className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/15 flex items-center justify-center text-white transition-colors cursor-pointer"
+                    className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 flex items-center justify-center text-white transition-colors cursor-pointer"
                   >
                     <ChevronRight size={18} />
                   </button>
@@ -327,7 +338,7 @@ export function Scene3Cabanas() {
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pointer-events-auto">
           
           {/* Segmented Cabin Selectors with Active Timer Line */}
-          <div className="flex items-center gap-2 sm:gap-3 bg-[#070A09]/60 backdrop-blur-xl px-4 py-2.5 rounded-full border border-white/10 overflow-x-auto scrollbar-none max-w-full">
+          <div className="flex items-center gap-2 sm:gap-3 bg-[#070A09]/70 px-4 py-2.5 rounded-full border border-white/10 overflow-x-auto scrollbar-none max-w-full">
             {properties.map((c, i) => {
               const isSelected = i === currentIndex;
               return (
@@ -349,9 +360,10 @@ export function Scene3Cabanas() {
                   {/* Micro Progress Line on Selected Cabin */}
                   <div className="w-full h-0.5 bg-white/15 rounded-full overflow-hidden">
                     {isSelected && (
-                      <motion.div
-                        className="h-full bg-[#F4F0E8]"
-                        style={{ width: `${progressPercent}%` }}
+                      <div
+                        className="cabin-progress h-full w-full bg-[#F4F0E8]"
+                        style={{ animationPlayState: running ? 'running' : 'paused' }}
+                        onAnimationEnd={nextCabin}
                       />
                     )}
                   </div>
@@ -362,8 +374,8 @@ export function Scene3Cabanas() {
 
           {/* Group / Villa Completa Privatization Note */}
           <button
-            onClick={() => handleBookCabin(properties[0].id)}
-            className="hidden xl:flex items-center gap-3 text-xs tracking-wider uppercase text-white/70 hover:text-white transition-colors bg-white/5 hover:bg-white/10 px-5 py-3 rounded-full border border-white/10 backdrop-blur-md cursor-pointer shrink-0"
+            onClick={handleBookVilla}
+            className="hidden md:flex items-center gap-3 text-xs tracking-wider uppercase text-white/70 hover:text-white transition-colors bg-white/5 hover:bg-white/10 px-5 py-3 rounded-full border border-white/10 cursor-pointer shrink-0"
           >
             <span>Cotizar villa completa (15+ pers)</span>
             <ArrowRight size={13} className="text-[#F4F0E8]" />

@@ -8,7 +8,7 @@
  */
 
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform, useMotionTemplate, useSpring, useReducedMotion } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionTemplate, useReducedMotion } from 'framer-motion';
 
 export function Scene1Apertura() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -20,20 +20,13 @@ export function Scene1Apertura() {
 
   const shouldReduceMotion = useReducedMotion();
 
-  // Snappy yet organic spring physics (Apple fluid dynamic feel with zero input lag)
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 180,
-    damping: 26,
-    mass: 0.2,
-    restDelta: 0.0001
-  });
-
-  const progress = shouldReduceMotion ? scrollYProgress : smoothProgress;
+  // Lenis ya suaviza la rueda; un resorte extra sumaba latencia y trabajo por frame.
+  const progress = scrollYProgress;
 
   // 1. Clip-path inset interpolation: begins centered with rounded corners (card), expands to 100% full-bleed
-  const topInset = useTransform(progress, [0, 0.68], [34, 0]);
+  const topInset = useTransform(progress, [0, 0.68], [33, 0]);
   const rightInset = useTransform(progress, [0, 0.68], [8, 0]);
-  const bottomInset = useTransform(progress, [0, 0.68], [26, 0]);
+  const bottomInset = useTransform(progress, [0, 0.68], [28, 0]);
   const leftInset = useTransform(progress, [0, 0.68], [8, 0]);
   const radiusInset = useTransform(progress, [0, 0.68], [32, 0]);
 
@@ -67,7 +60,6 @@ export function Scene1Apertura() {
           className="absolute top-[88px] left-8 right-8 z-30 flex items-center justify-between text-[11px] font-sans uppercase tracking-[0.25em] text-[#12201C]/65"
         >
           <div className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#12201C]/80 animate-pulse"></span>
             <span>4.0744° N, 73.7661° W</span>
           </div>
           <span className="hidden sm:inline">Guamal, Meta • Colombia</span>
@@ -83,7 +75,7 @@ export function Scene1Apertura() {
               x: shouldReduceMotion ? 0 : xLeftTitle, 
               opacity: shouldReduceMotion ? 0 : titleOpacity 
             }}
-            className="flex items-center justify-center font-display-serif text-[clamp(4.5rem,14vw,17rem)] font-light leading-[0.88] tracking-[-0.04em] text-[#12201C]"
+            className="flex items-center justify-center font-display-serif text-[clamp(4rem,12.5vw,15rem)] font-light leading-[0.88] tracking-[-0.04em] text-[#12201C]"
           >
             <span>V</span>
             <span>I</span>
@@ -98,7 +90,7 @@ export function Scene1Apertura() {
               x: shouldReduceMotion ? 0 : xRightTitle, 
               opacity: shouldReduceMotion ? 0 : titleOpacity 
             }}
-            className="flex items-center justify-center font-display-serif text-[clamp(4.5rem,14vw,17rem)] font-light leading-[0.88] tracking-[-0.04em] text-[#12201C]"
+            className="flex items-center justify-center font-display-serif text-[clamp(4rem,12.5vw,15rem)] font-light leading-[0.88] tracking-[-0.04em] text-[#12201C]"
           >
             <span className="font-editorial-italic font-normal text-[#C25E3E]">M</span>
             <span>C</span>
@@ -110,14 +102,14 @@ export function Scene1Apertura() {
         {/* Central Expanding Photo Portal (Framed Card -> Full Bleed on scroll) */}
         <motion.div 
           style={{ clipPath }}
-          className="absolute inset-0 w-full h-full z-20 overflow-hidden shadow-[0_30px_90px_rgba(18,32,28,0.22)]"
+          className="absolute inset-0 w-full h-full z-20 overflow-hidden"
           data-cursor="Explorar"
         >
           <motion.img 
             src="/hero-cabanas.jpg" 
             alt="Villa MCJ, cabañas bioclimáticas y piscina frente a la vegetación nativa en Guamal, Meta"
             style={{ scale: shouldReduceMotion ? 1 : imgScale }}
-            className="w-full h-full object-cover object-center filter brightness-[0.96] contrast-[1.03]"
+            className="w-full h-full object-cover object-center"
             loading="eager"
             fetchpriority="high"
           />
@@ -141,10 +133,6 @@ export function Scene1Apertura() {
                 Cabañas bioclimáticas entre brisa cordillerana y el río Humadea.
               </p>
             </div>
-
-            <div className="text-right text-[11px] font-sans text-white/60 uppercase tracking-[0.2em]">
-              <span>Desliza para adentrarte ↓</span>
-            </div>
           </motion.div>
 
         </motion.div>
@@ -154,8 +142,7 @@ export function Scene1Apertura() {
           style={{ opacity: metaOpacity }}
           className="absolute bottom-28 sm:bottom-8 left-1/2 -translate-x-1/2 z-30 text-[10px] font-sans uppercase tracking-[0.25em] text-[#12201C]/50 flex items-center gap-2"
         >
-          <span className="w-1 h-3 rounded-full border border-[#12201C]/40 inline-block animate-bounce"></span>
-          <span>Desplaza para abrir el día</span>
+          <span>Desplaza</span>
         </motion.div>
 
       </div>

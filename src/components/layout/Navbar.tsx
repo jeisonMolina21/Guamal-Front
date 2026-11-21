@@ -39,11 +39,11 @@ export function Navbar() {
           
           {/* Brand Identity / Monogram */}
           <a href="/" className="group flex items-center gap-3.5 focus:outline-none">
-            <div className="w-10 h-10 rounded-full border border-white/20 bg-white/5 backdrop-blur-md flex items-center justify-center font-serif text-xs font-bold tracking-widest text-white transition-all duration-500 group-hover:border-white/50 group-hover:scale-105">
+            <div className="w-10 h-10 rounded-full border border-white/20 bg-white/5 backdrop-blur-md hidden sm:flex items-center justify-center font-serif text-xs font-bold tracking-widest text-white transition-all duration-500 group-hover:border-white/50 group-hover:scale-105">
               MCJ
             </div>
             <div className="flex flex-col">
-              <span className="font-serif text-xl sm:text-2xl font-bold tracking-tight leading-none text-white transition-colors">
+              <span className="font-serif text-xl sm:text-2xl font-bold tracking-tight leading-none whitespace-nowrap text-white transition-colors">
                 Villa MCJ
               </span>
               <span className="hidden sm:block whitespace-nowrap text-[9px] uppercase tracking-[0.24em] font-medium text-white/60 mt-1">

@@ -114,3 +114,44 @@
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
 }
+
+/* ---------------------------------------------------------------
+   Motion system (one reveal, one progress bar; transform/opacity only)
+   --------------------------------------------------------------- */
+@media (scripting: enabled) {
+  [data-reveal] {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+    transition:
+      opacity 640ms var(--ease-editorial),
+      transform 640ms var(--ease-editorial);
+    transition-delay: calc(var(--reveal-i, 0) * 80ms);
+  }
+  [data-reveal].is-in {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes cabin-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+.cabin-progress {
+  transform-origin: left center;
+  animation: cabin-progress 5000ms linear forwards;
+}
+
+@keyframes swap-in {
+  from { opacity: 0; transform: translate3d(0, 10px, 0); }
+  to { opacity: 1; transform: none; }
+}
+.swap-in {
+  animation: swap-in 360ms var(--ease-editorial) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .cabin-progress { animation: none; transform: scaleX(0); }
+  .swap-in { animation: none; }
+}

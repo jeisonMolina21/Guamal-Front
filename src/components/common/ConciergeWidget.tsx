@@ -637,27 +637,11 @@ export const ConciergeWidget: React.FC = () => {
             whileHover={{ scale: 1.04, y: -2 }}
             whileTap={{ scale: 0.95 }}
             transition={springGentle}
-            aria-label="Abrir Concierge Villa MCJ"
-            className="group relative px-4 py-3 sm:px-5 sm:py-3.5 rounded-full bg-[#12201C]/55 hover:bg-[#12201C]/80 backdrop-blur-2xl text-white border border-white/20 shadow-[0_12px_40px_rgba(0,0,0,0.3)] flex items-center gap-3 cursor-pointer transition-colors"
+            aria-label={isOpen ? 'Cerrar concierge' : 'Abrir concierge de Villa MCJ'}
+            title="Concierge y fechas"
+            className="group relative flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-[#12201C]/90 text-white shadow-[0_8px_28px_rgba(0,0,0,0.3)] cursor-pointer transition-colors hover:bg-[#12201C]"
           >
-            <div className="w-8 h-8 rounded-full bg-white/15 text-white flex items-center justify-center font-bold shrink-0 transition-transform group-hover:scale-105 backdrop-blur-md border border-white/10">
-              {isOpen ? <X size={16} /> : <Sparkles size={16} className="text-[#F4F0E8]" />}
-            </div>
-
-            <div className="text-left pr-1">
-              <span className="block text-[9px] font-bold uppercase tracking-[0.18em] text-[#F4F0E8]/70 leading-none mb-0.5">
-                Villa MCJ
-              </span>
-              <span className="text-xs font-semibold text-white/95 leading-none">
-                {isOpen ? 'Cerrar Concierge' : 'Concierge & Fechas'}
-              </span>
-            </div>
-
-            {/* Emerald Live Pulse */}
-            <span className="relative flex h-2.5 w-2.5 ml-0.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-            </span>
+            {isOpen ? <X size={18} /> : <Sparkles size={18} className="text-[#F4F0E8]" />}
           </motion.button>
         )}
       </AnimatePresence>

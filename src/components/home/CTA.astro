@@ -1,98 +1,49 @@
 ---
-import { ArrowRight, Phone, MessageSquare, ShieldCheck, Sparkles, MapPin } from 'lucide-astro';
+import { ArrowRight, MessageSquare } from 'lucide-astro';
 ---
 
-<section class="py-28 bg-[#142723] text-white relative overflow-hidden">
-  
-  {/* Atmospheric Background Media */}
-  <div class="absolute inset-0 z-0">
-    <img 
-      src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=2070&auto=format&fit=crop" 
-      alt="Amanecer llanero en Guamal" 
-      class="w-full h-full object-cover opacity-15 filter contrast-125"
-      loading="lazy"
-    />
-    <div class="absolute inset-0 bg-gradient-to-r from-[#142723] via-[#142723]/90 to-[#142723]/70"></div>
-  </div>
+<section class="relative bg-[#12201C] text-[#F4F0E8] px-6 sm:px-10 lg:px-16 py-28 lg:py-40">
+  <div class="mx-auto max-w-[1420px]" data-reveal>
+    <h2 class="font-serif font-light text-5xl sm:text-6xl lg:text-8xl leading-[1.02] tracking-tight text-balance max-w-4xl">
+      ¿Listo para desconectarte<br />
+      <span class="font-editorial-italic font-normal text-white/70">en Villa MCJ?</span>
+    </h2>
 
-  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-      
-      {/* Narrative Offer */}
-      <div class="lg:col-span-8">
-        <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 text-white/80 text-xs font-bold uppercase tracking-[0.16em] mb-4">
-          <Sparkles size={13} class="text-white" />
-          Planifica tu Escapada
-        </span>
-        <h2 class="text-3xl sm:text-5xl lg:text-6xl font-serif font-bold text-white leading-tight mb-6">
-          ¿Listo para desconectarte <br />
-          <span class="font-editorial-italic font-normal text-white/70">en Villa MCJ?</span>
-        </h2>
-        <p class="text-base sm:text-lg text-white/80 max-w-xl font-light leading-relaxed mb-8">
-          Consulta disponibilidad en tiempo real o escríbenos directamente por WhatsApp para recibir atención personalizada, cotizaciones grupales y mapas de llegada.
-        </p>
+    <p class="mt-8 max-w-md text-base sm:text-lg font-light leading-relaxed text-white/75">
+      Consulta fechas en tiempo real o escríbenos por WhatsApp.
+    </p>
 
-        <div class="flex flex-wrap items-center gap-4">
-          <button 
-            id="cta-book-btn"
-            class="px-8 py-4 rounded-full bg-white hover:bg-white/90 text-[#070B0A] font-bold text-xs uppercase tracking-wider transition-all duration-300 shadow-[0_10px_35px_rgba(255,255,255,0.15)] active:scale-95 flex items-center gap-3 cursor-pointer group"
-          >
-            <span>Consultar Disponibilidad</span>
-            <ArrowRight size={15} class="group-hover:translate-x-1.5 transition-transform" />
-          </button>
+    <div class="mt-10 flex flex-wrap items-center gap-4">
+      <button
+        id="cta-book-btn"
+        class="btn-editorial inline-flex items-center gap-3 rounded-full bg-[#F4F0E8] px-8 py-4 text-sm font-semibold text-[#12201C] hover:bg-white cursor-pointer"
+      >
+        <span>Consultar disponibilidad</span>
+        <ArrowRight size={16} />
+      </button>
 
-          <a 
-            href="https://wa.me/573001234567?text=Hola,%20quisiera%20asesoria%20para%20reservar%20en%20Villa%20MCJ%20Guamal"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="px-6 py-4 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white font-medium text-xs uppercase tracking-wider transition-all flex items-center gap-2"
-          >
-            <MessageSquare size={15} class="text-white/80" />
-            <span>Chatear con Anfitrión</span>
-          </a>
-        </div>
-      </div>
-
-      {/* Info Card Strip */}
-      <div class="lg:col-span-4 bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 text-white space-y-6">
-        <div>
-          <span class="text-[10px] uppercase font-bold tracking-[0.2em] text-white/50 block mb-1">Ubicación Física</span>
-          <p class="text-sm font-light text-white/90">
-            Sector Campestre Vía Humadea, Guamal, Meta, Colombia.
-          </p>
-        </div>
-
-        <div class="pt-4 border-t border-white/10">
-          <span class="text-[10px] uppercase font-bold tracking-[0.2em] text-white/50 block mb-1">Horarios Oficiales</span>
-          <p class="text-sm font-light text-white/90">
-            Check-in: 3:00 PM • Check-out: 1:00 PM
-          </p>
-        </div>
-
-        <div class="pt-4 border-t border-white/10 flex items-center gap-3 text-xs text-emerald-300">
-          <ShieldCheck size={18} />
-          <span>Reserva directa con confirmación inmediata</span>
-        </div>
-      </div>
-
+      <a
+        href="https://wa.me/573001234567?text=Hola,%20quisiera%20asesoria%20para%20reservar%20en%20Villa%20MCJ%20Guamal"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-editorial inline-flex items-center gap-2 rounded-full border border-white/25 px-7 py-4 text-sm font-medium text-white hover:bg-white/10"
+      >
+        <MessageSquare size={16} />
+        <span>Escribir por WhatsApp</span>
+      </a>
     </div>
-  </div>
 
+    <dl class="mt-16 flex flex-wrap gap-x-12 gap-y-4 border-t border-white/15 pt-6 text-sm font-light text-white/65">
+      <div><dt class="sr-only">Ubicación</dt><dd>Sector campestre vía Humadea, Guamal, Meta</dd></div>
+      <div><dt class="sr-only">Horarios</dt><dd>Check-in 3:00 PM, check-out 1:00 PM</dd></div>
+      <div><dt class="sr-only">Reserva</dt><dd>Reserva directa con confirmación inmediata</dd></div>
+    </dl>
+  </div>
 </section>
 
 <script>
   import { isBookingModalOpen } from '../../store/uiStore';
-  
-  function initCTA() {
-    const ctaBtn = document.getElementById('cta-book-btn');
-    if (ctaBtn) {
-      ctaBtn.onclick = (e) => {
-        e.preventDefault();
-        isBookingModalOpen.set(true);
-      };
-    }
-  }
-
-  initCTA();
-  document.addEventListener('astro:page-load', initCTA);
+  document.getElementById('cta-book-btn')?.addEventListener('click', () => {
+    isBookingModalOpen.set(true);
+  });
 </script>
