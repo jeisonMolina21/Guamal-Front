@@ -1,5 +1,20 @@
 # 📓 Bitácora de Ingeniería y Cambios: Guamal Frontend
 
+## [2026-11-20 20:10] - Restauración de la Animación de Apertura Icónica (VILLA / MCJ Split & Portal)
+- **Diagnóstico**: La animación inicial de apertura que dividía el titular monumental `VILLA` / `MCJ` con desplazamiento en paralaje y expansión del portal fotográfico central enmarcado (`round 32px`) había sido reemplazada involuntariamente. El usuario solicitó expresamente restituir esta animación emblemática de la marca.
+- **Acciones Realizadas**:
+  - `Scene1Apertura.tsx`: Restaurada la identidad arquitectónica de apertura:
+    - Tipografía monumental: `VILLA` arriba desplazándose suavemente a la izquierda (`-22vw`) y `MCJ` abajo a la derecha (`22vw`) con su letra `M` en cursiva terracota editorial.
+    - Portal fotográfico central: tarjeta fotográfica de cabañas con esquinas redondeadas (`round 32px`) y sombra sutil que se expande a pantalla completa (full-bleed) de manera orgánica.
+    - Física de resorte calibrada (`stiffness: 180, damping: 26, mass: 0.2`): respuesta inmediata al scroll sin zona muerta ni sensación de "delay".
+    - Revelado de subtítulo editorial inferior ("Amanecer en el piedemonte...") al completar la apertura.
+    - Soporte formal de accesibilidad WCAG (`useReducedMotion`).
+- **Validación**:
+  - `npm run build` ejecutado exitosamente generando 26 rutas estáticas en 3.18s sin errores.
+  - Sincronización en Git.
+
+---
+
 ## [2026-11-20 18:05] - Calibración de Latencia y Snappiness (Eliminación de Delay en Animaciones)
 - **Diagnóstico**: Las animaciones se percibían pesadas y con retardo ("delay"). El análisis de profiling identificó 4 fuentes acumulativas de latencia:
   1. `Scene1Apertura.tsx`: Resorte con inercia excesiva (`stiffness: 55, mass: 1.0`), amortiguamiento que demoraba ~850ms en reaccionar y umbral muerto inicial del 12% (`[0.12, 0.82]`) que no respondía al inicio del scroll.
