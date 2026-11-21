@@ -1,5 +1,6 @@
 ---
 import { Users, Bed, Bath, ArrowRight, Check, Sparkles, Wind, Eye, Utensils } from 'lucide-astro';
+import { SITE } from '../../config/site';
 
 /**
  * Verified cabins data matching database & real architecture of Villa MCJ.
@@ -321,7 +322,7 @@ const cabins = [
         </div>
 
         <a
-          href="https://wa.me/573001234567?text=Hola,%20deseo%20cotizar%20el%20alquiler%20exclusivo%20de%20todo%20el%20Mini%20Barrio%20en%20Villa%20MCJ"
+          href={`https://wa.me/${SITE.whatsapp}?text=Hola,%20deseo%20cotizar%20el%20alquiler%20exclusivo%20de%20todo%20el%20Mini%20Barrio%20en%20Villa%20MCJ`}
           target="_blank"
           rel="noopener noreferrer"
           class="px-8 py-4 rounded-full bg-[#C69A59] hover:bg-[#b58947] text-[#142723] font-bold text-xs uppercase tracking-wider transition-all duration-300 shadow-lg active:scale-95 text-center"

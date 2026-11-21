@@ -3,10 +3,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { Navbar } from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer.astro';
 import { Phone, Mail, MapPin, MessageCircle, Clock, ShieldCheck, Send } from 'lucide-astro';
+import { SITE } from '../config/site';
 ---
 
 <BaseLayout title="Contacto | Guamal Mini Barrio">
-  <Navbar client:load />
+  <Navbar client:load tone="light" />
 
   <main class="flex-grow pt-28 pb-24 bg-guamal-cream/30">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12">
@@ -29,7 +30,7 @@ import { Phone, Mail, MapPin, MessageCircle, Clock, ShieldCheck, Send } from 'lu
         
         <!-- WhatsApp -->
         <a 
-          href="https://wa.me/573001234567?text=Hola,%20me%20gustaria%20recibir%20informacion%20sobre%20Guamal%20Mini%20Barrio" 
+          href={`https://wa.me/${SITE.whatsapp}?text=Hola,%20me%20gustaria%20recibir%20informacion%20sobre%20Guamal%20Mini%20Barrio`} 
           target="_blank" 
           rel="noopener noreferrer"
           class="bg-white rounded-3xl p-8 border border-gray-100 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center group cursor-pointer"
@@ -39,12 +40,12 @@ import { Phone, Mail, MapPin, MessageCircle, Clock, ShieldCheck, Send } from 'lu
           </div>
           <h3 class="font-serif font-bold text-xl text-gray-900 mb-2">WhatsApp Directo</h3>
           <p class="text-sm text-gray-500 mb-4">Respuesta rápida todos los días.</p>
-          <span class="font-bold text-guamal-green text-sm group-hover:underline">+57 300 123 4567</span>
+          <span class="font-bold text-guamal-green text-sm group-hover:underline">{SITE.phoneDisplay}</span>
         </a>
 
         <!-- Phone -->
         <a 
-          href="tel:+573001234567" 
+          href={SITE.phoneHref} 
           class="bg-white rounded-3xl p-8 border border-gray-100 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center group cursor-pointer"
         >
           <div class="w-16 h-16 bg-guamal-green/10 text-guamal-green rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
@@ -52,7 +53,7 @@ import { Phone, Mail, MapPin, MessageCircle, Clock, ShieldCheck, Send } from 'lu
           </div>
           <h3 class="font-serif font-bold text-xl text-gray-900 mb-2">Línea Telefónica</h3>
           <p class="text-sm text-gray-500 mb-4">Atención de 8:00 AM a 8:00 PM.</p>
-          <span class="font-bold text-guamal-green text-sm group-hover:underline">+57 300 123 4567</span>
+          <span class="font-bold text-guamal-green text-sm group-hover:underline">{SITE.phoneDisplay}</span>
         </a>
 
         <!-- Location -->

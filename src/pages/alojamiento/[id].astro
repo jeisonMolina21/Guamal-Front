@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { Navbar } from '../../components/layout/Navbar';
 import Footer from '../../components/layout/Footer.astro';
 import { Users, Bed, Bath, Wifi, Wind, Utensils, Check, ArrowLeft, ShieldCheck, Clock, Sparkles, MapPin, Compass } from 'lucide-astro';
+import { SITE } from '../../config/site';
 
 export function getStaticPaths() {
   return [
@@ -394,7 +395,7 @@ const house = housesData[id || '1'] || housesData['1'];
             </button>
 
             <a 
-              href={`https://wa.me/573001234567?text=Hola,%20quisiera%20consultar%20disponibilidad%20para%20la%20${encodeURIComponent(house.name)}`}
+              href={`https://wa.me/${SITE.whatsapp}?text=Hola,%20quisiera%20consultar%20disponibilidad%20para%20la%20${encodeURIComponent(house.name)}`}
               target="_blank" 
               rel="noopener noreferrer"
               class="w-full border border-white/15 hover:border-white/30 text-white/80 hover:text-white py-3.5 rounded-full font-medium text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2"

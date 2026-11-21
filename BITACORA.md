@@ -1,5 +1,24 @@
 # 📓 Bitácora de Ingeniería y Cambios: Guamal Frontend
 
+## [2026-11-21 11:30] - Restauración de Secciones Clave, Navbar Dinámico y Contacto Centralizado
+- **Restauración de Componentes e Identidad Visual**:
+  - `ExperienceSection.astro`: Restaurada la composición de pantalla única (100vh) con la tarjeta de 8 amenidades ("Amenidades & Comodidades - 8 Especificaciones") en cuadrícula 2x4 y la gran fotografía izquierda con titular superpuesto.
+  - `DestinationExplorer.tsx`: Restaurado el explorador interactivo completo con botones de filtrado por categoría (Todos los Destinos, Ríos & Balnearios, Cascadas & Senderos, Gastronomía, Agroturismo), tarjeta destacada de gran formato con botón "Ruta en Maps" y riel vertical de miniaturas con tiempos de traslado.
+  - `Gallery.astro`: Restaurada la sección "Así se vive en Guamal" con su cuadrícula de 4 postales fotográficas y enlace a la galería completa.
+  - `Scene3Cabanas.tsx`: Indexación de metadatos editoriales de cabañas por nombre en minúsculas (`currentCabin.name.trim().toLowerCase()`) para garantizar que cada cabaña muestre su reseña y atmósfera correspondiente sin importar el formato de ID en la base de datos.
+- **Navbar Dinámico y Legibilidad en Páginas Claras**:
+  - `Navbar.tsx`: Incorporación de `tone="light"` para asegurar contraste óptimo (verde oscuro `#12201C`) sobre fondos crema/claros en `contacto`, `experiencia`, `galeria`, `guamal`, `login` y en la apertura de la home, con transición fluida a barra oscura flotante tras 50px de scroll. Enlaces ancla actualizados a `/#...` para navegación cruzada entre páginas.
+- **Centralización de Contacto y Configuración**:
+  - `src/config/site.ts`: Módulo único con `SITE.whatsapp`, `SITE.phoneDisplay` y `SITE.phoneHref`, configurable mediante la variable de entorno `PUBLIC_WHATSAPP_NUMBER`.
+  - Vinculación centralizada en `BookingModal`, `ConciergeWidget`, `WhatsAppWidget`, `CTA`, `Footer`, `FeaturedHouses`, `contacto`, `alojamiento/[id]` y `reservar/confirmacion`.
+- **AdminLayout & Responsive**:
+  - Guardia de seguridad en cliente: redirección automática a `/login` si no existe `guamal_token`.
+  - Menú lateral deslizable responsive en dispositivos móviles con botón hamburguesa, backdrop táctil y avatar dinámico con nombre del usuario.
+- **Validación**:
+  - Compilación Astro de 26 rutas estáticas sin errores ni advertencias.
+
+---
+
 ## [2026-11-21] - Pulido de animaciones y diseño clean (rama `pulido-ux`)
 - **Criterio**: una foto, una frase y una acción por pantalla. Se conserva la paleta, la tipografía, el hero VILLA/MCJ, el wipe de cabañas y el auto-avance de 5 s. Se quita lo decorativo.
 - **Rendimiento / movimiento**:

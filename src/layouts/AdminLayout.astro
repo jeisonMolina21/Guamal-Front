@@ -22,12 +22,19 @@ const currentPath = Astro.url.pathname;
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <script is:inline>
+      try {
+        if (!localStorage.getItem('guamal_token')) {
+          location.replace('/login');
+        }
+      } catch (e) {}
+    </script>
     <ClientRouter />
   </head>
   <body class="antialiased min-h-screen flex text-gray-800 font-sans">
     
     {/* Sidebar */}
-    <aside class="w-64 bg-guamal-green text-white flex flex-col fixed h-full z-20">
+    <aside id="admin-sidebar" class="w-64 bg-guamal-green text-white flex flex-col fixed h-full z-40 -translate-x-full lg:translate-x-0 transition-transform duration-300">
       <div class="p-6">
         <h2 class="text-2xl font-serif font-bold text-guamal-cream">Villa MCJ</h2>
         <p class="text-xs text-green-300 mt-1 uppercase tracking-widest font-semibold">Panel Administrativo</p>
@@ -97,20 +104,78 @@ const currentPath = Astro.url.pathname;
       </div>
     </aside>
 
+    {/* Mobile backdrop overlay */}
+    <div id="admin-overlay" class="hidden fixed inset-0 bg-black/40 z-30 lg:hidden"></div>
+
     {/* Main Content */}
-    <main class="flex-1 ml-64 p-8">
-      <header class="flex justify-between items-center mb-8">
-        <div>
-          <h1 class="text-3xl font-bold text-gray-900">{title}</h1>
-          <p class="text-gray-500 mt-1">Bienvenido de vuelta, Administrador.</p>
+    <main class="flex-1 min-w-0 lg:ml-64 p-4 sm:p-6 lg:p-8">
+      <header class="flex justify-between items-center mb-8 gap-4">
+        <div class="flex items-center gap-3">
+          <button
+            id="admin-menu-btn"
+            type="button"
+            aria-label="Abrir menú"
+            aria-controls="admin-sidebar"
+            aria-expanded="false"
+            class="lg:hidden shrink-0 w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center text-gray-700 hover:bg-gray-100 cursor-pointer"
+          >
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+          <div>
+            <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">{title}</h1>
+            <p class="text-gray-500 mt-1 text-sm sm:text-base">
+              Bienvenido de vuelta, <span id="admin-user-name">Administrador</span>.
+            </p>
+          </div>
         </div>
         <div class="flex items-center gap-4">
-          <div class="w-10 h-10 bg-gray-200 rounded-full"></div>
+          <div id="admin-avatar" class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-sm font-semibold text-gray-600"></div>
         </div>
       </header>
 
       <slot />
     </main>
 
+    <script>
+      function initAdmin() {
+        const btn = document.getElementById('admin-menu-btn');
+        const sidebar = document.getElementById('admin-sidebar');
+        const overlay = document.getElementById('admin-overlay');
+        const nameEl = document.getElementById('admin-user-name');
+        const avatarEl = document.getElementById('admin-avatar');
+
+        try {
+          const raw = localStorage.getItem('guamal_user');
+          if (raw) {
+            const u = JSON.parse(raw);
+            const display = u.name || u.email || 'Administrador';
+            if (nameEl) nameEl.textContent = display;
+            if (avatarEl) avatarEl.textContent = (display[0] || 'A').toUpperCase();
+          }
+        } catch (e) {}
+
+        const close = () => {
+          sidebar?.classList.add('-translate-x-full');
+          overlay?.classList.add('hidden');
+          btn?.setAttribute('aria-expanded', 'false');
+        };
+        const open = () => {
+          sidebar?.classList.remove('-translate-x-full');
+          overlay?.classList.remove('hidden');
+          btn?.setAttribute('aria-expanded', 'true');
+        };
+
+        btn?.addEventListener('click', () => {
+          const isClosed = sidebar?.classList.contains('-translate-x-full');
+          if (isClosed) open(); else close();
+        });
+        overlay?.addEventListener('click', close);
+      }
+
+      initAdmin();
+      document.addEventListener('astro:page-load', initAdmin);
+    </script>
   </body>
 </html>

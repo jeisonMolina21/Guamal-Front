@@ -7,6 +7,7 @@ import {
 import { isBookingModalOpen } from '../../store/uiStore';
 import { reservationStore } from '../../store/reservationStore';
 import { api } from '../../services/api';
+import { SITE } from '../../config/site';
 
 // Emil Kowalski & Apple Motion Tuning
 const springGentle = { type: 'spring' as const, stiffness: 320, damping: 28, mass: 0.8 };
@@ -31,7 +32,7 @@ export const ConciergeWidget: React.FC = () => {
 
   // Lead capture state
   const [guestName, setGuestName] = useState('');
-  const [waPhone, setWaPhone] = useState('573001234567');
+  const [waPhone, setWaPhone] = useState<string>(SITE.whatsapp);
   const [welcomeMsg, setWelcomeMsg] = useState('Hola, quisiera asesoría para reservar en Villa MCJ.');
 
   const messagesEndRef = useRef<HTMLDivElement | null>(null);

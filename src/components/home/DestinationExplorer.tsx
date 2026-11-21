@@ -1,90 +1,195 @@
 /**
- * @fileoverview Territorio (Destinos)
- * @description Una foto grande y la lista completa de destinos cerca de la villa.
- * Todas las fotos están montadas y se cruzan por opacidad: cambiar de destino no espera a ninguna descarga.
+ * @fileoverview Explorador de Destinos Reales en Guamal, Meta - Escena 5
+ * @description Escenario interactivo con filtro por categorías, visualizador destacado
+ * con enlace directo a Google Maps y riel vertical de destinos con tiempos de recorrido.
+ * @module DestinationExplorer
  */
 
 import React, { useState } from 'react';
-import { GUAMAL_DESTINATIONS } from '../../data/destinations';
+import { Compass, Clock, Navigation, ExternalLink, ArrowRight, Sparkles } from 'lucide-react';
+import { GUAMAL_DESTINATIONS, type DestinationSpot } from '../../data/destinations';
+
+const CATEGORIES = [
+  { label: 'Todos los Destinos', value: 'TODOS' },
+  { label: 'Ríos & Balnearios', value: 'Río & Balneario' },
+  { label: 'Cascadas & Senderos', value: 'Cascadas' },
+  { label: 'Gastronomía Llanera', value: 'Gastronomía' },
+  { label: 'Agroturismo & Cacao', value: 'Cultura & Aventura' }
+] as const;
 
 export function DestinationExplorer() {
-  const [activeId, setActiveId] = useState(GUAMAL_DESTINATIONS[0].id);
-  const active = GUAMAL_DESTINATIONS.find((d) => d.id === activeId) ?? GUAMAL_DESTINATIONS[0];
+  const [activeCategory, setActiveCategory] = useState<string>('TODOS');
+  const [selectedSpot, setSelectedSpot] = useState<DestinationSpot>(GUAMAL_DESTINATIONS[0]);
+
+  const filtered = activeCategory === 'TODOS'
+    ? GUAMAL_DESTINATIONS
+    : GUAMAL_DESTINATIONS.filter(d => d.category === activeCategory);
+
+  // Ensure selectedSpot is valid when category changes
+  const activeSpot = filtered.some(d => d.id === selectedSpot.id)
+    ? selectedSpot
+    : (filtered[0] ?? GUAMAL_DESTINATIONS[0]);
 
   return (
-    <section
-      id="destinos-guamal"
-      className="relative w-full bg-[#070A09] text-[#F4F0E8] px-6 sm:px-10 lg:px-14 py-20 lg:py-0 lg:h-screen lg:min-h-[720px] lg:max-h-[960px] flex flex-col justify-center"
-    >
-      <div className="mx-auto w-full max-w-[1420px]">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 lg:mb-10">
-          <h2 className="font-serif font-light text-3xl sm:text-4xl lg:text-5xl leading-tight tracking-tight">
-            Puerta de entrada a los <span className="font-editorial-italic font-normal">tesoros del río.</span>
-          </h2>
-          <a href="/galeria" className="text-sm text-white/70 hover:text-white transition-colors underline underline-offset-4 decoration-white/30">
-            Ver galería de la villa
-          </a>
+    <div className="relative w-full text-white" id="destinos-explorer">
+      {/* Background ambient lighting */}
+      <div className="absolute -top-10 left-1/4 w-[500px] h-[500px] bg-emerald-500/5 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute -bottom-10 right-10 w-[450px] h-[450px] bg-white/[0.02] rounded-full blur-[120px] pointer-events-none" />
+
+      <div className="relative z-10">
+        {/* Editorial Section Header */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-12 sm:mb-16 gap-8">
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-white/80 text-xs font-bold uppercase tracking-[0.16em] mb-4">
+              <Compass size={14} className="text-white/80" />
+              <span>Guía de Destinos Reales en Guamal, Meta</span>
+            </div>
+
+            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-serif font-bold text-white leading-[1.08] tracking-tight">
+              Puerta de entrada a los <br />
+              <span className="font-editorial-italic font-normal text-white/70">tesoros del piedemonte.</span>
+            </h2>
+
+            <p className="text-sm sm:text-base text-white/80 mt-6 font-light leading-relaxed max-w-xl">
+              Lugares reales, balnearios de agua cristalina y senderos certificados. Desde Villa MCJ podrás armar tus planes diarios a menos de 25 minutos sin estrés.
+            </p>
+          </div>
+
+          {/* Segmented Category Filter */}
+          <div className="flex flex-wrap gap-2 p-1.5 bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl">
+            {CATEGORIES.map((c) => (
+              <button
+                key={c.value}
+                onClick={() => setActiveCategory(c.value)}
+                className={`px-4 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+                  activeCategory === c.value
+                    ? 'bg-white text-[#070B0A] shadow-md scale-100 font-bold'
+                    : 'text-white/70 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                {c.label}
+              </button>
+            ))}
+          </div>
         </div>
 
-        <div className="grid lg:grid-cols-12 gap-6 lg:gap-12 lg:h-[min(62vh,560px)]">
-          {/* Foto activa */}
-          <figure className="lg:col-span-8 relative overflow-hidden rounded-[28px] bg-[#12201C] aspect-[4/5] sm:aspect-[16/10] lg:aspect-auto">
-            {GUAMAL_DESTINATIONS.map((d, i) => (
+        {/* Dynamic Interactive Stage: Big Editorial Magazine Focus */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-8">
+          {/* Big Featured Screen (7 cols) */}
+          <div className="lg:col-span-7 bg-white/5 backdrop-blur-2xl border border-white/15 rounded-3xl overflow-hidden shadow-2xl relative group">
+            <div className="relative aspect-[16/10] overflow-hidden bg-[#08110F]">
               <img
-                key={d.id}
-                src={d.imageUrl}
-                alt={d.name}
-                loading={i === 0 ? 'eager' : 'lazy'}
-                decoding="async"
-                className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ease-out ${
-                  d.id === active.id ? 'opacity-100' : 'opacity-0'
-                }`}
+                key={activeSpot.id}
+                src={activeSpot.imageUrl}
+                alt={activeSpot.name}
+                className="w-full h-full object-cover transition-opacity duration-300 ease-out"
               />
-            ))}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#070A09]/90 via-[#070A09]/15 to-transparent pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#142723] via-[#142723]/40 to-transparent pointer-events-none" />
 
-            <figcaption key={active.id} className="swap-in absolute inset-x-0 bottom-0 p-6 sm:p-10 max-w-2xl">
-              <h3 className="font-serif font-light text-3xl sm:text-4xl leading-[1.08] tracking-tight text-white">
-                {active.name}
-              </h3>
-              <p className="mt-3 text-sm sm:text-base font-light leading-relaxed text-white/80 line-clamp-2">
-                {active.description}
-              </p>
+              {/* Floating Meta Pills */}
+              <div className="absolute top-6 left-6 flex flex-wrap gap-2 pointer-events-none">
+                <span className="px-3.5 py-1 rounded-full bg-white text-[#070B0A] text-xs font-bold uppercase tracking-wider shadow-lg">
+                  {activeSpot.badge}
+                </span>
+                <span className="px-3.5 py-1 rounded-full bg-black/50 backdrop-blur-md text-white text-xs font-medium border border-white/20 flex items-center gap-1.5">
+                  <Clock size={12} className="text-white/80" />
+                  A solo {activeSpot.distanceMinutes} minutos de Villa MCJ
+                </span>
+              </div>
+
+              {/* Title inside media */}
+              <div className="absolute bottom-6 left-6 right-6 pointer-events-none">
+                <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/70">
+                  {activeSpot.category}
+                </span>
+                <h3 className="text-2xl sm:text-4xl font-serif font-bold text-white mt-1 mb-2">
+                  {activeSpot.name}
+                </h3>
+                <p className="text-xs sm:text-sm text-white/80 line-clamp-2 font-light">
+                  {activeSpot.highlight}
+                </p>
+              </div>
+            </div>
+
+            {/* Bottom info panel */}
+            <div className="p-6 sm:p-8 bg-[#142723]/90 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 border-t border-white/10">
+              <div className="max-w-md">
+                <p className="text-xs sm:text-sm text-white/80 font-light leading-relaxed mb-3">
+                  {activeSpot.description}
+                </p>
+                <div className="flex items-center gap-2 text-xs text-white/70 font-medium">
+                  <Sparkles size={14} className="shrink-0 text-emerald-400" />
+                  <span>Tip Local: {activeSpot.tips}</span>
+                </div>
+              </div>
+
               <a
-                href={`https://www.google.com/maps/search/?api=1&query=${active.mapsQuery}`}
+                href={`https://www.google.com/maps/search/?api=1&query=${activeSpot.mapsQuery}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-editorial mt-5 inline-block rounded-full bg-[#F4F0E8] px-5 py-2.5 text-xs font-semibold tracking-wide text-[#12201C] hover:bg-white"
+                className="px-5 py-3 rounded-2xl bg-white/10 hover:bg-white text-white hover:text-[#070B0A] font-bold text-xs uppercase tracking-wider transition-colors duration-300 flex items-center gap-2 shrink-0 border border-white/20 cursor-pointer"
               >
-                Cómo llegar
+                <Navigation size={14} />
+                <span>Ruta en Maps</span>
+                <ExternalLink size={12} />
               </a>
-            </figcaption>
-          </figure>
+            </div>
+          </div>
 
-          {/* Lista completa */}
-          <ol className="lg:col-span-4 flex flex-col justify-center">
-            {GUAMAL_DESTINATIONS.map((d) => {
-              const isActive = d.id === active.id;
+          {/* Interactive Thumbnails Rail (5 cols) */}
+          <div className="lg:col-span-5 space-y-3 max-h-[620px] overflow-y-auto pr-2">
+            {filtered.map((spot) => {
+              const isSelected = activeSpot.id === spot.id;
               return (
-                <li key={d.id}>
-                  <button
-                    type="button"
-                    onClick={() => setActiveId(d.id)}
-                    aria-current={isActive ? 'true' : undefined}
-                    className={`btn-editorial flex w-full items-baseline justify-between gap-4 border-t py-4 text-left cursor-pointer transition-colors duration-200 ${
-                      isActive ? 'border-[#F4F0E8] text-[#F4F0E8]' : 'border-white/15 text-white/50 hover:text-white/85'
-                    }`}
-                  >
-                    <span className="font-serif text-lg sm:text-xl leading-snug">{d.name}</span>
-                    <span className="shrink-0 text-xs tabular-nums">{d.distanceMinutes} min</span>
-                  </button>
-                </li>
+                <div
+                  key={spot.id}
+                  onClick={() => setSelectedSpot(spot)}
+                  className={`p-4 rounded-2xl border transition-all duration-200 cursor-pointer flex gap-4 items-center ${
+                    isSelected
+                      ? 'bg-white/15 border-white shadow-[0_4px_25px_rgba(255,255,255,0.15)] scale-[1.01]'
+                      : 'bg-white/5 hover:bg-white/10 border-white/10 opacity-75 hover:opacity-100'
+                  }`}
+                >
+                  <img
+                    src={spot.imageUrl}
+                    alt={spot.name}
+                    className="w-20 h-20 rounded-xl object-cover shrink-0 shadow-md"
+                    loading="lazy"
+                  />
+
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between gap-2 mb-1">
+                      <span className={`text-[10px] font-bold uppercase tracking-wider ${isSelected ? 'text-[#E0BA80]' : 'text-white/60'}`}>
+                        {spot.category}
+                      </span>
+                      <span className="text-[11px] text-white/70 flex items-center gap-1">
+                        <Clock size={11} className="text-[#C69A59]" />
+                        {spot.distanceMinutes} min
+                      </span>
+                    </div>
+
+                    <h4 className="text-sm font-bold text-white truncate font-serif">
+                      {spot.name}
+                    </h4>
+
+                    <p className="text-xs text-white/70 truncate mt-0.5 font-light">
+                      {spot.highlight}
+                    </p>
+                  </div>
+
+                  <div className="shrink-0">
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
+                      isSelected ? 'bg-[#F4F0E8] text-[#12201C]' : 'bg-white/10 text-white/40'
+                    }`}>
+                      <ArrowRight size={14} />
+                    </div>
+                  </div>
+                </div>
               );
             })}
-            <li className="border-t border-white/15 pt-4 text-xs text-white/50">Distancias desde Villa MCJ.</li>
-          </ol>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

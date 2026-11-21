@@ -15,39 +15,39 @@ import type { Property } from '../../services/api';
 import { isBookingModalOpen } from '../../store/uiStore';
 import { reservationStore } from '../../store/reservationStore';
 
-// Architectural editorial dictionary for each cabin
+// Diccionario editorial por cabaña. Clave: nombre en minúsculas (estable entre datos locales y backend; los ids no lo son).
 const CABIN_EDITORIAL_META: Record<string, { italicWord: string; restWord: string; microEssence: string; specs: string }> = {
-  '1': {
+  'casa ceiba': {
     italicWord: 'Ceiba',
     restWord: 'Casa',
     microEssence: 'Frente al solárium y piscina. Captura la brisa fresca del piedemonte al atardecer.',
     specs: '4 Huéspedes · 2 Alcobas · 1 Baño'
   },
-  '2': {
+  'casa samán': {
     italicWord: 'Samán',
     restWord: 'Casa',
     microEssence: 'Ventilación bioclimática cruzada con sala abierta y vista al jardín autóctono.',
     specs: '5 Huéspedes · 2 Alcobas · 1 Baño'
   },
-  '3': {
+  'casa moriche': {
     italicWord: 'Moriche',
     restWord: 'Casa',
     microEssence: 'Estancia insignia con kiosco asador BBQ privado y terraza mirador panorámica.',
     specs: '6 Huéspedes · 3 Alcobas · 2 Baños'
   },
-  '4': {
+  'cabaña guayacán': {
     italicWord: 'Guayacán',
     restWord: 'Cabaña',
     microEssence: 'Rodeada de sombra natural de palmas de moriche y canto de aves al alba.',
     specs: '4 Huéspedes · 2 Alcobas · 1 Baño'
   },
-  '5': {
+  'suite yarumo': {
     italicWord: 'Yarumo',
     restWord: 'Suite',
     microEssence: 'Espacio boutique íntimo para parejas con deck de solárium y silencio absoluto.',
     specs: '2 Huéspedes · 1 Suite King · 1 Baño'
   },
-  '6': {
+  'refugio palma real': {
     italicWord: 'Palma Real',
     restWord: 'Refugio',
     microEssence: 'Gran formato familiar con doble terraza y senderos directos al bosque.',
@@ -69,7 +69,7 @@ export function Scene3Cabanas() {
 
   const totalCabins = properties.length;
   const currentCabin = properties[currentIndex];
-  const meta = CABIN_EDITORIAL_META[currentCabin.id] || {
+  const meta = CABIN_EDITORIAL_META[currentCabin.name.trim().toLowerCase()] || {
     italicWord: currentCabin.name,
     restWord: 'Estancia',
     microEssence: currentCabin.description.slice(0, 75),

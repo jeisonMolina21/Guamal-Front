@@ -8,6 +8,7 @@ import { BookingSearch } from '../home/BookingSearch';
 import { CheckoutForm } from './CheckoutForm';
 import { findBookingBundles, type BookingBundle } from '../../utils/bookingEngine';
 import { MOCK_PROPERTIES } from '../../services/api';
+import { SITE } from '../../config/site';
 
 const emilSpring = { type: 'spring' as const, stiffness: 300, damping: 28, mass: 0.8 };
 
@@ -220,7 +221,7 @@ export const BookingModal: React.FC = () => {
 
                   <div className="flex flex-col sm:flex-row gap-3 w-full max-w-sm">
                     <a
-                      href={`https://wa.me/573001234567?text=Hola,%20acabo%20de%20reservar%20con%20el%20código%20${confirmedId}%20en%20Villa%20MCJ`}
+                      href={`https://wa.me/${SITE.whatsapp}?text=Hola,%20acabo%20de%20reservar%20con%20el%20código%20${confirmedId}%20en%20Villa%20MCJ`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex-1 py-3.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2"

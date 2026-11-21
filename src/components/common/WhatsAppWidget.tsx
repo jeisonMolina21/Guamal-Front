@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { MessageCircle, X, Send, User, Users } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { api } from '../../services/api';
+import { SITE } from '../../config/site';
 import './WhatsAppWidget.css';
 
 export const WhatsAppWidget: React.FC = () => {
@@ -9,7 +10,7 @@ export const WhatsAppWidget: React.FC = () => {
   const [hasInteracted, setHasInteracted] = useState(false);
   const [guestName, setGuestName] = useState('');
   const [guestsCount, setGuestsCount] = useState('4');
-  const [waPhone, setWaPhone] = useState('573001234567');
+  const [waPhone, setWaPhone] = useState(SITE.whatsapp);
   const [welcomeMsg, setWelcomeMsg] = useState('Hola, quisiera asesoría para encontrar una casa en Guamal.');
 
   // Fetch settings dynamically from database

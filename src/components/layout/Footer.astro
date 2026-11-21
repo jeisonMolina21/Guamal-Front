@@ -1,5 +1,6 @@
 ---
 import { Instagram, Facebook, MessageCircle } from 'lucide-astro';
+import { SITE } from '../../config/site';
 import './Footer.css';
 ---
 
@@ -65,7 +66,7 @@ import './Footer.css';
           <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="w-10 h-10 rounded-full border border-guamal-cream/20 flex items-center justify-center text-guamal-cream hover:bg-white hover:text-guamal-green hover:border-white transition-all">
             <Facebook size={18} />
           </a>
-          <a href="https://wa.me/573001234567" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="w-10 h-10 rounded-full border border-guamal-cream/20 flex items-center justify-center text-guamal-cream hover:bg-white hover:text-green-500 hover:border-white transition-all">
+          <a href={`https://wa.me/${SITE.whatsapp}`} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="w-10 h-10 rounded-full border border-guamal-cream/20 flex items-center justify-center text-guamal-cream hover:bg-white hover:text-green-500 hover:border-white transition-all">
             <MessageCircle size={18} />
           </a>
         </div>

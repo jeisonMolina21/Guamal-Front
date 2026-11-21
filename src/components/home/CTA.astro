@@ -1,5 +1,6 @@
 ---
 import { ArrowRight, MessageSquare } from 'lucide-astro';
+import { SITE } from '../../config/site';
 ---
 
 <section class="relative bg-[#12201C] text-[#F4F0E8] px-6 sm:px-10 lg:px-16 py-28 lg:py-40">
@@ -23,7 +24,7 @@ import { ArrowRight, MessageSquare } from 'lucide-astro';
       </button>
 
       <a
-        href="https://wa.me/573001234567?text=Hola,%20quisiera%20asesoria%20para%20reservar%20en%20Villa%20MCJ%20Guamal"
+        href={`https://wa.me/${SITE.whatsapp}?text=Hola,%20quisiera%20asesoria%20para%20reservar%20en%20Villa%20MCJ%20Guamal`}
         target="_blank"
         rel="noopener noreferrer"
         class="btn-editorial inline-flex items-center gap-2 rounded-full border border-white/25 px-7 py-4 text-sm font-medium text-white hover:bg-white/10"
